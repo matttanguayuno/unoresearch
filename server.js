@@ -146,6 +146,12 @@ const server = createServer(async (req, res) => {
     }
   }
 
+  if (url === '/api/reset' && req.method === 'POST') {
+    collabData = structuredClone(EMPTY_COLLAB);
+    await saveCollab();
+    return jsonResponse(res, 200, { ok: true });
+  }
+
   if (url === '/api/suggest' && req.method === 'POST') {
     try {
       const { categoryId, name, note, author } = await parseBody(req);

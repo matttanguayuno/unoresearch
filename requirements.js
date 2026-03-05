@@ -257,11 +257,27 @@
       } else {
         comments.forEach(function (c) {
           var timeAgo = relativeTime(c.timestamp);
+          var headerChildren = [
+            el('strong', { text: c.author }),
+            el('span', { cls: 'req-comment-time', text: timeAgo })
+          ];
+          // Show delete button only for the comment author
+          if (_author && c.author === _author) {
+            headerChildren.push(el('button', {
+              cls: 'req-comment-delete', html: '✕', title: 'Delete your comment',
+              onclick: function () {
+                apiDelete('/api/comment', { featureId: featureId, commentId: c.id }, function () {
+                  var arr = _collabData.comments[featureId];
+                  if (arr) {
+                    _collabData.comments[featureId] = arr.filter(function (x) { return x.id !== c.id; });
+                  }
+                  renderComments();
+                });
+              }
+            }));
+          }
           var comment = el('div', { cls: 'req-comment' }, [
-            el('div', { cls: 'req-comment-header' }, [
-              el('strong', { text: c.author }),
-              el('span', { cls: 'req-comment-time', text: timeAgo })
-            ]),
+            el('div', { cls: 'req-comment-header' }, headerChildren),
             el('div', { cls: 'req-comment-text', text: c.text })
           ]);
           panel.appendChild(comment);
