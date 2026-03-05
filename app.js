@@ -66,6 +66,7 @@ function renderUnoVsCompetitors() {
       { id: 'opportunities', label: 'Opportunities', icon: '🎯' },
     ];
     if (tw) navSections.push({ id: 'threats', label: 'Threat Watch', icon: '⚡' });
+    navSections.push({ id: 'benchmarks', label: 'Benchmarks', icon: '⏱️' });
 
     subnav.innerHTML = navSections.map((s, i) => `
       <button class="uvc-subnav-btn${i === 0 ? ' active' : ''}" data-section="${s.id}">
@@ -260,7 +261,121 @@ function renderUnoVsCompetitors() {
     </div>
     </div>
     ` : ''}
+
+    <div class="uvc-section" data-section="benchmarks">
+      <div class="section-divider">
+        <h2>Performance Benchmarks</h2>
+      </div>
+      <div class="benchmarks-table-wrapper" id="benchmarks-table-wrapper"></div>
+      <p class="bench-link">See visual output comparisons: <a href="https://matttanguayuno.github.io/promptcomparison/" target="_blank" rel="noopener noreferrer">Prompt Output Comparison →</a></p>
+    </div>
   `;
+
+  // Render benchmarks table with computed highlights
+  (function renderBenchmarksTable() {
+    const wrapper = document.getElementById('benchmarks-table-wrapper');
+    if (!wrapper) return;
+    // Columns: 0=name, 1=VS Code, 2=VS Code MCP, 3=Antigravity, 4=Lovable Time, 5=Lovable Credits, 6=Lovable Cost, 7=Dreamflow Time, 8=Dreamflow Credits, 9=Dreamflow Cost
+    const rows = [
+      ['1. Flight Details',            150, 105,  80,  180, 2.1, 0.90,  200,  3.4, 0.31],
+      ['2. Football Fantasy',          110, 170,  65,  420, 2.9, 1.25,  500, 11.5, 2.07],
+      ['3. Travel Guide',              120, 180,  80,  230, 2.4, 1.03,  170,  4.1, 0.74],
+      ['4. Electric Utility Dashboard', 115, 290,  95,  160, 1.8, 0.77,  220,  3.9, 0.70],
+      ['5. Video Streaming',           105, 160,  90,  270, 2.5, 0.54,  330,  5.8, 0.26],
+      ['6. Notes',                     275, 150,  90,  180, 2.0, 0.29,  210,  3.8, 0.23],
+      ['7. Calendar',                  210, 230,  75,  290, 2.2, 0.95,  225,  7.0, 1.26],
+      ['8. Hospital Dashboard',        120, 150,  85,  180, 1.9, 0.82,  260,  4.4, 0.79],
+      ['9. Budgeting Dashboard',       160, 140,  80,  150, 1.7, 0.73,  240,  5.4, 0.97],
+      ['10. Recipe Home Screen',       150, 170,  80,  120, 1.6, 0.69,  185,  4.5, 0.81],
+      ['11. Fitness Tracking',         120, 180,  75,  200, 1.9, 0.82,  240,  3.5, 0.63],
+      ['12. Login Register',            90, 300,  60,  155, 2.1, 0.45,  255,  3.5, 0.32],
+      ['13. Travel Home Screen',       400, 240,  75,  210, 2.1, 0.90,  220,  8.5, 1.53],
+      ['14. Burger Joint',             100, 330,  80,  200, 1.8, 0.77,  225,  3.4, 0.61],
+      ['15. Fitness Home Screen',        0,   0,   0,    0, 0,   0,       0,   0,   0  ],
+    ];
+    // Group-start columns (for left-border separator)
+    const groupStarts = new Set([1, 3, 4, 7]);
+
+    // Per-row color coding (lower is better):
+    // Time group: cols 1,2,3,4,7 — best/worst within each row
+    // Cost group: cols 6,9 — best/worst within each row
+    // Credits (5,8): no color
+    const timeGroup = [1, 2, 3, 4, 7];
+    const costGroup = [6, 9];
+
+    function cellClass(row, col) {
+      const v = row[col];
+      if (!v || v <= 0) return '';
+
+      let group;
+      if (timeGroup.indexOf(col) !== -1) group = timeGroup;
+      else if (costGroup.indexOf(col) !== -1) group = costGroup;
+      else return '';
+
+      const vals = [];
+      for (let i = 0; i < group.length; i++) {
+        if (row[group[i]] > 0) vals.push(row[group[i]]);
+      }
+      if (vals.length < 2) return '';
+
+      let lo = vals[0], hi = vals[0];
+      for (let i = 1; i < vals.length; i++) {
+        if (vals[i] < lo) lo = vals[i];
+        if (vals[i] > hi) hi = vals[i];
+      }
+      if (lo === hi) return '';
+      if (v <= lo) return 'value-best';
+      if (v >= hi) return 'value-worst';
+      return '';
+    }
+
+    // Compute averages from non-zero rows
+    const active = rows.filter(r => r[1] > 0);
+    const n = active.length;
+    const avg = [null];
+    for (let c = 1; c <= 9; c++) {
+      avg[c] = +(active.reduce((s, r) => s + r[c], 0) / n).toFixed(1);
+    }
+
+    const subHeaders = [
+      'VS Code<br>Time (s)', 'VS Code MCP<br>Time (s)',
+      'Time (s)',
+      'Time (s)', 'Credits', 'Cost/Page ($)',
+      'Time (s)', 'Credits', 'Cost/Page ($)'
+    ];
+
+    let html = `<table class="benchmarks-table">
+      <thead>
+        <tr class="bench-group-row">
+          <th rowspan="2" class="bench-project">Project</th>
+          <th colspan="2" class="bench-group bench-group-uno">Uno Platform</th>
+          <th colspan="1" class="bench-group bench-group-other">Antigravity</th>
+          <th colspan="3" class="bench-group bench-group-other">Lovable</th>
+          <th colspan="3" class="bench-group bench-group-other">Dreamflow</th>
+        </tr>
+        <tr class="bench-sub-row">`;
+    subHeaders.forEach((label, i) => {
+      const gs = [0, 2, 3, 6].includes(i) ? ' bench-group-start' : '';
+      html += `<th class="bench-sub${gs}">${label}</th>`;
+    });
+    html += `</tr></thead><tbody>`;
+    rows.forEach(row => {
+      html += '<tr>';
+      html += `<td>${row[0]}</td>`;
+      for (let c = 1; c <= 9; c++) {
+        const cls = [cellClass(row, c), groupStarts.has(c) ? 'bench-group-start' : ''].filter(Boolean).join(' ');
+        html += `<td${cls ? ` class="${cls}"` : ''}>${row[c]}</td>`;
+      }
+      html += '</tr>';
+    });
+    html += '<tr class="bench-avg-row"><td><strong>Average</strong></td>';
+    for (let c = 1; c <= 9; c++) {
+      const gs = groupStarts.has(c) ? ' class="bench-group-start"' : '';
+      html += `<td${gs}><strong>${avg[c]}</strong></td>`;
+    }
+    html += '</tr></tbody></table>';
+    wrapper.innerHTML = html;
+  })();
 
   // Add click handlers for comparison card toggles
   container.querySelectorAll('.comparison-card-toggle').forEach(btn => {

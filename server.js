@@ -11,6 +11,27 @@ const __dirname = dirname(__filename);
 const PORT = process.env.PORT || 3000;
 const COLLAB_FILE = process.env.COLLAB_DATA_PATH || join(__dirname, 'collab-data.json');
 
+// ---- Basic Auth ----
+const AUTH_USER = process.env.SITE_USER || '';
+const AUTH_PASS = process.env.SITE_PASS || '';
+const AUTH_ENABLED = AUTH_USER && AUTH_PASS;
+
+function checkAuth(req, res) {
+  if (!AUTH_ENABLED) return true;
+  const header = req.headers.authorization || '';
+  if (header.startsWith('Basic ')) {
+    const decoded = Buffer.from(header.slice(6), 'base64').toString();
+    const [user, pass] = decoded.split(':');
+    if (user === AUTH_USER && pass === AUTH_PASS) return true;
+  }
+  res.writeHead(401, {
+    'WWW-Authenticate': 'Basic realm="Uno AI Research"',
+    'Content-Type': 'text/plain'
+  });
+  res.end('401 Unauthorized');
+  return false;
+}
+
 // ---- Collab data persistence ----
 const EMPTY_COLLAB = { votes: {}, comments: {}, suggestions: [] };
 
@@ -76,10 +97,13 @@ const server = createServer(async (req, res) => {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization'
     });
     return res.end();
   }
+
+  // Require Basic Auth for all requests
+  if (!checkAuth(req, res)) return;
 
   // ---- API routes ----
   if (url === '/api/collab' && req.method === 'GET') {

@@ -18,7 +18,8 @@
     'tool-comparison':   'By Tool',
     'uno-vs-competitors':'Uno vs Competitors',
     'ai-value-outlook':  'Uno + AI',
-    'agent-ux':          'Agent UX/UI'
+    'agent-ux':          'Agent UX/UI',
+    'requirements':      'Requirements'
   };
 
   const TAB_ICONS = {
@@ -26,7 +27,8 @@
     'tool-comparison':   '🛠️',
     'uno-vs-competitors':'⚔️',
     'ai-value-outlook':  '🤖',
-    'agent-ux':          '🖥️'
+    'agent-ux':          '🖥️',
+    'requirements':      '📋'
   };
 
   // ── State ──
@@ -256,6 +258,17 @@
       });
     }
 
+    // ---------- 6. Requirements tab ----------
+    if (typeof requirementsData !== 'undefined' && requirementsData.categories) {
+      requirementsData.categories.forEach(function (cat) {
+        (cat.features || []).forEach(function (f) {
+          push(entry('requirements', f.name, f.name, { section: cat.name, dataId: f.id }));
+          push(entry('requirements', f.name, f.note, { section: cat.name, dataId: f.id }));
+          push(entry('requirements', f.name, f.coverageDetail, { section: cat.name, dataId: f.id }));
+        });
+      });
+    }
+
     console.log('🔍 Search index built: ' + searchIndex.length + ' entries');
   }
 
@@ -347,7 +360,7 @@
     var dropdown = document.getElementById('search-results-dropdown');
     if (!dropdown) return;
 
-    var tabOrder = ['feature-map', 'tool-comparison', 'uno-vs-competitors', 'ai-value-outlook', 'agent-ux'];
+    var tabOrder = ['feature-map', 'tool-comparison', 'uno-vs-competitors', 'ai-value-outlook', 'agent-ux', 'requirements'];
     var html = '';
     var totalResults = 0;
 
@@ -422,7 +435,8 @@
     'Key Strengths': 'overview',
     'Competitor Analysis': 'analysis',
     'Opportunities': 'opportunities',
-    'Threat Watch': 'threats'
+    'Threat Watch': 'threats',
+    'Benchmarks': 'benchmarks'
   };
 
   // ── Navigation ──
@@ -505,7 +519,8 @@
         target = document.querySelector('[data-ux-tool="' + CSS.escape(dataId) + '"]')
           || document.querySelector('[data-ux-feature="' + CSS.escape(dataId) + '"]');
       }
-    }
+    } else if (tabId === 'requirements') {
+      target = document.querySelector('[data-req-id="' + CSS.escape(dataId) + '"]');    }
 
     if (!target) {
       // Fallback: search by text content within the tab

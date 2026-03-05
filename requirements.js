@@ -342,7 +342,7 @@
   // ---- Feature row ----
   function featureRow(f, mode) {
     var tagEl = mode === 'category' ? priorityPill(f) : categoryPill(f.category);
-    var row = el('div', { cls: 'req-feature-row' + (f.highlight ? ' req-feature-highlight' : '') }, [
+    var row = el('div', { cls: 'req-feature-row' + (f.highlight ? ' req-feature-highlight' : ''), 'data-req-id': f.id }, [
       voteWidget(f.id),
       el('div', { cls: 'req-feature-info' }, [
         el('div', { cls: 'req-feature-name' }, [
