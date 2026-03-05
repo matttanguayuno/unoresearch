@@ -238,9 +238,9 @@ function openToolPopup(toolId) {
 
   uxPopupContext = { type: 'tool', toolId, featureId: null };
 
-  // Video
+  // Video (served from SiteGround – too large for GitHub)
   const videoFile = AGENT_UX_VIDEOS[toolId];
-  const videoSrc = videoFile ? `AI Agent UI/${encodeURIComponent(toolId)}/${encodeURIComponent(videoFile)}` : '';
+  const videoSrc = videoFile ? `https://mattt98.sg-host.com/AI%20Agent%20UI/${encodeURIComponent(toolId)}/${encodeURIComponent(videoFile)}` : '';
   let videoHtml = '';
   if (videoSrc) {
     videoHtml = `
