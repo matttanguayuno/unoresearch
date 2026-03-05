@@ -6,6 +6,7 @@
   var _viewMode = 'category'; // 'category' | 'priority'
   var _collabData = { votes: {}, comments: {}, suggestions: [] };
   var _author = localStorage.getItem('req-author') || '';
+  var _openCommentPanel = null; // track currently open comment panel to auto-close
 
   // ---- helpers ----
   function el(tag, attrs, children) {
@@ -239,11 +240,27 @@
       html: '💬 ' + (comments.length || ''),
       title: 'Comments',
       onclick: function () {
-        expanded = !expanded;
-        panel.style.display = expanded ? 'block' : 'none';
-        toggleBtn.classList.toggle('req-comments-toggle--open', expanded);
+        if (!expanded) {
+          // Close any other open comment panel first
+          if (_openCommentPanel && _openCommentPanel !== closeThis) {
+            _openCommentPanel();
+          }
+          expanded = true;
+          panel.style.display = 'block';
+          toggleBtn.classList.add('req-comments-toggle--open');
+          _openCommentPanel = closeThis;
+        } else {
+          closeThis();
+        }
       }
     });
+
+    function closeThis() {
+      expanded = false;
+      panel.style.display = 'none';
+      toggleBtn.classList.remove('req-comments-toggle--open');
+      if (_openCommentPanel === closeThis) _openCommentPanel = null;
+    }
 
     var panel = el('div', { cls: 'req-comments-panel', style: 'display:none' });
 
