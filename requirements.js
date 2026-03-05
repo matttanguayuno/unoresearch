@@ -217,12 +217,10 @@
           });
         }
       });
-      var downCount = el('span', { cls: 'req-vote-count', text: '' + votes.down.length });
 
       container.appendChild(upBtn);
       container.appendChild(upCount);
       container.appendChild(downBtn);
-      container.appendChild(downCount);
     }
 
     render();
@@ -345,6 +343,7 @@
   function featureRow(f, mode) {
     var tagEl = mode === 'category' ? priorityPill(f) : categoryPill(f.category);
     var row = el('div', { cls: 'req-feature-row' + (f.highlight ? ' req-feature-highlight' : '') }, [
+      voteWidget(f.id),
       el('div', { cls: 'req-feature-info' }, [
         el('div', { cls: 'req-feature-name' }, [
           f.highlight ? el('span', { cls: 'req-star', html: '★' }) : null,
@@ -357,10 +356,7 @@
         coverageBar(f.coverage),
         el('div', { cls: 'req-coverage-detail', text: f.coverageDetail })
       ]),
-      el('div', { cls: 'req-feature-collab' }, [
-        voteWidget(f.id),
-        commentSection(f.id)
-      ])
+      commentSection(f.id)
     ]);
     return row;
   }
