@@ -4498,7 +4498,7 @@ mark.search-query-highlight {
   border: var(--stroke) solid var(--border);
   border-radius: var(--radius-lg);
   margin-bottom: 0.75rem;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: var(--shadow);
 }
 
@@ -4552,6 +4552,10 @@ mark.search-query-highlight {
 .req-group--collapsed .req-group-body,
 .req-group--collapsed .req-group-desc {
   display: none;
+}
+
+.req-feature-row {
+  position: relative;
 }
 
 /* Feature rows */
@@ -4899,7 +4903,7 @@ mark.search-query-highlight {
   border-radius: var(--radius-lg);
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   padding: 0.75rem;
-  z-index: 20;
+  z-index: 100;
 }
 .req-comments-empty {
   font-size: 12px;
