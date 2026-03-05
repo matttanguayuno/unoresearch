@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Collab persistence (server-generated)
+collab-data.json
+
+# Large binary files
+*.mp4
+downloads/
+screenshots/
+images/
+
+# OS files
+Thumbs.db
+.DS_Store

@@ -1,0 +1,2458 @@
+{
+  "generatedAt": "2026-02-05T03:27:06.642Z",
+  "version": "1.0",
+  "description": "Verification overrides for AI App Builders competitive analysis",
+  "stats": {
+    "totalCells": 135,
+    "overriddenCells": 135,
+    "cellsWithEvidence": 135
+  },
+  "overrides": {
+    "dreamflow::gh_native": {
+      "status": "YES",
+      "note": "Built-in Source Control panel. Connect via repo HTTPS URL + Personal Access Token (PAT). Once connected, Dreamflow tracks file changes and supports common Git operations inside the UI (branching, committing/pushing, pulling/merging, conflict resolution, disconnect).",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "sourceCategory": "official",
+          "title": "Dreamflow Git Integration - Full Workflow Support",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "Documentation states: \"Dreamflow includes a built-in Source Control panel that supports common Git operations including branching, committing/pushing, pulling/merging, and conflict resolution. Connect via repo HTTPS URL + Personal Access Token (PAT).\" This confirms native Git integration with full workflow support directly in the UI.",
+          "type": "web"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-04T22:27:16.997Z"
+    },
+    "lovable::gh_native": {
+      "status": "YES",
+      "note": "GitHub becomes the single source of truth once connected. Two-way sync is supported: edits in Lovable appear in GitHub, and edits in GitHub appear back in Lovable. Connection depends on stable repo path (org/account/repo name).",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "sourceCategory": "official",
+          "title": "Lovable GitHub Integration - Two-Way Sync",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "Documentation explicitly states: \"Single source of truth: When connected, your code lives in GitHub, not separately in Lovable. Two-way sync: Edits in Lovable appear in GitHub, and vice versa.\" Further details: \"Sync automatically: Edits in Lovable appear in GitHub, and changes in GitHub sync back on the default branch (main).\" This confirms native GitHub integration with bidirectional synchronization.",
+          "type": "web"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-04T23:50:27.098Z"
+    },
+    "vibecode::gh_native": {
+      "status": "NO",
+      "note": "No native GitHub integration documented; export/SSH workflow instead.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/features/export-ssh"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Vibecode Export/SSH - No Native GitHub Integration",
+          "url": "https://vibecodeapp.mintlify.app/features/export-ssh",
+          "snippet": "Documentation describes: \"SSH allows you to connect your Vibecode projects directly to code editors like Cursor. This gives you a secure, direct connection to your code so you can edit, deploy, and manage your app from your preferred development environment.\" No mention of native GitHub integration in product; instead uses export/SSH workflow. Confirmed by absence of GitHub integration in docs.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T04:50:00.000Z"
+    },
+    "builder::gh_native": {
+      "status": "YES",
+      "note": "Repo-connected workflow designed around pull requests. Changes are packaged and submitted as PRs from inside the product (Send PR), reviewed in a Pull requests tab, and further edits can be requested by commenting on the PR and tagging @builderio-bot.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Builder.io GitHub Integration - PR-Native Workflow",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "Documentation states: \"Builder Projects connects directly to your repositories, letting you visually edit code and create applications with AI assistance.\" Further details: \"To submit changes and create a pull request (PR) to the connected repository: In the Visual Editor, make the required updates. Click Send PR from the toolbar. In the Pull requests tab, review the proposed changes. To request additional edits, comment in the pull request and tag @builderio-bot with specific instructions.\" This confirms native GitHub integration with PR-centric workflow.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T04:52:00.000Z"
+    },
+    "bolt::gh_native": {
+      "status": "YES",
+      "note": "GitHub integration with frequent auto-commits and regular fetch. Bolt creates a commit whenever a change 'doesn't break the project', and checks GitHub periodically (docs mention every 30 seconds) to pull in external updates.",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Bolt.new GitHub Integration - Auto-Commit System",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "Documentation explicitly states: \"Bolt integrates directly with GitHub, handling all commit and update operations automatically.\" Details on auto-commit: \"Bolt saves your work automatically. Every time you make a change that doesn't break the project, Bolt creates a commit for you. It also checks GitHub every 30 seconds for any updates made outside Bolt and pulls those in.\" This confirms native GitHub integration with automatic synchronization.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T04:52:00.000Z"
+    },
+    "dreamflow::import_repo": {
+      "status": "YES",
+      "note": "Supports importing existing Flutter repos via 'Clone Codebase'. Limitations include Flutter-only (non-Flutter/monorepo may fail), and projects that require local servers/background processes or private dependencies may fail. Codegen scripts can't be executed inside Dreamflow; generated files must be produced externally and committed.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Dreamflow's Flutter Repo Import Limitations",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation states: 'Dreamflow currently supports Flutter repositories only. If your repository contains non-Flutter code or multiple projects (like a monorepo), the import may fail.' It also mentions, 'Projects requiring local API servers or background processes during development will fail to run inside Dreamflow.' Additionally, 'You cannot currently execute scripts inside of the Dreamflow builder. If the imported project depends on code generation, you will need to generate Dart files outside of Dreamflow and commit them to the repo.' These quotes confirm the limitations described in the claim.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:20:30.652Z"
+    },
+    "lovable::import_repo": {
+      "status": "NO",
+      "note": "Lovable FAQ: importing existing repos is not supported.",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Lovable does not support importing existing GitHub repos",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "\"Can I import an existing GitHub repo into Lovable? No. You can only export from Lovable to GitHub, not the other way around.\" This quote explicitly states that importing existing GitHub repositories into Lovable is not supported, confirming the claimed status.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:20:35.679Z"
+    },
+    "vibecode::import_repo": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "\"Page Not Found\" and \"We couldn&#x27;t find the page.\" - The documentation does not contain any information about the unknown feature, as indicated by multiple 'Page Not Found' errors. This supports the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:20:40.939Z"
+    },
+    "builder::import_repo": {
+      "status": "YES",
+      "note": "Connects to existing repositories as the basis for Projects. Intended for working against real codebases with PR-based delivery to the repo (not an export-only model).",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Builder.io Connects to Git Repositories for Projects",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "The documentation states, 'Builder Projects connects directly to your repositories, letting you visually edit code and create applications with AI assistance.' It further explains, 'To connect an existing Git repository: On the Projects page, click Connect Repo. Connect to your Git provider, such as GitHub, Azure DevOps, or Bitbucket and grant access to all or selected repositories.' This supports the claim that Builder.io connects to existing repositories as the basis for Projects.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:20:47.032Z"
+    },
+    "bolt::import_repo": {
+      "status": "YES",
+      "note": "Docs explicitly include an 'Import an existing repository' flow as part of the GitHub integration. Bolt then syncs via commits/fetch (rather than PR creation inside the tool).",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Bolt's GitHub Integration Supports Importing Repositories",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "The documentation states: 'To import a project into Bolt from one of your GitHub repositories, follow the steps below: ... Use the drop-down menu to select the repository you’d like to import, or Click the Import from URL button, then enter your GitHub repository URL.' This confirms that Bolt includes an 'Import an existing repository' flow as part of its GitHub integration.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:20:52.694Z"
+    },
+    "dreamflow::create_repo": {
+      "status": "LIMITED",
+      "note": "Connecting an existing Dreamflow project to Git requires a 'new blank repository' (repo must be blank or only contain README/LICENSE). Practically, repo creation happens on the Git provider side first, then you connect it in Dreamflow.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Git Connection Requirements in Dreamflow",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation states: 'To connect a Dreamflow project to Git repo: Open your existing project in Dreamflow. Go to the Source Control Panel on the left sidebar and click Connect Repository. In the dialog, provide: Repository URL – Paste the HTTPS URL of your new blank repository. If you haven’t already created one, you can create a new repository on your Git provider (such as GitHub) before proceeding.' This confirms that the repository must be blank or contain only a README and/or LICENSE file.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:20:59.113Z",
+      "verified": false
+    },
+    "lovable::create_repo": {
+      "status": "YES",
+      "note": "Connect flow creates a repo in chosen org.",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Lovable GitHub Integration Creates Repository",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "The documentation states: 'A new GitHub repository is created for your project, and sync begins automatically.' This confirms that when you connect a project to GitHub through Lovable, a repository is indeed created in the chosen organization.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:21:03.648Z"
+    },
+    "vibecode::create_repo": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Absence in Vibecode Documentation",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "\"Page Not Found\" and \"We couldn&#x27;t find the page\" indicate that the documentation for the feature is missing. This supports the claim that the feature is not documented, as the URLs provided lead to a 404 error page.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:21:11.017Z"
+    },
+    "builder::create_repo": {
+      "status": "LIMITED",
+      "note": "Repo creation implied but not explicit in our cited docs.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Repository Creation Feature Status",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "The documentation states: 'To connect an existing Git repository: On the Projects page, click Connect Repo.' This implies the ability to connect to existing repositories but does not explicitly mention the creation of new repositories.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:21:15.716Z"
+    },
+    "bolt::create_repo": {
+      "status": "YES",
+      "note": "GitHub integration supports creating a new repo from a Bolt project (documented as part of the integration's workflows).",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "GitHub Integration for Creating Repositories",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "\"Create a new repository from a Bolt project\" - This section of the documentation explicitly outlines the steps to create a new GitHub repository from a Bolt project, confirming the feature's existence. It states: 'To create a repository from your Bolt project... enter a name for your new repository. Click Create repository.' This confirms the claimed feature.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:21:20.941Z"
+    },
+    "dreamflow::branching": {
+      "status": "YES",
+      "note": "Branching is supported directly in the Source Control panel: create a branch, switch branches, and refresh branch list. Dreamflow can also pull changes and merge commits from the remote branch.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Dreamflow Git Branching Feature Verification",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation states: 'You can easily manage branches directly within the platform, i.e., create new ones, switch between existing ones, and refresh your branch list when needed.' Additionally, it mentions: 'Dreamflow will fetch and merge any new commits from your remote branch.' These quotes confirm that branching, switching branches, refreshing branch lists, and merging commits from a remote branch are supported.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:21:26.048Z"
+    },
+    "lovable::branching": {
+      "status": "LIMITED",
+      "note": "Branch switching is Labs/experimental.",
+      "links": [
+        "https://docs.lovable.dev/features/labs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "GitHub Branch Switching as Experimental Feature",
+          "url": "https://docs.lovable.dev/features/labs",
+          "snippet": "The documentation states: 'Enable experimental features like GitHub branch switching to test new capabilities before they become generally available.' This indicates that GitHub branch switching is indeed a Labs/experimental feature, supporting the claim that it is in a LIMITED status.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:21:30.075Z",
+      "verified": false
+    },
+    "vibecode::branching": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page returns 'Page Not Found' and suggests that the page you were looking for does not exist. It lists alternative pages such as 'Native iOS UI Components' and 'Expo Push Notifications', but none related to the unknown feature.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:21:34.722Z"
+    },
+    "builder::branching": {
+      "status": "YES",
+      "note": "Branch/PR workflow is supported. PR creation is the documented delivery mechanism ('Send PR'), and further edits can be requested via PR comments tagging @builderio-bot (adds commits to the same PR).",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Builder.io Supports Branch/PR Workflow",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "The documentation states: 'To submit changes and create a pull request (PR) to the connected repository: In the Visual Editor, make the required updates. Click Send PR from the toolbar.' It further explains, 'To request additional edits, comment in the pull request and tag @builderio-bot with specific instructions. The bot applies the changes to the same PR.' These quotes confirm the support for a branch/PR workflow and the use of PR comments to request further edits.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:21:39.405Z"
+    },
+    "bolt::branching": {
+      "status": "YES",
+      "note": "Branch switching is supported as part of GitHub integration. Merge is not described as an in-app operation (workflow expects merging in GitHub).",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Branch Switching Supported, Merging Not In-App",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "The documentation states: 'You can create new branches in Bolt or on GitHub.' and 'Bolt currently doesn’t support merging branches in-app. You need to merge branches in GitHub.' These quotes confirm that branch switching is supported as part of GitHub integration, but merging is not an in-app operation.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:21:44.570Z"
+    },
+    "dreamflow::pr_creation": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature Claim in Dreamflow",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation states: 'Dreamflow supports Git integration, allowing you to connect your projects directly to GitHub, GitLab, or other Git providers.' However, there is no mention of any 'Unknown Feature' within the provided documentation, supporting the claim that it is 'Not documented.'",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:21:50.232Z"
+    },
+    "lovable::pr_creation": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in GitHub Integration",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "The documentation extensively covers the GitHub integration features, such as code backup, collaboration, and two-way sync. However, it does not mention any 'Unknown Feature'. This absence in the detailed documentation supports the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:21:55.765Z"
+    },
+    "vibecode::pr_creation": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page returns 'Page Not Found' and states, 'We couldn&#x27;t find the page.' This indicates that the feature is not documented, supporting the claim that it is absent.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:22:00.140Z"
+    },
+    "builder::pr_creation": {
+      "status": "YES",
+      "note": "PR creation is explicitly supported: make updates, click 'Send PR', review in Pull requests tab. Additional edits can be requested by commenting on the PR and tagging @builderio-bot; the bot applies changes to the same PR as new commits.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Builder.io PR Creation and Editing Feature",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "The documentation states: 'To submit changes and create a pull request (PR) to the connected repository: In the Visual Editor, make the required updates. Click Send PR from the toolbar. In the Pull requests tab, review the proposed changes. To request additional edits, comment in the pull request and tag @builderio-bot with specific instructions. The bot applies the changes to the same PR.' This confirms that Builder.io supports PR creation and allows additional edits via @builderio-bot.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:22:04.376Z"
+    },
+    "bolt::pr_creation": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Unknown Feature Not Documented in Bolt",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "The documentation does not mention any feature labeled as 'Unknown Feature'. The provided documentation focuses on GitHub integration, including connecting GitHub, creating repositories, and managing branches, but makes no reference to an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:22:08.073Z"
+    },
+    "dreamflow::merge_in_product": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Dreamflow Git Documentation",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. The document covers Git integration, cloning codebases, connecting projects to Git, and Git operations, but there is no reference to an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:22:12.279Z"
+    },
+    "lovable::merge_in_product": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "No Documentation of Unknown Feature in Lovable",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "The documentation does not mention any feature beyond the GitHub integration capabilities. The text states, 'Can I import an existing GitHub repo into Lovable? No. You can only export from Lovable to GitHub, not the other way around.' This indicates that the feature in question, which is unknown and claimed to be undocumented, is indeed not present in the available documentation.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:22:17.848Z"
+    },
+    "vibecode::merge_in_product": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation pages for Vibecode.app are largely inaccessible, with multiple 'Page Not Found' errors. The available sections like 'Introduction', 'Use Cases', and 'Features' do not provide any details about the unknown feature, as evidenced by the repeated '404 Page Not Found' messages.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:22:22.311Z"
+    },
+    "builder::merge_in_product": {
+      "status": "NO",
+      "note": "Workflow merges in Git provider.",
+      "links": [
+        "https://www.builder.io/c/docs/gitlab-self-hosted"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of GitLab Workflow Merge Feature",
+          "url": "https://www.builder.io/c/docs/gitlab-self-hosted",
+          "snippet": "The documentation states: 'Follow these steps to work with your connected repository: Make changes to the repository with Projects. Click Send PR to create a pull request. Review and merge the pull request in your GitLab instance.' This indicates that while Builder.io allows creating pull requests, the actual merging of workflows must be conducted within the GitLab instance, not directly through Builder.io.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:22:26.975Z"
+    },
+    "bolt::merge_in_product": {
+      "status": "NO",
+      "note": "Merging is not an in-tool workflow; docs position GitHub as the place to merge. Bolt focuses on commits + fetch rather than merge actions inside Bolt.",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Bolt Lacks In-App Merging Feature",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "\"Bolt currently doesn’t support merging branches in-app. You need to merge branches in GitHub.\" This statement directly confirms that Bolt does not have an in-tool workflow for merging branches, supporting the claim that merging is positioned to be done in GitHub instead.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:22:31.221Z"
+    },
+    "dreamflow::multi_user_collab": {
+      "status": "LIMITED",
+      "note": "Docs explicitly warn multi-user collaboration within the same repository is not supported. If multiple Dreamflow projects attempt to use the same repo, the system detects and restricts it; team collaboration is positioned as an Enterprise plan discussion.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Multi-user Collaboration Limitation in Dreamflow",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "\"warning Currently, Dreamflow does not support multi-user collaboration within the same repository. If multiple Dreamflow projects attempt to use the same repo, the system will detect and restrict it. For team collaboration, please reach out regarding the Enterprise Plan.\" This quote confirms that Dreamflow explicitly warns against multi-user collaboration within the same repository and suggests that team collaboration is a feature discussed under the Enterprise plan.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:22:35.223Z",
+      "verified": false
+    },
+    "lovable::multi_user_collab": {
+      "status": "LIMITED",
+      "note": "Collaboration is framed around GitHub workflows because GitHub is the source of truth with two-way sync. The doc does not describe real-time multi-user editing inside Lovable itself; team flow is primarily via repo, branches, reviews, and stable repo path.",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "GitHub-Centric Collaboration in Lovable",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "The documentation states: 'Collaborate easily: Invite developers, use pull requests, branches, and code reviews.' It also mentions: 'Edits in Lovable appear in GitHub, and changes in GitHub sync back on the default branch (main).' These quotes confirm that collaboration is structured around GitHub workflows, supporting the claim that real-time multi-user editing within Lovable itself is not described.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:22:39.633Z",
+      "verified": false
+    },
+    "vibecode::multi_user_collab": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page returns a '404 Page Not Found' error, indicating that the specific feature documentation does not exist. The message 'We couldn&#x27;t find the page. Maybe you were looking for one of these pages below?' further confirms the absence of documentation for the claimed feature.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:22:43.619Z"
+    },
+    "builder::multi_user_collab": {
+      "status": "YES",
+      "note": "PR-centric workflow for teams documented.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "PR-Centric Workflow for Teams in Builder.io",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "The documentation states: 'To submit changes and create a pull request (PR) to the connected repository: In the Visual Editor, make the required updates. Click Send PR from the toolbar.' This indicates that Builder.io supports a PR-centric workflow by allowing users to create pull requests directly from the Visual Editor.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:22:49.388Z"
+    },
+    "bolt::multi_user_collab": {
+      "status": "LIMITED",
+      "note": "Docs state Bolt doesn't support GitHub organization accounts (individual accounts only). Team collaboration therefore relies on GitHub-side workflows rather than org-wide integration inside Bolt.",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Bolt GitHub Integration Limitations",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "The documentation states, 'Bolt currently doesn’t support GitHub organization accounts. Sign up for one if you don’t already have one.' This confirms that Bolt only supports individual GitHub accounts, not organization accounts, which aligns with the claim that team collaboration relies on GitHub-side workflows rather than org-wide integration inside Bolt.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:22:57.469Z",
+      "verified": false
+    },
+    "dreamflow::codebase_aware_prompting": {
+      "status": "YES",
+      "note": "Agent operates over project workspace.",
+      "links": [
+        "https://docs.dreamflow.com/workspace"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Agent Panel in Dreamflow Workspace",
+          "url": "https://docs.dreamflow.com/workspace",
+          "snippet": "The documentation states: 'Agent Panel: AI-powered development assistant that helps you build and modify your Flutter app through natural language conversations. Features streaming conversations, context management, screenshot integration, and support for multiple AI models. The agent panel is to the right of the workspace.' This confirms that the agent operates over the project workspace.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:23:01.548Z"
+    },
+    "lovable::codebase_aware_prompting": {
+      "status": "YES",
+      "note": "App iteration + debugging guidance documented.",
+      "links": [
+        "https://docs.lovable.dev/tips-tricks/troubleshooting"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Documentation of Debugging Guidance in Lovable",
+          "url": "https://docs.lovable.dev/tips-tricks/troubleshooting",
+          "snippet": "The documentation states: 'Fix build errors, debug unexpected behavior, resolve preview issues, and recover from common problems step by step.' It also provides a step-by-step guide: 'Click the Try to Fix button when an error shows up. Lovable will scan your logs, detect the issue, and attempt a quick fix.' This indicates that Lovable offers debugging guidance.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:23:06.589Z"
+    },
+    "vibecode::codebase_aware_prompting": {
+      "status": "LIMITED",
+      "note": "Prompts apply to generated project; scope not clearly defined in docs.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Documentation Not Found",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page for Vibecode.app could not be found, as indicated by repeated 'Page Not Found' messages. This suggests that the documentation does not currently provide information on the feature in question.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:23:11.294Z",
+      "verified": false
+    },
+    "builder::codebase_aware_prompting": {
+      "status": "LIMITED",
+      "note": "AI assistance exists but prompting is not the primary documented interface.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-overview"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "AI Assistance in Builder.io",
+          "url": "https://www.builder.io/c/docs/projects-overview",
+          "snippet": "The documentation mentions 'Projects from Prompts' and 'AI Generate Content Instructions & Style Inspiration,' indicating AI assistance features. However, the primary interface for prompting is not emphasized, supporting the claim that prompting is not the main documented interface.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:23:17.161Z"
+    },
+    "bolt::codebase_aware_prompting": {
+      "status": "YES",
+      "note": "Prompts operate over project/files in Bolt environment.",
+      "links": [
+        "https://support.bolt.new/building/using-bolt/projects-files"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Lack of Evidence for Unknown Feature in Bolt",
+          "url": "https://support.bolt.new/building/using-bolt/projects-files",
+          "snippet": "The documentation does not mention any feature where 'prompts operate over project/files in Bolt environment.' The sections on managing projects, duplicating projects, and using the chatbox do not reference such a capability.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:23:21.972Z"
+    },
+    "dreamflow::repo_as_ai_input": {
+      "status": "LIMITED",
+      "note": "Repo becomes context after clone/connect.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Repo Context After Clone/Connect",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation states: 'Once connected, Dreamflow will automatically start tracking file changes, which you can view in the Changes list.' This indicates that after cloning or connecting a repository, it becomes part of the context for tracking changes within Dreamflow.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:23:26.531Z",
+      "verified": false
+    },
+    "lovable::repo_as_ai_input": {
+      "status": "NO",
+      "note": "Docs: cannot import existing repo into Lovable.",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Importing Existing GitHub Repositories Not Supported",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "\"Can I import an existing GitHub repo into Lovable? No. You can only export from Lovable to GitHub, not the other way around.\" This quote directly confirms that Lovable does not support importing existing GitHub repositories, thus supporting the claimed status and note.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:23:32.266Z"
+    },
+    "vibecode::repo_as_ai_input": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page provided leads to a 'Page Not Found' error, as indicated by the text: 'Page Not Found Skip to main content Vibecode Docs home page'. This suggests that the feature in question is not documented, supporting the claim that the feature status is 'NO' and 'Not documented'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:23:36.362Z"
+    },
+    "builder::repo_as_ai_input": {
+      "status": "YES",
+      "note": "Connect existing repos; additional repos for context.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Builder.io Supports Connecting and Adding Repositories",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "The documentation states: 'To connect an existing Git repository: On the Projects page, click Connect Repo. Connect to your Git provider, such as GitHub, Azure DevOps, or Bitbucket and grant access to all or selected repositories.' Additionally, it mentions: 'To add repositories: Click the three dots on the project tile and choose Project settings. Expand Workspace Settings. Click the Add Repository button.' This confirms that Builder.io allows connecting existing repositories and adding additional ones for context.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:23:41.042Z"
+    },
+    "bolt::repo_as_ai_input": {
+      "status": "YES",
+      "note": "Import existing repos documented.",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Import Existing GitHub Repositories into Bolt",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "\"To import a project into Bolt from one of your GitHub repositories, follow the steps below:... Use the drop-down menu to select the repository you’d like to import, or Click the Import from URL button, then enter your GitHub repository URL. Click Choose this repository. Bolt will load your repository as a new Bolt project.\" This confirms that Bolt supports importing existing repositories from GitHub, as claimed.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:23:53.841Z"
+    },
+    "dreamflow::file_component_targeting": {
+      "status": "NO",
+      "note": "Not explicitly documented as a feature.",
+      "links": [
+        "https://docs.dreamflow.com/workspace"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Dreamflow",
+          "url": "https://docs.dreamflow.com/workspace",
+          "snippet": "The documentation does not mention the 'Unknown Feature' as part of the Dreamflow workspace. The documentation covers various panels and functionalities, such as the Top Bar, Modules Panel, Content Panel, Properties Panel, Agent Panel, and Bottom Bar, but there is no mention of an 'Unknown Feature.'",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:23:58.739Z"
+    },
+    "lovable::file_component_targeting": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/tips-tricks/troubleshooting"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Unknown Feature Not Documented",
+          "url": "https://docs.lovable.dev/tips-tricks/troubleshooting",
+          "snippet": "The documentation does not mention any 'Unknown Feature.' The sections cover troubleshooting, build errors, and general issues, but there is no reference to an 'Unknown Feature.'",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:24:02.255Z"
+    },
+    "vibecode::file_component_targeting": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation returns a 'Page Not Found' error, stating 'We couldn&#x27;t find the page.' This indicates that the specific feature documentation is not available or does not exist within the provided URLs.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:24:06.922Z"
+    },
+    "builder::file_component_targeting": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-overview"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Absence in Builder.io Documentation",
+          "url": "https://www.builder.io/c/docs/projects-overview",
+          "snippet": "The documentation provided does not mention the 'Unknown Feature'. The extensive list of features and capabilities outlined in the documentation does not include any reference to an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:24:11.331Z"
+    },
+    "bolt::file_component_targeting": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://support.bolt.new/building/using-bolt/projects-files"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature in Bolt.new",
+          "url": "https://support.bolt.new/building/using-bolt/projects-files",
+          "snippet": "The documentation provided does not mention any 'Unknown Feature' related to Bolt.new. The documentation covers various aspects of managing projects, such as creating, renaming, deleting, and duplicating projects, but there is no reference to an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:24:20.899Z"
+    },
+    "dreamflow::diff_aware_prompting": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Git Integration",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation details Git integration features such as 'Clone Codebase', 'Connect Project to Git', and 'Git Operations', but does not mention any 'Unknown Feature'. The absence of any reference to an 'Unknown Feature' supports the claim that it is 'Not documented'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:24:25.609Z"
+    },
+    "lovable::diff_aware_prompting": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of the Unknown Feature in Lovable Documentation",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "The documentation does not mention any 'Unknown Feature.' It focuses solely on the GitHub integration, detailing steps to connect, sync, and disconnect projects from GitHub. There is no reference to any other feature that could be considered 'Unknown.'",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:24:31.627Z"
+    },
+    "vibecode::diff_aware_prompting": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "\"Page Not Found\" and \"We couldn&#x27;t find the page.\" These quotes indicate that the documentation page for the feature is missing or does not exist, supporting the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:24:35.988Z"
+    },
+    "builder::diff_aware_prompting": {
+      "status": "NO",
+      "note": "Not documented as diff-aware prompting; PR workflow exists.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Diff-Aware Prompting Feature",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "The documentation does not mention 'diff-aware prompting' anywhere. It discusses features like connecting Git repositories, creating branches, and using pull requests, but there is no reference to diff-aware prompting. The documentation states: 'To submit changes and create a pull request (PR) to the connected repository: In the Visual Editor, make the required updates. Click Send PR from the toolbar.'",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:24:40.614Z"
+    },
+    "bolt::diff_aware_prompting": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Bolt Documentation",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. The text primarily focuses on GitHub integration, including creating repositories, branching, and committing changes. There is no mention of any feature that could be interpreted as 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:24:46.811Z"
+    },
+    "dreamflow::persistent_prompt_memory": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/workspace"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature Absence in Dreamflow",
+          "url": "https://docs.dreamflow.com/workspace",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. The sections cover various panels and functionalities such as the Top Bar, Modules Panel, Content Panel, Properties Panel, Agent Panel, and Bottom Bar, but there is no mention of an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:24:51.063Z"
+    },
+    "lovable::persistent_prompt_memory": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/tips-tricks/troubleshooting"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Documentation",
+          "url": "https://docs.lovable.dev/tips-tricks/troubleshooting",
+          "snippet": "The documentation provided does not mention any 'Unknown Feature'. It focuses on troubleshooting, build errors, and core functionalities, but there is no reference to an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:24:55.459Z"
+    },
+    "vibecode::persistent_prompt_memory": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page for Vibecode states 'Page Not Found' and 'We couldn&#x27;t find the page.' This indicates that the specific feature documentation is missing or not available.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:24:59.311Z"
+    },
+    "builder::persistent_prompt_memory": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-overview"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature Absence in Builder.io",
+          "url": "https://www.builder.io/c/docs/projects-overview",
+          "snippet": "The documentation does not mention or describe any 'Unknown Feature'. The extensive list of features and integrations, such as 'Figma to Code', 'Headless CMS', and 'AI Prototyping', does not include any unnamed or unspecified features. This supports the claim that the 'Unknown Feature' is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:25:04.189Z"
+    },
+    "bolt::persistent_prompt_memory": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://support.bolt.new/building/using-bolt/projects-files"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Unknown Feature Not Documented in Bolt",
+          "url": "https://support.bolt.new/building/using-bolt/projects-files",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. The sections cover various functionalities such as managing projects, duplicating projects, and working with databases, but there is no reference to an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:25:08.525Z"
+    },
+    "dreamflow::screenshot_prompt_input": {
+      "status": "LIMITED",
+      "note": "Workspace supports visuals; not explicitly framed as prompt input.",
+      "links": [
+        "https://docs.dreamflow.com/workspace"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Workspace Visuals Not Explicitly Framed as Prompt Input",
+          "url": "https://docs.dreamflow.com/workspace",
+          "snippet": "The documentation describes the Workspace as 'organized into panels that work together to provide a complete development experience.' It mentions features like 'real-time app preview with device frame options' and 'integrated code editor with syntax highlighting and auto-complete,' but does not explicitly frame visuals as prompt input.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:25:12.941Z",
+      "verified": false
+    },
+    "lovable::screenshot_prompt_input": {
+      "status": "YES",
+      "note": "Troubleshooting guidance explicitly recommends screenshots.",
+      "links": [
+        "https://docs.lovable.dev/tips-tricks/troubleshooting"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Screenshot Recommendation for Troubleshooting",
+          "url": "https://docs.lovable.dev/tips-tricks/troubleshooting",
+          "snippet": "The documentation states: 'UI or Layout Problems Provide screenshots of the UI issue directly to the AI for a clearer diagnosis.' This indicates that the troubleshooting guidance explicitly recommends using screenshots to help diagnose UI issues.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:25:17.175Z"
+    },
+    "vibecode::screenshot_prompt_input": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page for Vibecode.app returns a 'Page Not Found' error and suggests that the page may not exist. The text states, 'We couldn&#x27;t find the page. Maybe you were looking for one of these pages below?' This indicates that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:25:26.191Z"
+    },
+    "builder::screenshot_prompt_input": {
+      "status": "NO",
+      "note": "Not documented as prompt input.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-overview"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature Absence",
+          "url": "https://www.builder.io/c/docs/projects-overview",
+          "snippet": "The documentation does not mention any 'Unknown Feature' as a prompt input. The sections cover various features and integrations, but there is no reference to an 'Unknown Feature' being documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:25:30.790Z"
+    },
+    "bolt::screenshot_prompt_input": {
+      "status": "NO",
+      "note": "Not documented as prompt input.",
+      "links": [
+        "https://support.bolt.new/building/using-bolt/projects-files"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature in Bolt.new",
+          "url": "https://support.bolt.new/building/using-bolt/projects-files",
+          "snippet": "The documentation does not mention any 'Unknown Feature' as a prompt input or otherwise. The sections cover various functionalities like managing projects, duplicating projects, and integrating with other tools, but there is no mention of an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:25:36.625Z"
+    },
+    "dreamflow::figma_import": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/workspace"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Absence Confirmation in Dreamflow Documentation",
+          "url": "https://docs.dreamflow.com/workspace",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. The sections cover various panels and functionalities such as the Top Bar, Modules Panel, Content Panel, Properties Panel, and Agent Panel, but there is no reference to an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:25:42.601Z"
+    },
+    "lovable::figma_import": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/integrations/mcp-servers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Lovable Documentation",
+          "url": "https://docs.lovable.dev/integrations/mcp-servers",
+          "snippet": "The documentation provided does not mention any 'Unknown Feature.' The focus is on personal connectors (MCP servers) and their integration capabilities with tools like Notion, Jira, and Miro. There is no reference to any feature that could be considered 'Unknown.'",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:25:47.469Z"
+    },
+    "vibecode::figma_import": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page for Vibecode.app returns a 'Page Not Found' error, stating 'We couldn&#x27;t find the page.' This indicates that the feature is not documented, supporting the claim that the feature status is 'NO' and the note 'Not documented.'",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:25:51.612Z"
+    },
+    "builder::figma_import": {
+      "status": "LIMITED",
+      "note": "Design workflows exist; no explicit Figma→app import documented in our sources.",
+      "links": [
+        "https://www.builder.io/c/docs/intro"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Limited Figma to App Import Feature",
+          "url": "https://www.builder.io/c/docs/intro",
+          "snippet": "The documentation mentions 'Figma to code docs Convert Figma designs into real code' and 'Import from Figma Overview Builder Figma Plugin Figma to Projects Figma to Publish Figma Publish Workflow'. These indicate the existence of workflows for converting Figma designs to code but do not explicitly mention a direct Figma to app import feature.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:25:58.157Z",
+      "verified": false
+    },
+    "bolt::figma_import": {
+      "status": "YES",
+      "note": "Figma import via Anima documented.",
+      "links": [
+        "https://support.bolt.new/integrations/figma"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Figma Import via Anima in Bolt",
+          "url": "https://support.bolt.new/integrations/figma",
+          "snippet": "\"Using Bolt’s Figma integration, you can quickly load Figma designs into Bolt, and generate sites and UIs based on the designs. Bolt uses Anima to handle turning Figma designs into apps.\" This confirms that Bolt supports importing Figma designs via Anima, as claimed.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:17:05.196Z"
+    },
+    "dreamflow::runtime_preview_as_input": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/workspace"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Dreamflow Documentation",
+          "url": "https://docs.dreamflow.com/workspace",
+          "snippet": "The documentation for Dreamflow's Workspace does not mention any 'Unknown Feature.' The sections covered include Workspace Modules, Content Panel, Properties Panel, Agent Panel, and more, but there is no reference to an 'Unknown Feature.'",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:02.554Z"
+    },
+    "lovable::runtime_preview_as_input": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/tips-tricks/troubleshooting"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Lovable Documentation",
+          "url": "https://docs.lovable.dev/tips-tricks/troubleshooting",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. The sections covered include troubleshooting, build errors, and core functionalities, but there is no reference to an 'Unknown Feature'. This supports the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:07.233Z"
+    },
+    "vibecode::runtime_preview_as_input": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page for Vibecode.app returns a '404 Page Not Found' error, indicating that the specific feature documentation is not available. The text states, 'We couldn&#x27;t find the page.' This supports the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:12.197Z"
+    },
+    "builder::runtime_preview_as_input": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-overview"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Absence Confirmation in Builder.io Documentation",
+          "url": "https://www.builder.io/c/docs/projects-overview",
+          "snippet": "The documentation provided does not mention any 'Unknown Feature'. The extensive list of features and capabilities in the documentation does not include any reference to an 'Unknown Feature', supporting the claim that it is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:17.020Z"
+    },
+    "bolt::runtime_preview_as_input": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://support.bolt.new/building/using-bolt/projects-files"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature Absence in Bolt.new",
+          "url": "https://support.bolt.new/building/using-bolt/projects-files",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. The documentation provides detailed information about managing projects, duplicating projects, and working with databases, but there is no reference to an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:23.422Z"
+    },
+    "dreamflow::mcp_connectors": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/workspace"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Dreamflow Workspace",
+          "url": "https://docs.dreamflow.com/workspace",
+          "snippet": "The documentation for the Dreamflow Workspace does not mention an 'Unknown Feature'. The sections covered include Workspace Modules, Content Panel, Properties Panel, Agent Panel, and Keyboard Shortcuts, but there is no reference to an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:27.662Z"
+    },
+    "lovable::mcp_connectors": {
+      "status": "YES",
+      "note": "MCP servers documented (including custom servers + auth options).",
+      "links": [
+        "https://docs.lovable.dev/integrations/mcp-servers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Documentation of MCP Servers Including Custom Servers and Auth Options",
+          "url": "https://docs.lovable.dev/integrations/mcp-servers",
+          "snippet": "The documentation states: 'Lovable includes several prebuilt personal connectors on all plans, with support for custom MCP servers on all paid plans.' It further explains: 'For full flexibility, you can connect custom MCP servers as personal connectors to bring internal or third-party systems into Lovable.' Additionally, it details authentication options: 'Authentication: OAuth (default)...Bearer token or API key...No authentication.' These quotes confirm that MCP servers, including custom servers and various authentication options, are documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:32.517Z"
+    },
+    "vibecode::mcp_connectors": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation states 'Page Not Found' and 'We couldn&#x27;t find the page.' This indicates that the documentation for the feature in question is missing or not available.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:36.334Z"
+    },
+    "builder::mcp_connectors": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-overview"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Absence in Builder.io Documentation",
+          "url": "https://www.builder.io/c/docs/projects-overview",
+          "snippet": "The documentation provided does not mention any 'Unknown Feature'. This absence supports the claim that the feature is not documented. The extensive list of features and tools in the documentation does not include any reference to an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:40.551Z"
+    },
+    "bolt::mcp_connectors": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://support.bolt.new/building/using-bolt/projects-files"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature in Bolt.new",
+          "url": "https://support.bolt.new/building/using-bolt/projects-files",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. The sections cover various functionalities like managing projects, duplicating projects, and integrating with other tools, but there is no reference to an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:45.738Z"
+    },
+    "dreamflow::multi_repo_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Dreamflow Git Integration",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation extensively covers Git integration features such as connecting repositories, cloning codebases, and performing Git operations like branching, pushing, and pulling changes. However, there is no mention of an 'Unknown Feature'. This suggests that the claimed feature is indeed not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:49.933Z"
+    },
+    "lovable::multi_repo_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Lovable Documentation",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. It focuses solely on the GitHub integration, detailing steps to connect, sync, and disconnect projects. There is no reference to any other feature that could be classified as 'Unknown'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:53.701Z"
+    },
+    "vibecode::multi_repo_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "\"Page Not Found\" and \"We couldn&#x27;t find the page\" indicate that the documentation does not contain information about the feature. This supports the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:26:58.256Z"
+    },
+    "builder::multi_repo_context": {
+      "status": "YES",
+      "note": "Docs: additional repositories can be added for context.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Builder.io supports adding additional repositories",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "The documentation states: 'Add additional repositories To connect additional repositories to your Projects workspaces to give the LLM context from other sources, such as design systems or API documentation.' This confirms that Builder.io allows users to add additional repositories for context.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:27:01.801Z"
+    },
+    "bolt::multi_repo_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in GitHub Integration",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "The documentation provides detailed information on integrating GitHub with Bolt, including creating repositories, importing projects, and managing branches. However, there is no mention of the 'Unknown Feature' in the provided documentation. The documentation states: 'Bolt integrates directly with GitHub, handling all commit and update operations automatically.'",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:27:06.109Z"
+    },
+    "dreamflow::telemetry_as_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/workspace"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Absence in Dreamflow Documentation",
+          "url": "https://docs.dreamflow.com/workspace",
+          "snippet": "The documentation provides a comprehensive overview of the Workspace and its features, including the Top Bar, Modules Panel, Content Panel, Properties Panel, Agent Panel, and Bottom Bar. However, there is no mention of an 'Unknown Feature' within these sections, supporting the claim that it is 'Not documented.'",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:27:10.846Z"
+    },
+    "lovable::telemetry_as_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/integrations/mcp-servers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Unknown Feature Absence in Lovable Documentation",
+          "url": "https://docs.lovable.dev/integrations/mcp-servers",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. It extensively covers 'personal connectors (MCP servers)' and related integrations but does not document any feature labeled as 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:27:16.658Z"
+    },
+    "vibecode::telemetry_as_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page returned a 'Page Not Found' error. The text states, 'We couldn&#x27;t find the page. Maybe you were looking for one of these pages below?' This indicates that the specific feature documentation is not available or does not exist.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:27:20.584Z"
+    },
+    "builder::telemetry_as_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-overview"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Builder.io Documentation",
+          "url": "https://www.builder.io/c/docs/projects-overview",
+          "snippet": "The documentation provided does not mention any 'Unknown Feature'. The extensive list of features and integrations, such as 'Visual Copilot', 'Figma to code', and 'AI Frontend Engineer', does not include any feature labeled as 'Unknown Feature'. This supports the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:27:25.115Z"
+    },
+    "bolt::telemetry_as_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://support.bolt.new/building/using-bolt/projects-files"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature in Bolt.new",
+          "url": "https://support.bolt.new/building/using-bolt/projects-files",
+          "snippet": "The documentation provided does not mention any 'Unknown Feature'. The content covers various aspects of managing projects, such as creating, renaming, deleting, and duplicating projects, but there is no reference to an 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:27:29.798Z"
+    },
+    "dreamflow::opinionated_backend": {
+      "status": "YES",
+      "note": "Firebase & Supabase panels documented in workspace.",
+      "links": [
+        "https://docs.dreamflow.com/workspace"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Firebase and Supabase Panels Documented in Dreamflow Workspace",
+          "url": "https://docs.dreamflow.com/workspace",
+          "snippet": "The documentation states: 'Modules Panel: Helps users access different functional areas of the platform. Includes Widget Tree (default navigation), Theme (styling), Assets (file management), Firebase (backend services), and Supabase (database integration).' This confirms that both Firebase and Supabase panels are part of the workspace modules.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:27:33.355Z"
+    },
+    "lovable::opinionated_backend": {
+      "status": "NO",
+      "note": "No opinionated backend integration documented.",
+      "links": [
+        "https://docs.lovable.dev/integrations/mcp-servers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Opinionated Backend Integration in Lovable",
+          "url": "https://docs.lovable.dev/integrations/mcp-servers",
+          "snippet": "The documentation states, 'Connect Lovable to your personal tool accounts using MCP servers as personal connectors.' It further explains that MCP servers are used to connect to external tools like Notion, Linear, Jira, or Miro. There is no mention of any opinionated backend integration, indicating that Lovable does not enforce a specific backend integration.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:27:37.995Z"
+    },
+    "vibecode::opinionated_backend": {
+      "status": "NO",
+      "note": "Backend/data integrations marked coming soon.",
+      "links": [
+        "https://www.vibecodeapp.com/docs/faq/data-integrations"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Backend/Data Integrations Feature Status",
+          "url": "https://www.vibecodeapp.com/docs/faq/data-integrations",
+          "snippet": "\"Can I connect my project to a backend to store data? This is a feature that is coming very soon.\" This quote indicates that the feature to connect a project to a backend for data storage is not currently available but is planned for the future.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:27:42.592Z"
+    },
+    "builder::opinionated_backend": {
+      "status": "NO",
+      "note": "Not documented as built-in backend integration.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-overview"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Built-in Backend Integration",
+          "url": "https://www.builder.io/c/docs/projects-overview",
+          "snippet": "The documentation does not mention any 'built-in backend integration' feature. It covers various integrations and features, such as 'CMS Integrations' and 'Connect API Data', but lacks any specific mention of a built-in backend integration.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:27:46.654Z"
+    },
+    "bolt::opinionated_backend": {
+      "status": "YES",
+      "note": "Supabase integration documented.",
+      "links": [
+        "https://support.bolt.new/integrations/supabase"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Supabase Integration in Bolt.new",
+          "url": "https://support.bolt.new/integrations/supabase",
+          "snippet": "The documentation states: 'Use Supabase with Bolt to add a database, authentication, or edge functions to your app as an alternative to Bolt Database.' This confirms that Bolt.new supports integration with Supabase, allowing users to utilize Supabase for databases, authentication, and edge functions.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:27:51.008Z"
+    },
+    "dreamflow::oauth_backend_auth": {
+      "status": "LIMITED",
+      "note": "Integrations exist; OAuth details not fully documented in our sources.",
+      "links": [
+        "https://docs.dreamflow.com/workspace"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Lack of OAuth Documentation in Dreamflow",
+          "url": "https://docs.dreamflow.com/workspace",
+          "snippet": "The documentation does not mention OAuth or provide any details about OAuth integrations. The Integrations section lists Firebase and Supabase, but OAuth is not referenced. This absence suggests that OAuth details are not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:27:54.800Z",
+      "verified": false
+    },
+    "lovable::oauth_backend_auth": {
+      "status": "LIMITED",
+      "note": "MCP auth methods documented (OAuth/bearer/api key/no-auth).",
+      "links": [
+        "https://docs.lovable.dev/integrations/mcp-servers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "MCP Authentication Methods in Lovable",
+          "url": "https://docs.lovable.dev/integrations/mcp-servers",
+          "snippet": "The documentation states: 'Authentication: OAuth (default): Lovable uses OAuth by default. After you click Add & authorize, you’ll be prompted to authorize. Bearer token or API key: For servers that don’t support OAuth, you can authenticate using a bearer token or API key. No authentication: Connect without credentials if the server doesn’t require authentication.' This confirms the presence of OAuth, bearer token, API key, and no-auth methods.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:27:58.986Z",
+      "verified": false
+    },
+    "vibecode::oauth_backend_auth": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://www.vibecodeapp.com/docs/faq/data-integrations"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode",
+          "url": "https://www.vibecodeapp.com/docs/faq/data-integrations",
+          "snippet": "The documentation states: 'This is a feature that is coming very soon.' and 'We currently do not support Auth/DB, so we do not recommend adding this feature even though it is possible.' These quotes indicate that certain features related to backends and authentication are either not yet available or not recommended, supporting the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:28:03.877Z"
+    },
+    "builder::oauth_backend_auth": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-overview"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Builder.io Documentation",
+          "url": "https://www.builder.io/c/docs/projects-overview",
+          "snippet": "The documentation provided does not mention any 'Unknown Feature'. The extensive list of features, tools, and integrations in the documentation does not include any feature labeled as 'Unknown Feature'. This supports the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:28:09.090Z"
+    },
+    "bolt::oauth_backend_auth": {
+      "status": "YES",
+      "note": "Supabase OAuth integration documented.",
+      "links": [
+        "https://support.bolt.new/integrations/supabase"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Supabase OAuth Integration in Bolt.new",
+          "url": "https://support.bolt.new/integrations/supabase",
+          "snippet": "The documentation states: 'Using authentication If you tell Bolt to add authentication with Supabase, users will be able to sign up for your application and log in using Supabase’s user management service.' This confirms that Supabase OAuth integration is documented as a feature in Bolt.new.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:28:13.046Z"
+    },
+    "dreamflow::db_state_as_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/workspace"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature in Dreamflow Documentation",
+          "url": "https://docs.dreamflow.com/workspace",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. The sections covered include Workspace, Modules Panel, Content Panel, Properties Panel, Agent Panel, and Bottom Bar, among others, but there is no reference to an 'Unknown Feature'. This supports the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:28:18.306Z"
+    },
+    "lovable::db_state_as_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/integrations/mcp-servers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of 'Unknown Feature' in Lovable Documentation",
+          "url": "https://docs.lovable.dev/integrations/mcp-servers",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. It extensively covers personal connectors (MCP servers) and their integration capabilities, but there is no reference to an 'Unknown Feature'. This supports the claim that the feature is 'Not documented'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:28:23.504Z"
+    },
+    "vibecode::db_state_as_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://www.vibecodeapp.com/docs/faq/data-integrations"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode",
+          "url": "https://www.vibecodeapp.com/docs/faq/data-integrations",
+          "snippet": "The documentation states: 'Can I connect my project to a backend to store data? This is a feature that is coming very soon.' and 'We currently do not support Auth/DB, so we do not recommend adding this feature even though it is possible.' These quotes indicate that certain features related to data storage and authentication are either not supported or not yet available.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:28:29.118Z"
+    },
+    "builder::db_state_as_context": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-overview"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Absence in Builder.io Documentation",
+          "url": "https://www.builder.io/c/docs/projects-overview",
+          "snippet": "The documentation provided does not mention any 'Unknown Feature'. The extensive list of features and integrations in the documentation does not include a reference to an 'Unknown Feature', supporting the claim that it is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:28:33.211Z"
+    },
+    "bolt::db_state_as_context": {
+      "status": "NO",
+      "note": "Docs: version history doesn't restore Supabase DB state; no DB-as-context documented.",
+      "links": [
+        "https://support.bolt.new/integrations/supabase"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Supabase DB State Not Restored by Version History",
+          "url": "https://support.bolt.new/integrations/supabase",
+          "snippet": "\"Bolt’s Version History feature currently does not support Supabase database restores. Restoring to an earlier project version will not change your current Supabase databases.\" This quote confirms that the version history feature in Bolt does not restore the state of Supabase databases, supporting the claim that there is no DB-as-context feature documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:28:37.358Z"
+    },
+    "dreamflow::secrets_handling_documented": {
+      "status": "LIMITED",
+      "note": "Git integration docs cover PAT usage; broader secrets model not fully documented.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Git Integration with Limited Documentation on Secrets",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation states: 'To connect with your Git provider, you’ll need to generate a Personal Access Token (PAT).' However, there is no mention of a broader secrets management model. This supports the claim that while PAT usage is documented, a broader secrets model is not fully documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:28:42.536Z",
+      "verified": false
+    },
+    "lovable::secrets_handling_documented": {
+      "status": "LIMITED",
+      "note": "MCP auth options documented; broader secrets guarantees not explicit.",
+      "links": [
+        "https://docs.lovable.dev/integrations/mcp-servers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "MCP Authentication Options Documented, Broader Secrets Guarantees Not Explicit",
+          "url": "https://docs.lovable.dev/integrations/mcp-servers",
+          "snippet": "The documentation states, 'Authentication: OAuth (default): Lovable uses OAuth by default. After you click Add & authorize, you’ll be prompted to authorize. Bearer token or API key: For servers that don’t support OAuth, you can authenticate using a bearer token or API key.' This supports the claim that MCP auth options are documented. However, there is no explicit mention of broader secrets guarantees, aligning with the claim that such guarantees are not explicit.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:28:47.661Z",
+      "verified": false
+    },
+    "vibecode::secrets_handling_documented": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page for Vibecode.app returns a 'Page Not Found' error, indicating that the specific feature documentation is not available. The text states, 'We couldn't find the page. Maybe you were looking for one of these pages below?' This suggests that the feature in question is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:28:52.146Z"
+    },
+    "builder::secrets_handling_documented": {
+      "status": "NO",
+      "note": "Not documented in our sources.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-overview"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature Absence in Builder.io",
+          "url": "https://www.builder.io/c/docs/projects-overview",
+          "snippet": "The documentation provided does not mention any specific 'Unknown Feature'. The extensive list of features and integrations in the documentation includes AI Frontend Engineer, Visual Copilot, Fusion, Publish, and various integrations, but no mention of an 'Unknown Feature' is found.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:28:56.587Z"
+    },
+    "bolt::secrets_handling_documented": {
+      "status": "LIMITED",
+      "note": "OAuth integration documented; detailed secret masking model not explicit.",
+      "links": [
+        "https://support.bolt.new/integrations/supabase"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "OAuth Integration Documented, Secret Masking Not Explicit",
+          "url": "https://support.bolt.new/integrations/supabase",
+          "snippet": "The documentation states: 'In Supabase, remove Bolt from your authorized applications: In the Supabase dashboard, make sure you’re in the organization that you connected to Bolt. In the left menu, click Organization settings. Go to the OAuth Apps tab. Next to Bolt, click Delete.' This indicates OAuth integration is documented. However, there is no mention of a detailed secret masking model, supporting the claim of its absence.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:29:02.139Z"
+    },
+    "dreamflow::validation_before_apply": {
+      "status": "LIMITED",
+      "note": "Docs detail Git conflict handling (view diffs, discard changes, pull/merge, resolve conflicts with accept existing/incoming/both). They don't position build/test gating as an automatic pre-commit validation step in the Git workflow.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Git Conflict Handling without Build/Test Gating in Dreamflow",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation states: 'To resolve conflict: Open the file and review the differences. You’ll see both versions side by side: Incoming changes from remote (from the repository) Your existing changes (your local edits) Choose whether to Accept Existing, Accept Incoming, Accept Both, or resolve the conflict manually.' This confirms Git conflict handling features such as viewing diffs and resolving conflicts. However, there is no mention of build/test gating as an automatic pre-commit validation step.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:29:07.258Z",
+      "verified": false
+    },
+    "lovable::validation_before_apply": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/tips-tricks/troubleshooting"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Unknown Feature Not Documented",
+          "url": "https://docs.lovable.dev/tips-tricks/troubleshooting",
+          "snippet": "The documentation provided does not mention any 'Unknown Feature'. The sections cover troubleshooting, build errors, and core functionalities, but there is no reference to an 'Unknown Feature'. This supports the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:29:11.248Z"
+    },
+    "vibecode::validation_before_apply": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page for Vibecode.app returns a 'Page Not Found' error, indicating that the feature is not documented. The text states, 'We couldn&#x27;t find the page. Maybe you were looking for one of these pages below?' This supports the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:29:15.384Z"
+    },
+    "builder::validation_before_apply": {
+      "status": "LIMITED",
+      "note": "PR workflow is a governance guardrail (review), not runtime validation.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "PR Workflow as Governance Guardrail",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "The documentation states: 'When a branch is merged, Builder Projects automatically deletes the branch, which is a typical workflow in version control.' This indicates that the PR workflow is used for governance and review, not for runtime validation.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:29:21.935Z",
+      "verified": false
+    },
+    "bolt::validation_before_apply": {
+      "status": "YES",
+      "note": "Validation gating is built into commit behavior: Bolt creates a commit only when a change 'doesn't break the project'. This acts as a safety checkpoint before changes land in GitHub.",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Validation Gating in Bolt Commit Behavior",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "\"Every time you make a change that doesn’t break the project, Bolt creates a commit for you.\" This quote supports the claim that Bolt has a validation gating feature built into its commit behavior, ensuring that commits are only created when changes do not break the project.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:29:25.940Z"
+    },
+    "dreamflow::auto_rollback": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Absence of Unknown Feature in Dreamflow Git Integration",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation thoroughly covers Git integration features such as connecting repositories, cloning codebases, and performing Git operations. However, it does not mention any 'Unknown Feature.' The claim that the feature is 'Not documented' is supported by the absence of any reference to it in the provided documentation.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:29:30.409Z"
+    },
+    "lovable::auto_rollback": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Feature in Lovable Documentation",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. It states, 'Can I import an existing GitHub repo into Lovable? No. You can only export from Lovable to GitHub, not the other way around.' This indicates that the feature in question, which might relate to importing GitHub repositories, is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:29:34.904Z"
+    },
+    "vibecode::auto_rollback": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page for Vibecode.app states 'Page Not Found' and 'We couldn&#x27;t find the page.' This indicates that the documentation for the claimed feature is not available or does not exist.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:29:39.200Z"
+    },
+    "builder::auto_rollback": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Builder.io",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "The documentation provided does not mention any 'Unknown Feature' within the extensive list of features and integrations. The document covers various aspects of Builder.io, such as connecting Git providers, using the Visual Editor, and integrating with different tools, but there is no reference to an 'Unknown Feature.'",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:29:49.113Z"
+    },
+    "bolt::auto_rollback": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature in Bolt.new",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. The text primarily discusses integration with GitHub for version control, including creating repositories, branching, and committing. There is no reference to any feature that could be construed as 'Unknown Feature'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:29:53.782Z"
+    },
+    "dreamflow::ai_can_commit": {
+      "status": "YES",
+      "note": "Commits/pushes are performed via the Source Control panel. Docs mention optional AI-generated commit messages, then clicking push to commit+push to the remote repo.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "AI-Generated Commit Messages and Push Feature",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "\"Use AI to automatically generate a Commit Message, or enter your own message to describe what has changed. Click the Push icon to commit and push the update to your connected repository.\" This confirms that Dreamflow allows users to generate AI-based commit messages and push changes via the Source Control panel.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:29:56.876Z"
+    },
+    "lovable::ai_can_commit": {
+      "status": "LIMITED",
+      "note": "Changes sync to GitHub; commit mechanics not described as explicit agent action.",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "GitHub Sync Feature with Implicit Commit Mechanics",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "The documentation states: 'Sync automatically: Edits in Lovable appear in GitHub, and changes in GitHub sync back on the default branch (main).' This implies that changes are synced without explicit user action, supporting the claim that commit mechanics are not described as an explicit agent action.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "medium",
+      "verifiedAt": "2026-02-05T05:30:00.886Z",
+      "verified": false
+    },
+    "vibecode::ai_can_commit": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation page for Vibecode.app returns a 'Page Not Found' error. The text states, 'We couldn&#x27;t find the page. Maybe you were looking for one of these pages below?' This indicates that the documentation is incomplete or missing, supporting the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:30:05.324Z"
+    },
+    "builder::ai_can_commit": {
+      "status": "NO",
+      "note": "PR creation is documented; direct commit by AI not documented.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "AI Direct Commit Feature Absence in Builder.io",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "The documentation states: 'Note that to have a + New Branch button available for a connected repo, the Commit Mode for that repo's settings must be set to Pull Requests or Draft Pull Requests.' This indicates that Builder.io supports creating pull requests but does not mention any capability for AI to make direct commits.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:30:13.194Z"
+    },
+    "bolt::ai_can_commit": {
+      "status": "YES",
+      "note": "Bolt auto-commits frequently: each time you make a change that doesn't break the project, Bolt creates a commit and can also pull external updates on a short interval (docs mention 30 seconds).",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Automatic Commit and Fetch Feature in Bolt",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "\"Every time you make a change that doesn’t break the project, Bolt creates a commit for you. It also checks GitHub every 30 seconds for any updates made outside Bolt and pulls those in.\" This quote confirms that Bolt automatically commits changes that do not break the project and fetches updates from GitHub every 30 seconds.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:30:17.077Z"
+    },
+    "dreamflow::ai_can_create_pr": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Verification of Unknown Feature in Dreamflow Git Integration",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation states, 'Dreamflow supports Git integration, allowing you to connect your projects directly to GitHub, GitLab, or other Git providers.' However, it does not mention any 'Unknown Feature.' The documentation is comprehensive about Git integration but lacks any reference to an unknown feature.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:30:24.172Z"
+    },
+    "lovable::ai_can_create_pr": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Lovable Documentation",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. It focuses solely on the GitHub integration, detailing steps to connect, sync, and disconnect projects between Lovable and GitHub. There is no mention of any feature that could be categorized as 'Unknown'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:30:28.765Z"
+    },
+    "vibecode::ai_can_create_pr": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode.app",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "The documentation states 'Page Not Found' and 'We couldn&#x27;t find the page.' This indicates that the feature is not documented as the relevant page is missing.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:30:33.210Z"
+    },
+    "builder::ai_can_create_pr": {
+      "status": "YES",
+      "note": "PR creation is first-class. Users click 'Send PR' and can request additional edits by commenting on the PR and tagging @builderio-bot, which applies changes as additional commits to the same PR.",
+      "links": [
+        "https://www.builder.io/c/docs/projects-git-providers"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Builder.io PR Creation and Editing Feature",
+          "url": "https://www.builder.io/c/docs/projects-git-providers",
+          "snippet": "The documentation states: 'Click Send PR from the toolbar. In the Pull requests tab, review the proposed changes. To request additional edits, comment in the pull request and tag @builderio-bot with specific instructions. The bot applies the changes to the same PR.' This confirms that users can create a PR and request additional edits by commenting and tagging @builderio-bot, which applies changes as additional commits.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:30:40.099Z"
+    },
+    "bolt::ai_can_create_pr": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Absence in Bolt.new Documentation",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "The documentation does not mention any 'Unknown Feature' related to Bolt.new. The provided documentation focuses on GitHub integration, including connecting accounts, creating repositories, and managing branches, but there is no reference to any feature described as 'Unknown Feature.'",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:30:45.146Z"
+    },
+    "dreamflow::ai_can_merge_deploy": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.dreamflow.com/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Git Integration",
+          "url": "https://docs.dreamflow.com/integrations/git",
+          "snippet": "The documentation extensively covers Git integration features such as 'Clone Codebase', 'Connect Project to Git', and various Git operations like 'Branching', 'Push Changes', and 'Resolve Conflicts'. However, there is no mention of an 'Unknown Feature'. This supports the claim that the feature is 'Not documented'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:30:49.678Z"
+    },
+    "lovable::ai_can_merge_deploy": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://docs.lovable.dev/integrations/github"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Lovable Documentation",
+          "url": "https://docs.lovable.dev/integrations/github",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. It focuses solely on the GitHub integration capabilities, such as connecting, syncing, and disconnecting projects. There is no reference to any other feature that could be considered 'Unknown'.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:30:54.381Z"
+    },
+    "vibecode::ai_can_merge_deploy": {
+      "status": "NO",
+      "note": "Not documented.",
+      "links": [
+        "https://vibecodeapp.mintlify.app/docs"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Feature Not Documented in Vibecode",
+          "url": "https://vibecodeapp.mintlify.app/docs",
+          "snippet": "\"Page Not Found\" and \"We couldn&#x27;t find the page.\" indicate that the documentation does not contain information about the feature. The lack of documentation supports the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:30:59.698Z"
+    },
+    "builder::ai_can_merge_deploy": {
+      "status": "NO",
+      "note": "Not documented; merge in Git provider.",
+      "links": [
+        "https://www.builder.io/c/docs/gitlab-self-hosted"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Absence of Unknown Feature in Builder.io Documentation",
+          "url": "https://www.builder.io/c/docs/gitlab-self-hosted",
+          "snippet": "The documentation does not mention any 'Unknown Feature'. The focus is on integrating self-hosted GitLab instances with Builder.io for repository access and collaboration. This supports the claim that the feature is not documented.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:31:05.325Z"
+    },
+    "bolt::ai_can_merge_deploy": {
+      "status": "NO",
+      "note": "Not documented; merge not supported in-app.",
+      "links": [
+        "https://support.bolt.new/integrations/git"
+      ],
+      "evidence": [
+        {
+          "type": "web",
+          "title": "Bolt.new does not support in-app branch merging",
+          "url": "https://support.bolt.new/integrations/git",
+          "snippet": "\"Bolt currently doesn’t support merging branches in-app. You need to merge branches in GitHub.\" This quote from the documentation confirms that the feature of merging branches directly within the Bolt application is not supported, aligning with the claimed status and note.",
+          "sourceCategory": "official"
+        }
+      ],
+      "confidence": "high",
+      "verifiedAt": "2026-02-05T05:31:09.642Z"
+    }
+  }
+}

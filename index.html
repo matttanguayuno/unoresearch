@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI App Builders Research — Uno Studio Live</title>
+    <link rel="stylesheet" href="styles.css?v=639059355558641080">
+</head>
+<body>
+    <header>
+        <h1>Uno Studio Live - AI App Builders Research</h1>
+    </header>
+
+    <nav class="tab-nav">
+        <div class="tab-nav-layout">
+            <div class="tab-nav-inner">
+                <a class="tab-btn active" href="#tab/feature-map" data-tab="feature-map">By Feature</a>
+                <a class="tab-btn" href="#tab/tool-comparison" data-tab="tool-comparison">By Tool</a>
+                <a class="tab-btn" href="#tab/agent-ux" data-tab="agent-ux">Agent UX/UI</a>
+                <a class="tab-btn" href="#tab/uno-vs-competitors" data-tab="uno-vs-competitors">Uno vs Competitors</a>
+                <a class="tab-btn" href="#tab/ai-value-outlook" data-tab="ai-value-outlook">Uno + AI</a>
+                <a class="tab-btn" href="#tab/requirements" data-tab="requirements">Requirements</a>
+            </div>
+            <div class="download-btn-group">
+                <button class="download-btn" onclick="toggleDownloadDropdown(event)" aria-label="Download screenshots as ZIP">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <svg class="download-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div id="global-download-dropdown" class="download-dropdown hidden">
+                    <div class="download-dropdown-heading">All Screenshots</div>
+                    <a class="download-dropdown-item" href="downloads/all-screenshots.zip" download>Download All</a>
+                    <div class="download-dropdown-heading">By Feature Tab</div>
+                    <a class="download-dropdown-item" href="downloads/feature-map-screenshots.zip" download>Organized by Section</a>
+                    <div class="download-dropdown-heading">By Tool Tab</div>
+                    <a class="download-dropdown-item" href="downloads/by-tool-screenshots.zip" download>Organized by Tool</a>
+                    <div class="download-dropdown-heading">Agent UX Tab</div>
+                    <a class="download-dropdown-item" href="downloads/agent-ux-by-tool-screenshots.zip" download>Organized by Tool</a>
+                    <a class="download-dropdown-item" href="downloads/agent-ux-by-feature-screenshots.zip" download>Organized by Feature</a>
+                </div>
+            </div>
+            <div class="global-search-wrapper">
+                <svg class="global-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="global-search" class="global-search-input" placeholder="Search everything… (/ or Ctrl+K)" autocomplete="off" spellcheck="false">
+                <button id="global-search-clear" class="global-search-clear" style="display:none" aria-label="Clear search">&times;</button>
+                <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- By Feature Tab -->
+        <section id="feature-map" class="tab-content active">
+            <div class="feature-map-container">
+                <div id="feature-grid"></div>
+                <div id="detail-panel" class="detail-panel hidden">
+                    <div class="close-panel-row"><button class="close-panel">&times;</button></div>
+                    <div id="detail-content"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- By Tool Tab -->
+        <section id="tool-comparison" class="tab-content">
+            <h3 class="tools-reviewed-heading">Tools Reviewed</h3>
+            <div id="tools-cards"></div>
+            <div class="tool-mobile-dropdown-wrapper">
+                <select id="tool-mobile-dropdown">
+                    <option value="" disabled selected>Select a tool…</option>
+                </select>
+            </div>
+            <div class="tool-comparison-container" style="margin-top: 3rem;">
+                <div class="tool-list">
+                    <h3>Tools</h3>
+                    <div id="tools-sidebar"></div>
+                </div>
+                <div class="tool-profile" id="tool-profile">
+                    <p class="placeholder">Select a tool to view its profile</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Uno vs Competitors Tab -->
+        <section id="uno-vs-competitors" class="tab-content">
+            <nav class="uvc-subnav" id="uvc-subnav"></nav>
+            <div id="uno-vs-competitors-content"></div>
+        </section>
+
+        <!-- AI Value Outlook Tab -->
+        <section id="ai-value-outlook" class="tab-content">
+            <div class="av-header">
+                <div class="av-header__top">
+                    <div>
+                        <h2 class="av-title">Uno + AI Value Outlook <span class="av-title__span">(Near → Medium Term)</span></h2>
+                        <p class="subtitle">A structured, interactive synthesis: what AI replaces, what it can’t, and how Uno stays strategically valuable by becoming the substrate for agentic build/test/deploy workflows.</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="av-layout">
+                <section class="av-card">
+                    <div class="av-section-title">
+                        <h3>Core Thesis</h3>
+                        <div class="av-view-chips">
+                            <span class="av-chip active" data-av-view="exec" role="button" tabindex="0">Executive</span>
+                            <span class="av-chip" data-av-view="product" role="button" tabindex="0">Product</span>
+                            <span class="av-chip" data-av-view="tech" role="button" tabindex="0">Technical</span>
+                        </div>
+                    </div>
+
+                    <div class="av-row" id="av-kpis"></div>
+
+                    <div class="av-kpi av-kpi--positioning">
+                        <div class="av-kpi__label">One-liner positioning</div>
+                        <div class="av-kpi__value" id="av-positioning-line"></div>
+                    </div>
+                </section>
+
+                <section class="av-card">
+                    <div class="av-section-title">
+                        <h3>What AI is replacing vs. what it can&#x2019;t replace</h3>
+                    </div>
+                    <div id="av-replace-cant"></div>
+                </section>
+
+                <section class="av-card">
+                    <div class="av-section-title">
+                        <h3>AI Timeline</h3>
+                    </div>
+                    <div id="av-timeline"></div>
+                </section>
+
+                <section class="av-card">
+                    <div class="av-section-title">
+                        <h3>Strategic Position &amp; Risks</h3>
+                    </div>
+                    <div class="av-color-legend">
+                        <span class="av-legend-pill"><span class="av-dot av-dot--good"></span>Strength</span>
+                        <span class="av-legend-pill"><span class="av-dot av-dot--warn"></span>Competitive pressure</span>
+                        <span class="av-legend-pill"><span class="av-dot av-dot--bad"></span>Existential risk</span>
+                    </div>
+                    <div id="av-strategic-position"></div>
+                </section>
+
+                <section class="av-card">
+                    <div class="av-section-title">
+                        <h3>Action Roadmap</h3>
+                        <div class="av-muted">Prioritized moves (agent-first)</div>
+                    </div>
+                    <div id="av-roadmap"></div>
+                </section>
+            </div>
+        </section>
+
+        <!-- Agent UX/UI Tab -->
+        <section id="agent-ux" class="tab-content">
+            <div id="ux-matrix-view"></div>
+        </section>
+
+        <!-- Requirements Tab -->
+        <section id="requirements" class="tab-content">
+            <div id="requirements-content"></div>
+        </section>
+
+    </main>
+
+    <!-- Agent UX popup overlay -->
+    <div id="ux-popup" class="ux-popup hidden">
+        <div class="ux-popup-backdrop"></div>
+        <div class="ux-popup-panel">
+            <button class="ux-popup-close" onclick="closeUxPopup()">&times;</button>
+            <h2 class="ux-popup-title"></h2>
+            <div class="ux-popup-body"></div>
+        </div>
+    </div>
+
+    <!-- Screenshot lightbox overlay -->
+    <div id="screenshot-lightbox" class="screenshot-lightbox hidden">
+        <div class="lightbox-backdrop"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close">&times;</button>
+            <button class="lightbox-prev">&#8249;</button>
+            <button class="lightbox-next">&#8250;</button>
+            <img id="lightbox-img" src="" alt="Screenshot">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <script src="verification_results.js?v=639059343428565984"></script>
+    <script src="data.js?v=639059343428565984"></script>
+    <script src="mergeVerification.js?v=639059343428565984"></script>
+    <script src="ai-value-outlook.js?v=639059355558641078"></script>
+    <script src="agent-ux-data.js"></script>
+    <script src="agent-ux.js"></script>
+    <script src="download-screenshots.js"></script>
+    <script src="search.js"></script>
+    <script src="requirements-data.js"></script>
+    <script src="requirements.js"></script>
+    <script src="app.js?v=639059355558641080"></script>
+</body>
+</html>
