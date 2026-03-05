@@ -4885,6 +4885,13 @@ mark.search-query-highlight {
   background: var(--surface-3);
   border-color: var(--border);
 }
+.req-comments-toggle--has {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.35);
+}
+.req-comments-toggle--has:hover {
+  background: rgba(251, 191, 36, 0.1);
+}
 .req-comments-toggle--open {
   color: var(--primary);
   background: rgba(100, 137, 255, 0.1);

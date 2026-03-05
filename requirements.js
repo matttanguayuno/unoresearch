@@ -268,6 +268,7 @@
       comments = _collabData.comments[featureId] || [];
       panel.innerHTML = '';
       toggleBtn.innerHTML = '💬 ' + (comments.length || '');
+      toggleBtn.classList.toggle('req-comments-toggle--has', comments.length > 0);
 
       if (comments.length === 0) {
         panel.appendChild(el('div', { cls: 'req-comments-empty', text: 'No comments yet.' }));
