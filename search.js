@@ -171,6 +171,18 @@
       });
     }
 
+    // 3f. Benchmarks
+    var benchProjects = [
+      'Flight Details', 'Football Fantasy', 'Travel Guide', 'Electric Utility Dashboard',
+      'Video Streaming', 'Notes', 'Calendar', 'Hospital Dashboard', 'Budgeting Dashboard',
+      'Recipe Home Screen', 'Fitness Tracking', 'Login Register', 'Travel Home Screen',
+      'Burger Joint', 'Fitness Home Screen'
+    ];
+    benchProjects.forEach(function (name) {
+      push(entry('uno-vs-competitors', name, name + ' benchmark performance comparison', { section: 'Benchmarks', dataId: 'benchmarks' }));
+    });
+    push(entry('uno-vs-competitors', 'Performance Benchmarks', 'Performance benchmarks time credits cost per page Uno Antigravity Lovable Dreamflow', { section: 'Benchmarks', dataId: 'benchmarks' }));
+
     // ---------- 4. Uno + AI tab (AI_VALUE_MODEL) ----------
     if (typeof AI_VALUE_MODEL !== 'undefined') {
       var avm = AI_VALUE_MODEL;
@@ -596,19 +608,35 @@
     // Remove any previous in-page highlights
     clearInPageHighlights(container);
 
-    // Walk text nodes – match each word independently
+    // Build list of phrases to search: full query first, then individual words
+    var phrases = [];
+    var fullPhrase = q.toLowerCase().trim();
+    if (words.length > 1) phrases.push(fullPhrase);
+    for (var p = 0; p < words.length; p++) phrases.push(words[p]);
+
+    // Walk text nodes – match full phrase first, then individual words
     var walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
     var matches = [];
     while (walker.nextNode()) {
       var node = walker.currentNode;
       var text = node.nodeValue;
       var lowerText = text.toLowerCase();
-      for (var w = 0; w < words.length; w++) {
+      var occupied = []; // track already-matched ranges to avoid overlaps
+      for (var ph = 0; ph < phrases.length; ph++) {
         var searchFrom = 0;
         var idx;
-        while ((idx = lowerText.indexOf(words[w], searchFrom)) !== -1) {
-          matches.push({ node: node, index: idx, length: words[w].length });
-          searchFrom = idx + words[w].length;
+        while ((idx = lowerText.indexOf(phrases[ph], searchFrom)) !== -1) {
+          var end = idx + phrases[ph].length;
+          // Skip if this range overlaps with an already-claimed range
+          var overlaps = false;
+          for (var oc = 0; oc < occupied.length; oc++) {
+            if (idx < occupied[oc][1] && end > occupied[oc][0]) { overlaps = true; break; }
+          }
+          if (!overlaps) {
+            matches.push({ node: node, index: idx, length: phrases[ph].length });
+            occupied.push([idx, end]);
+          }
+          searchFrom = idx + phrases[ph].length;
         }
       }
     }
