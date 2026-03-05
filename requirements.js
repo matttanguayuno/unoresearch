@@ -363,17 +363,36 @@
 
   // ---- Suggestion row (visual distinction) ----
   function suggestionRow(s) {
+    var hasComments = (_collabData.comments[s.id] || []).length > 0;
+    var canDelete = _author && s.author === _author && !hasComments;
+
+    var nameChildren = [
+      s.name,
+      el('span', { cls: 'req-suggested-badge', text: 'Suggested by ' + s.author })
+    ];
+    if (canDelete) {
+      nameChildren.push(el('button', {
+        cls: 'req-suggestion-delete', html: '✕', title: 'Delete your suggestion',
+        onclick: function () {
+          if (!confirm('Delete this suggested requirement?')) return;
+          apiDelete('/api/suggest', { suggestionId: s.id }, function () {
+            _collabData.suggestions = _collabData.suggestions.filter(function (x) { return x.id !== s.id; });
+            renderList();
+          });
+        }
+      }));
+    }
+
     return el('div', { cls: 'req-feature-row req-suggested-item' }, [
+      voteWidget(s.id),
       el('div', { cls: 'req-feature-info' }, [
-        el('div', { cls: 'req-feature-name' }, [
-          s.name,
-          el('span', { cls: 'req-suggested-badge', text: 'Suggested by ' + s.author })
-        ]),
+        el('div', { cls: 'req-feature-name' }, nameChildren),
         s.note ? el('div', { cls: 'req-feature-note', text: s.note }) : null
       ]),
       el('div', { cls: 'req-feature-meta' }, [
         el('div', { cls: 'req-suggested-time', text: relativeTime(s.timestamp) })
-      ])
+      ]),
+      commentSection(s.id)
     ]);
   }
 

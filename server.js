@@ -167,6 +167,27 @@ const server = createServer(async (req, res) => {
     }
   }
 
+  if (url === '/api/suggest' && req.method === 'DELETE') {
+    try {
+      const { suggestionId } = await parseBody(req);
+      if (!suggestionId) {
+        return jsonResponse(res, 400, { error: 'suggestionId required' });
+      }
+      // Only allow deletion if no comments exist for this suggestion
+      if (collabData.comments[suggestionId] && collabData.comments[suggestionId].length > 0) {
+        return jsonResponse(res, 400, { error: 'Cannot delete suggestion with comments' });
+      }
+      collabData.suggestions = collabData.suggestions.filter(s => s.id !== suggestionId);
+      // Clean up any empty comment/vote entries
+      delete collabData.comments[suggestionId];
+      delete collabData.votes[suggestionId];
+      await saveCollab();
+      return jsonResponse(res, 200, { ok: true });
+    } catch (e) {
+      return jsonResponse(res, 400, { error: e.message });
+    }
+  }
+
   // ---- Static file serving ----
   let filePath = url === '/' ? '/index.html' : url;
   filePath = decodeURIComponent(filePath);

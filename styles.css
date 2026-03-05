@@ -5101,6 +5101,22 @@ mark.search-query-highlight {
   color: var(--text-muted);
 }
 
+.req-suggestion-delete {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity 0.15s, color 0.15s;
+}
+.req-suggestion-delete:hover {
+  opacity: 1;
+  color: #ef4444;
+}
+
 /* ---- Requirements - mobile responsive ---- */
 @media (max-width: 768px) {
   .req-feature-row {
