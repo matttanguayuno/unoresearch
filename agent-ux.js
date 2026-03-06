@@ -8,15 +8,36 @@ function initAgentUx() {
   uxInitialised = true;
   renderUxMatrix();
 
-  // Close popup on backdrop click or Escape
+  // Close popup on backdrop click (with grace area) or Escape, arrow keys for navigation
   const popup = document.getElementById('ux-popup');
-  popup.querySelector('.ux-popup-backdrop').addEventListener('click', closeUxPopup);
+  popup.querySelector('.ux-popup-backdrop').addEventListener('click', (e) => {
+    // Don't close if click is within 60px of the popup panel (grace area for arrows)
+    const panel = popup.querySelector('.ux-popup-panel');
+    const rect = panel.getBoundingClientRect();
+    const grace = 60;
+    if (e.clientX >= rect.left - grace && e.clientX <= rect.right + grace &&
+        e.clientY >= rect.top - grace && e.clientY <= rect.bottom + grace) {
+      return;
+    }
+    closeUxPopup();
+  });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
-      // Only close popup if lightbox isn't open
-      const lightbox = document.getElementById('screenshot-lightbox');
-      if (lightbox && !lightbox.classList.contains('hidden')) return;
+    if (popup.classList.contains('hidden')) return;
+    // Only close popup if lightbox isn't open
+    const lightbox = document.getElementById('screenshot-lightbox');
+    if (lightbox && !lightbox.classList.contains('hidden')) return;
+    if (e.key === 'Escape') {
       closeUxPopup();
+    } else if (e.key === 'ArrowLeft') {
+      navigateUxPopup('tool', -1);
+    } else if (e.key === 'ArrowRight') {
+      navigateUxPopup('tool', 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      navigateUxPopup('feature', -1);
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      navigateUxPopup('feature', 1);
     }
   });
 }
@@ -40,11 +61,8 @@ function renderUxMatrix() {
       const cell = getUxCell(tool.id, feature.id);
       const statusIcon = cell.status === 'YES' ? '✅' : cell.status === 'LIMITED' ? '⚠️' : '❌';
       const statusClass = cell.status === 'YES' ? 'ux-status-yes' : cell.status === 'LIMITED' ? 'ux-status-limited' : 'ux-status-no';
-      const clickAction = cell.screenshots.length > 0
-        ? `onclick="openCellPopup('${tool.id}', '${feature.id}')"`
-        : '';
       const hasShots = cell.screenshots.length > 0 ? 'ux-has-shots' : '';
-      cells += `<td class="ux-matrix-cell ${statusClass} ${hasShots}" ${clickAction} title="${tool.name}: ${feature.name} — ${cell.status}">
+      cells += `<td class="ux-matrix-cell ux-clickable ${statusClass} ${hasShots}" onclick="openCellPopup('${tool.id}', '${feature.id}')" title="${tool.name}: ${feature.name} — ${cell.status}">
         <span class="ux-status-icon">${statusIcon}</span>
       </td>`;
     }
@@ -77,6 +95,7 @@ function openUxPopup(titleHtml, bodyHtml) {
   popup.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
   setupUxPopupSwipe();
+  updateUxPopupArrows();
 }
 
 function setupUxPopupSwipe() {
@@ -102,7 +121,15 @@ function setupUxPopupSwipe() {
     const dx = e.changedTouches[0].clientX - startX;
     const dy = e.changedTouches[0].clientY - startY;
     if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-      navigateUxPopup(dx < 0 ? 1 : -1);
+      // Horizontal swipe: tools for cells, features for feature popups, tools for tool popups
+      const ctx = uxPopupContext;
+      if (ctx.type === 'cell') {
+        navigateUxPopup('tool', dx < 0 ? 1 : -1);
+      } else if (ctx.type === 'feature') {
+        navigateUxPopup('feature', dx < 0 ? 1 : -1);
+      } else {
+        navigateUxPopup('tool', dx < 0 ? 1 : -1);
+      }
     }
   }
 
@@ -114,25 +141,77 @@ function setupUxPopupSwipe() {
   };
 }
 
-function navigateUxPopup(direction) {
+function updateUxPopupArrows() {
+  const popup = document.getElementById('ux-popup');
   const ctx = uxPopupContext;
+
+  // Remove existing arrows
+  popup.querySelectorAll('.ux-popup-arrow').forEach(a => a.remove());
+
+  function addArrow(cls, html, title, disabled, axis, dir) {
+    const btn = document.createElement('button');
+    btn.className = 'ux-popup-arrow ' + cls;
+    btn.innerHTML = html;
+    btn.title = title;
+    btn.disabled = disabled;
+    btn.addEventListener('click', () => navigateUxPopup(axis, dir));
+    popup.appendChild(btn);
+  }
+
   if (ctx.type === 'cell') {
-    // Navigate features for the same tool
-    const featureIdx = AGENT_UX_FEATURES.findIndex(f => f.id === ctx.featureId);
-    const newIdx = featureIdx + direction;
-    if (newIdx >= 0 && newIdx < AGENT_UX_FEATURES.length) {
-      openCellPopup(ctx.toolId, AGENT_UX_FEATURES[newIdx].id);
-    }
+    const fIdx = AGENT_UX_FEATURES.findIndex(f => f.id === ctx.featureId);
+    const tIdx = AGENT_UX_TOOLS.findIndex(t => t.id === ctx.toolId);
+    addArrow('ux-popup-arrow--up',    '&#8249;', 'Previous feature (↑)', fIdx <= 0,                             'feature', -1);
+    addArrow('ux-popup-arrow--down',  '&#8250;', 'Next feature (↓)',     fIdx >= AGENT_UX_FEATURES.length - 1,  'feature',  1);
+    addArrow('ux-popup-arrow--left',  '&#8249;', 'Previous tool (←)',    tIdx <= 0,                             'tool',    -1);
+    addArrow('ux-popup-arrow--right', '&#8250;', 'Next tool (→)',        tIdx >= AGENT_UX_TOOLS.length - 1,     'tool',     1);
   } else if (ctx.type === 'feature') {
+    const fIdx = AGENT_UX_FEATURES.findIndex(f => f.id === ctx.featureId);
+    addArrow('ux-popup-arrow--up',   '&#8249;', 'Previous feature (↑)', fIdx <= 0,                             'feature', -1);
+    addArrow('ux-popup-arrow--down', '&#8250;', 'Next feature (↓)',     fIdx >= AGENT_UX_FEATURES.length - 1,  'feature',  1);
+  } else if (ctx.type === 'tool') {
+    const tIdx = AGENT_UX_TOOLS.findIndex(t => t.id === ctx.toolId);
+    addArrow('ux-popup-arrow--left',  '&#8249;', 'Previous tool (←)', tIdx <= 0,                           'tool', -1);
+    addArrow('ux-popup-arrow--right', '&#8250;', 'Next tool (→)',     tIdx >= AGENT_UX_TOOLS.length - 1,   'tool',  1);
+  }
+
+  // Position up/down arrows relative to the panel's actual bounding box
+  const panel = popup.querySelector('.ux-popup-panel');
+  requestAnimationFrame(() => {
+    const rect = panel.getBoundingClientRect();
+    popup.querySelectorAll('.ux-popup-arrow--up').forEach(a => {
+      a.style.top = (rect.top - 48) + 'px';
+    });
+    popup.querySelectorAll('.ux-popup-arrow--down').forEach(a => {
+      a.style.top = (rect.bottom + 8) + 'px';
+    });
+  });
+}
+
+function navigateUxPopup(axis, direction) {
+  const ctx = uxPopupContext;
+  if (axis === 'feature') {
+    // Navigate along feature axis (rows)
+    if (!ctx.featureId && ctx.type !== 'feature') return;
     const featureIdx = AGENT_UX_FEATURES.findIndex(f => f.id === ctx.featureId);
     const newIdx = featureIdx + direction;
-    if (newIdx >= 0 && newIdx < AGENT_UX_FEATURES.length) {
+    if (newIdx < 0 || newIdx >= AGENT_UX_FEATURES.length) return;
+    if (ctx.type === 'cell') {
+      openCellPopup(ctx.toolId, AGENT_UX_FEATURES[newIdx].id);
+    } else {
       openFeaturePopup(AGENT_UX_FEATURES[newIdx].id);
     }
-  } else if (ctx.type === 'tool') {
-    const toolIdx = AGENT_UX_TOOLS.findIndex(t => t.id === ctx.toolId);
-    const newIdx = toolIdx + direction;
-    if (newIdx >= 0 && newIdx < AGENT_UX_TOOLS.length) {
+  } else if (axis === 'tool') {
+    // Navigate along tool axis (columns)
+    if (ctx.type === 'cell') {
+      const toolIdx = AGENT_UX_TOOLS.findIndex(t => t.id === ctx.toolId);
+      const newIdx = toolIdx + direction;
+      if (newIdx < 0 || newIdx >= AGENT_UX_TOOLS.length) return;
+      openCellPopup(AGENT_UX_TOOLS[newIdx].id, ctx.featureId);
+    } else if (ctx.type === 'tool') {
+      const toolIdx = AGENT_UX_TOOLS.findIndex(t => t.id === ctx.toolId);
+      const newIdx = toolIdx + direction;
+      if (newIdx < 0 || newIdx >= AGENT_UX_TOOLS.length) return;
       openToolPopup(AGENT_UX_TOOLS[newIdx].id);
     }
   }
@@ -189,9 +268,23 @@ function openCellPopup(toolId, featureId) {
   const cell = getUxCell(toolId, featureId);
   const shots = cell.screenshots.map(f => buildShotEntry(toolId, f));
 
+  const statusText = cell.status === 'YES' ? 'Supported' : cell.status === 'LIMITED' ? 'Limited' : 'Not Supported';
+  const statusIcon = cell.status === 'YES' ? '✅' : cell.status === 'LIMITED' ? '⚠️' : '❌';
+
+  let bodyHtml = '<div class="ux-cell-detail">';
+  bodyHtml += `<p class="ux-cell-status">${statusIcon} <span class="ux-cell-status-label">${statusText}</span></p>`;
+  if (cell.note) {
+    bodyHtml += `<div class="ux-cell-note">${cell.note}</div>`;
+  }
+  bodyHtml += '</div>';
+
+  if (shots.length > 0) {
+    bodyHtml += buildPinterestGrid(shots);
+  }
+
   openUxPopup(
     `${feature.icon} ${feature.name} — ${tool.name}`,
-    buildPinterestGrid(shots)
+    bodyHtml
   );
 }
 

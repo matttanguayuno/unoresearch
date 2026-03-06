@@ -302,13 +302,13 @@
 
     for (var i = 0; i < searchIndex.length; i++) {
       var e = searchIndex[i];
-      var lower = e.text.toLowerCase();
+      var combined = (e.title + ' ' + e.text).toLowerCase();
 
-      // Every word must appear somewhere in the text
+      // Every word must appear somewhere in the title or text
       var allMatch = true;
       var firstIdx = -1;
       for (var w = 0; w < words.length; w++) {
-        var wIdx = lower.indexOf(words[w]);
+        var wIdx = combined.indexOf(words[w]);
         if (wIdx === -1) { allMatch = false; break; }
         if (firstIdx === -1 || wIdx < firstIdx) firstIdx = wIdx;
       }
@@ -323,13 +323,23 @@
       });
       if (isDupe) continue;
 
+      // Compute firstIdx relative to text only (for snippet extraction)
+      var textLower = e.text.toLowerCase();
+      var snippetIdx = -1;
+      for (var si = 0; si < words.length; si++) {
+        var sIdx = textLower.indexOf(words[si]);
+        if (sIdx !== -1 && (snippetIdx === -1 || sIdx < snippetIdx)) snippetIdx = sIdx;
+      }
+      // If match is only in title, show start of text
+      if (snippetIdx === -1) snippetIdx = 0;
+
       grouped[e.tabId].push({
         tabId: e.tabId,
         title: e.title,
         section: e.section,
         dataId: e.dataId,
         toolId: e.toolId || '',
-        snippet: buildSnippet(e.text, firstIdx, words, lower)
+        snippet: buildSnippet(e.text, snippetIdx, words, textLower)
       });
     }
 
@@ -393,7 +403,13 @@
       items.forEach(function (item, i) {
         var hiddenClass = (collapsed && i >= MAX_RESULTS_PER_TAB) ? ' search-result-hidden' : '';
         html += '<button class="search-result-item' + hiddenClass + '" data-tab="' + item.tabId + '" data-id="' + escHtml(item.dataId || '') + '" data-section="' + escHtml(item.section || '') + '" data-tool="' + escHtml(item.toolId || '') + '">';
-        html += '<span class="search-result-title">' + escHtml(item.title) + '</span>';
+        var highlightedTitle = escHtml(item.title);
+        var titleWords = lastQuery.toLowerCase().split(/\s+/).filter(function(w) { return w.length > 0; });
+        for (var tw = 0; tw < titleWords.length; tw++) {
+          var tre = new RegExp('(' + escRegex(titleWords[tw]) + ')', 'gi');
+          highlightedTitle = highlightedTitle.replace(tre, '<mark>$1</mark>');
+        }
+        html += '<span class="search-result-title">' + highlightedTitle + '</span>';
         if (item.section) {
           html += '<span class="search-result-section">' + escHtml(item.section) + '</span>';
         }
@@ -483,8 +499,47 @@
       target = document.querySelector('[data-feature-id="' + CSS.escape(dataId) + '"]');
 
     } else if (tabId === 'tool-comparison') {
-      // Tool sidebar items
-      target = document.querySelector('[data-tool-id="' + CSS.escape(dataId) + '"]');
+      // Select the tool to load its content, then scroll to section
+      var sidebarItem = document.querySelector('.tool-item[data-tool-id="' + CSS.escape(dataId) + '"]');
+      if (sidebarItem) {
+        sidebarItem.classList.add('active');
+        // Remove active from siblings
+        var allItems = document.querySelectorAll('.tool-item');
+        allItems.forEach(function (item) {
+          if (item !== sidebarItem) item.classList.remove('active');
+        });
+      }
+      // Sync mobile dropdown
+      var mobileDD = document.getElementById('tool-mobile-dropdown');
+      if (mobileDD) mobileDD.value = dataId;
+      // Load the tool profile content
+      if (typeof showToolProfile === 'function') {
+        showToolProfile(dataId);
+      }
+      // After content renders, scroll to the relevant section and highlight
+      setTimeout(function () {
+        var scrollTarget = null;
+        if (section) {
+          // Section is like "K. AI agent configuration" — extract the letter
+          var sectionLetter = section.charAt(0);
+          var sectionAnchor = document.getElementById('tool-section-' + dataId + '-' + sectionLetter);
+          if (sectionAnchor) {
+            scrollTarget = sectionAnchor;
+          }
+        }
+        if (scrollTarget) {
+          scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          scrollTarget.classList.add('search-highlight');
+          setTimeout(function () { scrollTarget.classList.remove('search-highlight'); }, 2500);
+        }
+        // Highlight search terms in the loaded content
+        var tabContainer = document.getElementById(tabId);
+        if (tabContainer) {
+          clearInPageHighlights(tabContainer);
+          highlightQueryInElement(tabContainer);
+        }
+      }, 150);
+      return; // skip the default highlighting below
     } else if (tabId === 'uno-vs-competitors') {
       // Cards use data-card-id; threats use data-id; some have id=""
       target = document.querySelector('[data-card-id="' + CSS.escape(dataId) + '"]')

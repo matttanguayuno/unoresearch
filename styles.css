@@ -675,6 +675,21 @@ h4 {
     display: none;
 }
 
+/* Bullet lists inside note text */
+#detail-content ul,
+.req-detail-panel ul,
+.tool-detail-panel ul {
+    margin: 0.4rem 0 0.4rem 0;
+    padding-left: 1.25rem;
+    list-style: disc;
+}
+#detail-content ul li,
+.req-detail-panel ul li,
+.tool-detail-panel ul li {
+    margin: 0.15rem 0;
+    line-height: 1.5;
+}
+
 .close-panel {
     background: var(--surface);
     border: var(--stroke) solid var(--border);
@@ -1003,6 +1018,18 @@ h4 {
 .feature-summary-item .status {
     display: inline-block;
     margin-right: 0.5rem;
+}
+
+.feature-summary-item p ul,
+.feature-summary-item ul {
+    margin: 0.5rem 0 0.4rem;
+    padding-left: 1.5rem;
+    list-style: disc;
+}
+.feature-summary-item p ul li,
+.feature-summary-item ul li {
+    margin: 0.15rem 0;
+    line-height: 1.5;
 }
 
 /* Evidence */
@@ -3836,10 +3863,10 @@ footer {
     transition: background 0.15s, transform 0.1s;
     position: relative;
 }
-.ux-matrix-cell.ux-has-shots {
+.ux-matrix-cell.ux-clickable {
     cursor: pointer;
 }
-.ux-matrix-cell.ux-has-shots:hover {
+.ux-matrix-cell.ux-clickable:hover {
     box-shadow: inset 0 0 0 2px var(--primary);
     z-index: 1;
 }
@@ -3850,6 +3877,32 @@ footer {
 
 .ux-status-icon {
     font-size: 1rem;
+}
+
+/* ── Cell Detail (inside popup) ───────────────────────────────── */
+
+.ux-cell-detail {
+    margin-bottom: 1.2rem;
+}
+.ux-cell-status {
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+}
+.ux-cell-status-label {
+    font-weight: 600;
+}
+.ux-cell-note {
+    color: var(--text-muted);
+    line-height: 1.65;
+}
+.ux-cell-note ul {
+    margin: 0.4rem 0;
+    padding-left: 1.25rem;
+    list-style: disc;
+}
+.ux-cell-note ul li {
+    margin: 0.15rem 0;
+    line-height: 1.5;
 }
 
 /* ── Near-fullscreen Popup ────────────────────────────────────── */
@@ -3875,10 +3928,11 @@ footer {
     position: relative;
     z-index: 1;
     background: var(--bg);
+    color: var(--text);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     width: 94vw;
-    height: 92vh;
+    max-height: 92vh;
     max-width: 1600px;
     display: flex;
     flex-direction: column;
@@ -3976,6 +4030,53 @@ footer {
     text-align: center;
     padding: 3rem 1rem;
     font-style: italic;
+}
+
+/* ── Popup Arrow Nav (desktop) ─────────────────────────────── */
+
+.ux-popup-arrow {
+    position: absolute;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    z-index: 3;
+}
+.ux-popup-arrow:hover {
+    background: var(--surface-3);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+.ux-popup-arrow--left {
+    left: calc((100vw - min(94vw, 1600px)) / 2 - 3.2rem);
+    top: 50%;
+    transform: translateY(-50%);
+}
+.ux-popup-arrow--right {
+    right: calc((100vw - min(94vw, 1600px)) / 2 - 3.2rem);
+    top: 50%;
+    transform: translateY(-50%);
+}
+.ux-popup-arrow--up {
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+}
+.ux-popup-arrow--down {
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+}
+.ux-popup-arrow:disabled {
+    opacity: 0.25;
+    cursor: default;
+    pointer-events: none;
 }
 
 /* ── Tool Nav & Video (inside popup) ──────────────────────────── */

@@ -151,7 +151,7 @@ const requirementsData = {
       id: "ai_config",
       name: "K. AI Agent Configuration",
       features: [
-        { id: "llm-model-selection", name: "LLM model selection", priority: "p1", coverage: "4/6", coverageDetail: "3 YES + 1 LIMITED", note: "Lovable, Bolt, and Tempo let users choose models. Offer model-agnostic architecture." },
+        { id: "llm-model-selection", name: "LLM model selection", priority: "p1", coverage: "3/6", coverageDetail: "2 YES + 1 LIMITED", note: "Bolt (5 Claude models) and Tempo (7 models) let users choose. Builder has internal routing. Offer model-agnostic architecture." },
         { id: "local-self-hosted-ai", name: "Local / self-hosted AI execution", priority: "p2", coverage: "0/6", coverageDetail: "1 LIMITED (bolt.diy only)", note: "Enterprise and government need code to never leave their network. Unique enterprise offering.", highlight: true }
       ]
     },

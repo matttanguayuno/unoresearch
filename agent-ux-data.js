@@ -33,6 +33,7 @@ const AGENT_UX_FEATURES = [
   { id: 'multi-mode',      name: 'Multi-Mode',         icon: '🔀' },
   { id: 'speech-to-text',  name: 'Speech to Text',     icon: '🎙️' },
   { id: 'token-management',name: 'Token Management',   icon: '🪙' },
+  { id: 'llm-model-selection', name: 'LLM Model Selection', icon: '🤖' },
 ];
 
 // Video filenames per tool
@@ -72,6 +73,7 @@ const AGENT_UX_MATRIX = {
     'multi-mode':      { status: 'YES', screenshots: ['14. Multi-Mode - 1.png', '15. Multi-Mode - 2.png'] },
     'speech-to-text':  { status: 'NO',  screenshots: [] },
     'token-management':{ status: 'YES', screenshots: ['13. Token Management - 1.png', '13. Token Management - 2.png'] },
+    'llm-model-selection': { status: 'YES', screenshots: [], note: 'Model switching available with 5 options:<ul><li>Claude Haiku 4.5</li><li>Sonnet 4.5 (default)</li><li>Sonnet 4.6</li><li>Opus 4.5</li><li>Opus 4.6</li></ul>' },
   },
 
   // ── Builder ──
@@ -95,6 +97,7 @@ const AGENT_UX_MATRIX = {
     'multi-mode':      { status: 'YES', screenshots: ['23. Multi-Mode - 1.png', '24. Multi-Mode - 2.png', '25. Multi-Mode - 3.png'] },
     'speech-to-text':  { status: 'NO',  screenshots: [] },
     'token-management':{ status: 'YES', screenshots: ['26. Token Management - 1.png', '27. Token Management - 2.png'] },
+    'llm-model-selection': { status: 'NO', screenshots: [], note: 'Uses its own proprietary model routing (Visual Copilot). Enterprise plans may offer model configuration but not documented as user-facing choice.' },
   },
 
   // ── Claude ──
@@ -118,6 +121,7 @@ const AGENT_UX_MATRIX = {
     'multi-mode':      { status: 'NO',  screenshots: [] },
     'speech-to-text':  { status: 'NO',  screenshots: [] },
     'token-management':{ status: 'YES', screenshots: ['10. Token Management.png'] },
+    'llm-model-selection': { status: 'YES', screenshots: [], note: 'Model picker in chat with 3 options:<ul><li>Opus 4.6</li><li>Sonnet 4.6</li><li>Haiku 4.5</li></ul>' },
   },
 
   // ── Codex ──
@@ -141,6 +145,7 @@ const AGENT_UX_MATRIX = {
     'multi-mode':      { status: 'YES', screenshots: ['20. Multi-Mode.png'] },
     'speech-to-text':  { status: 'YES', screenshots: ['16. Speech to Text.png'] },
     'token-management':{ status: 'YES', screenshots: ['15. Token Management.png'] },
+    'llm-model-selection': { status: 'LIMITED', screenshots: [], note: 'OpenAI models only — no third-party providers:<ul><li>GPT-5.3 Codex (default)</li><li>GPT-5.2 Codex</li></ul>' },
   },
 
   // ── Cursor ──
@@ -164,6 +169,7 @@ const AGENT_UX_MATRIX = {
     'multi-mode':      { status: 'YES', screenshots: ['30. Multi-Mode.png'] },
     'speech-to-text':  { status: 'YES', screenshots: ['32. Speech to Text.png'] },
     'token-management':{ status: 'NO',  screenshots: [] },
+    'llm-model-selection': { status: 'YES', screenshots: [], note: 'Extensive model picker + bring-your-own-model (BYOM) support:<ul><li>Auto</li><li>Composer 1.5</li><li>GPT-5.2</li><li>Opus 4.6</li><li>Gemini 3 Pro</li><li>Grok Code</li></ul>Also supports custom API keys for additional providers.' },
   },
 
   // ── Lovable ──
@@ -187,6 +193,7 @@ const AGENT_UX_MATRIX = {
     'multi-mode':      { status: 'YES', screenshots: ['16. Multi-Mode.png'] },
     'speech-to-text':  { status: 'YES', screenshots: ['15. Speech to Text.png'] },
     'token-management':{ status: 'YES', screenshots: ['17. Token Management - 1.png', '18. Token Management - 2.png'] },
+    'llm-model-selection': { status: 'NO', screenshots: [], note: 'No user-facing model selector. Internally uses:<ul><li>Claude Opus 4.5/4.6</li><li>Claude Sonnet 4.5</li></ul>Lovable AI (in-app chatbot) uses:<ul><li>GPT-5.2</li><li>Gemini 3 Flash/Pro</li></ul>' },
   },
 
   // ── Replit ──
@@ -210,6 +217,7 @@ const AGENT_UX_MATRIX = {
     'multi-mode':      { status: 'YES', screenshots: ['22. Multi-Mode - 1.png', '23. Multi-Mode - 2.png'] },
     'speech-to-text':  { status: 'NO',  screenshots: [] },
     'token-management':{ status: 'YES', screenshots: ['21. Tokens - 1.png'] },
+    'llm-model-selection': { status: 'NO', screenshots: [], note: 'No model selection. Uses a fixed undisclosed model for all AI operations.' },
   },
 
   // ── Vercel ──
@@ -233,6 +241,7 @@ const AGENT_UX_MATRIX = {
     'multi-mode':      { status: 'NO',  screenshots: [] },
     'speech-to-text':  { status: 'NO',  screenshots: [] },
     'token-management':{ status: 'NO',  screenshots: [] },
+    'llm-model-selection': { status: 'NO', screenshots: [], note: 'Undisclosed model via Vercel AI Gateway. No user-facing model selection.' },
   },
 
   // ── VS Code ──
@@ -256,6 +265,7 @@ const AGENT_UX_MATRIX = {
     'multi-mode':      { status: 'YES', screenshots: ['24. Multi-Mode.png'] },
     'speech-to-text':  { status: 'NO',  screenshots: [] },
     'token-management':{ status: 'YES', screenshots: ['25. Token Management - 1.png'] },
+    'llm-model-selection': { status: 'YES', screenshots: [], note: 'Broadest model selection with 20+ options and BYOM support:<ul><li>GPT-4.1 / GPT-5.2 / GPT-5.3 Codex</li><li>Claude Opus 4.6 / Sonnet 4.6 / Haiku 4.5</li><li>Gemini 2.5 Pro / Gemini 3 Pro / Flash</li><li>Grok</li></ul>Also supports bring-your-own-model via custom API keys.' },
   },
 };
 
