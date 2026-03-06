@@ -712,33 +712,55 @@
 
   // ---- Category sub-navigation ----
   function buildCategoryNav() {
-    var nav = el('nav', { cls: 'req-cat-nav', id: 'req-cat-nav' });
+    var container = el('div', { cls: 'req-cat-nav-container', id: 'req-cat-nav' });
+
+    // Desktop: pill links
+    var nav = el('nav', { cls: 'req-cat-nav req-cat-nav--pills' });
     requirementsData.categories.forEach(function (cat) {
       var letter = cat.name.split('.')[0];
       var shortLabel = cat.name.replace(/^[A-L]\.\s*/, '');
-      // Truncate long labels
-      if (shortLabel.length > 20) shortLabel = shortLabel.substring(0, 18) + '…';
       var item = el('a', {
         cls: 'req-cat-nav-item',
         href: '#req-cat-' + cat.id,
         text: letter + '. ' + shortLabel,
         onclick: function (e) {
           e.preventDefault();
-          var target = document.getElementById('req-cat-' + cat.id);
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            // Expand if collapsed
-            if (target.classList.contains('req-group--collapsed')) {
-              target.classList.remove('req-group--collapsed');
-              var toggle = target.querySelector('.req-group-toggle');
-              if (toggle) toggle.innerHTML = '▾';
-            }
-          }
+          scrollToCategory(cat.id);
         }
       });
       nav.appendChild(item);
     });
-    return nav;
+    container.appendChild(nav);
+
+    // Mobile: dropdown
+    var select = el('select', { cls: 'req-cat-nav req-cat-nav--dropdown' });
+    select.appendChild(el('option', { value: '', text: 'Jump to section…' }));
+    requirementsData.categories.forEach(function (cat) {
+      var letter = cat.name.split('.')[0];
+      var shortLabel = cat.name.replace(/^[A-L]\.\s*/, '');
+      select.appendChild(el('option', { value: cat.id, text: letter + '. ' + shortLabel }));
+    });
+    select.addEventListener('change', function () {
+      if (select.value) {
+        scrollToCategory(select.value);
+        select.value = '';
+      }
+    });
+    container.appendChild(select);
+
+    return container;
+  }
+
+  function scrollToCategory(catId) {
+    var target = document.getElementById('req-cat-' + catId);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (target.classList.contains('req-group--collapsed')) {
+        target.classList.remove('req-group--collapsed');
+        var toggle = target.querySelector('.req-group-toggle');
+        if (toggle) toggle.innerHTML = '▾';
+      }
+    }
   }
 
   // ---- Build "By Category" view ----
@@ -801,10 +823,8 @@
       el('div', { cls: 'av-header__top' }, [
         el('div', {}, [
           el('h2', { cls: 'av-title' }, [
-            'Uno Studio Live Requirements',
-            el('span', { cls: 'av-title__span', text: ' (' + totalCount + ' features, Draft)' })
-          ]),
-          el('p', { cls: 'subtitle', text: requirementsData.meta.subtitle })
+            'Studio Live Requirements'
+          ])
         ])
       ]),
       el('div', { cls: 'req-author-bar', id: 'req-author-bar' })
@@ -839,11 +859,11 @@
     // Expand/Collapse buttons (grouped together)
     var expandCollapseGroup = el('div', { cls: 'req-expand-group' });
     var expandBtn = el('button', {
-      cls: 'uvc-subnav-btn req-expand-btn', text: 'Expand All', type: 'button',
+      cls: 'uvc-subnav-btn req-expand-btn', html: '⊞', title: 'Expand All', type: 'button',
       onclick: function () { toggleAllGroups(true); }
     });
     var collapseBtn = el('button', {
-      cls: 'uvc-subnav-btn req-expand-btn', text: 'Collapse All', type: 'button',
+      cls: 'uvc-subnav-btn req-expand-btn', html: '⊟', title: 'Collapse All', type: 'button',
       onclick: function () { toggleAllGroups(false); }
     });
     expandCollapseGroup.appendChild(expandBtn);

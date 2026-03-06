@@ -693,6 +693,9 @@ function switchTab(tabId, fromHash) {
   // Update buttons
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.tab === tabId);
+    if (btn.dataset.tab === tabId) {
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
   });
   
   // Update content
@@ -763,7 +766,7 @@ function renderFeatureMap() {
     
     // Add section header as a row spanning all columns
     const sectionTitle = section.headline || section.name;
-    bodyHtml += `<tr class="section-header-row"><td colspan="${currentData.tools.length + 1}" class="section-header">${sectionTitle}</td></tr>`;
+    bodyHtml += `<tr class="section-header-row"><td colspan="${currentData.tools.length + 1}" class="section-header"><span class="section-header-text">${sectionTitle}</span></td></tr>`;
     
     features.forEach(feature => {
       bodyHtml += '<tr>';
