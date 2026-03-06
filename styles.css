@@ -651,7 +651,7 @@ h4 {
     position: absolute;
     max-height: 80vh;
     border: var(--stroke) solid var(--border-bright);
-    z-index: 100;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -4723,6 +4723,22 @@ mark.search-query-highlight {
 .req-feature-info {
   flex: 1;
   min-width: 0;
+  cursor: pointer;
+}
+
+.req-feature-clickable {
+  cursor: pointer;
+}
+
+.req-feature-clickable:hover .req-feature-name {
+  color: var(--uno-violet);
+}
+
+.req-status-icon {
+  font-size: 13px;
+  margin-left: 0.15rem;
+  opacity: 0.85;
+  cursor: default;
 }
 
 .req-feature-name {
@@ -4745,6 +4761,17 @@ mark.search-query-highlight {
   font-size: 13px;
   color: var(--text-muted);
   line-height: 1.5;
+}
+
+.req-feature-link {
+  color: var(--text);
+  border-bottom: 1px dashed rgba(140, 0, 184, 0.4);
+  transition: color 0.15s, border-color 0.15s;
+  cursor: pointer;
+}
+.req-feature-clickable:hover .req-feature-link {
+  color: var(--uno-violet);
+  border-bottom-color: var(--uno-violet);
 }
 
 .req-feature-meta {
@@ -4857,8 +4884,12 @@ mark.search-query-highlight {
 }
 
 /* ---- Expand / Collapse buttons ---- */
-.req-expand-btn {
+.req-expand-group {
+  display: flex;
+  gap: 0.35rem;
   margin-left: auto;
+}
+.req-expand-btn {
   font-size: 12px !important;
   padding: 0.3rem 0.6rem !important;
   opacity: 0.7;
@@ -5046,18 +5077,17 @@ mark.search-query-highlight {
 }
 
 .req-comments-panel {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 4px);
+  position: fixed;
   width: 320px;
   max-height: 280px;
   overflow-y: auto;
-  background: var(--surface);
-  border: var(--stroke) solid var(--border);
+  background: #0e0e16;
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: var(--radius-lg);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.8), 0 0 0 1px rgba(0,0,0,0.4);
   padding: 0.75rem;
-  z-index: 100;
+  padding-top: 1.5rem;
+  z-index: 10000;
 }
 .req-comments-empty {
   font-size: 12px;
@@ -5084,6 +5114,7 @@ mark.search-query-highlight {
 .req-comment-time {
   color: var(--text-muted);
   font-size: 11px;
+  margin-left: 0.4rem;
 }
 .req-comment-text {
   font-size: 13px;
@@ -5096,14 +5127,33 @@ mark.search-query-highlight {
   color: var(--text-muted);
   cursor: pointer;
   font-size: 11px;
-  padding: 0 2px;
+  padding: 0;
   margin-left: auto;
-  opacity: 0.5;
+  opacity: 0.6;
   transition: opacity 0.15s, color 0.15s;
+  text-decoration: underline;
 }
 .req-comment-delete:hover {
   opacity: 1;
   color: #ef4444;
+}
+.req-comments-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 4px;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity 0.15s, color 0.15s;
+}
+.req-comments-close:hover {
+  opacity: 1;
+  color: white;
 }
 .req-comment-input-row {
   display: flex;
@@ -5144,19 +5194,20 @@ mark.search-query-highlight {
   padding: 0.5rem 0 0;
 }
 .req-suggest-btn {
-  background: none;
-  border: 1px dashed var(--border);
-  border-radius: var(--radius-md);
-  padding: 0.5rem 0.75rem;
-  color: var(--text-muted);
-  font-size: 13px;
+  background: rgba(140, 0, 184, 0.08);
+  border: 1px solid rgba(140, 0, 184, 0.25);
+  border-radius: 20px;
+  padding: 0.3rem 0.85rem;
+  color: var(--uno-violet);
+  font-size: 12px;
+  font-weight: 500;
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
-  width: 100%;
+  transition: background 0.15s, border-color 0.15s;
+  width: auto;
   text-align: center;
 }
 .req-suggest-btn:hover {
-  color: var(--uno-violet);
+  background: rgba(140, 0, 184, 0.15);
   border-color: var(--uno-violet);
 }
 .req-suggest-form {
@@ -5282,7 +5333,6 @@ mark.search-query-highlight {
   }
   .req-comments-panel {
     width: 260px;
-    right: -20px;
   }
   .req-author-modal-card {
     margin: 1rem;

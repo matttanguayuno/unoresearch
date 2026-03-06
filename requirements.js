@@ -8,6 +8,159 @@
   var _author = localStorage.getItem('req-author') || '';
   var _openCommentPanel = null; // track currently open comment panel to auto-close
 
+  // ---- Mapping from requirement IDs to data.js feature IDs ----
+  var REQ_TO_FEATURE = {
+    'github-native-integration': 'gh_native',
+    'branching': 'branching',
+    'code-export-project-ownership': 'code_export_native_ownership',
+    'import-existing-repo': 'import_repo',
+    'create-new-repo': 'create_repo',
+    'push-prs': 'pr_creation',
+    'merging-in-product': 'merge_in_product',
+    'codebase-aware-prompting': 'codebase_aware_prompting',
+    'file-component-targeting': 'file_component_targeting',
+    'diff-aware-prompting': 'diff_aware_prompting',
+    'persistent-prompt-memory': 'persistent_prompt_memory',
+    'screenshot-as-prompt-input': 'screenshot_prompt_input',
+    'repo-as-ai-input': 'repo_as_ai_input',
+    'figma-app-import': 'figma_import',
+    'runtime-preview-state-ai-input': 'runtime_preview_as_input',
+    'custom-assets': 'custom_assets',
+    'mcp-tool-connectors': 'mcp_connectors',
+    'db-state-usable-by-ai': 'db_state_as_context',
+    'telemetry-analytics-ai-input': 'telemetry_as_context',
+    'backend-integration': 'opinionated_backend',
+    'secrets-management': 'secrets_handling_documented',
+    'validation-before-apply': 'validation_before_apply',
+    'shareable-preview-staging': 'shareable_preview_links',
+    'auto-rollback-on-failure': 'auto_rollback',
+    'explicit-mobile-app-target': 'explicit_mobile_target',
+    'mobile-framework': 'mobile_framework',
+    'on-device-testing': 'on_device_testing',
+    'hot-reload-on-device': 'hot_reload_on_device',
+    'native-ui-navigation': 'native_ui_navigation',
+    'device-apis-services': 'device_apis_services',
+    'mobile-first-editing': 'mobile_first_editing',
+    'web-app-publishing': 'web_publishing',
+    'app-store-deployment': 'app_store_deployment',
+    'live-updates-after-publish': 'live_updates_after_publish',
+    'cross-platform-7-targets': 'cross_platform_single_codebase',
+    'desktop-app-target': 'desktop_app_target',
+    'embedded-iot-targets': 'embedded_iot_target',
+    'accessible-output-wcag': 'a11y_generation',
+    'visual-regression-testing': 'visual_regression_testing',
+    'design-system-theming': 'design_system_enforcement',
+    'llm-model-selection': 'llm_model_choice',
+    'local-self-hosted-ai': 'local_selfhosted_ai',
+    'credits-token-pricing': 'credits',
+    'sample-templates': 'templates',
+    'in-app-feedback': 'feedback'
+  };
+
+  // ---- Show competitive landscape panel ----
+  function showCompetitiveLandscape(reqId, event) {
+    var featureId = REQ_TO_FEATURE[reqId];
+    if (!featureId) return;
+    var feature = findFeature(featureId);
+    if (!feature) return;
+
+    var tools = currentData.tools;
+    var html = '<h3 style="color:white;margin-bottom:0.25rem;">' + feature.name + '</h3>';
+    html += '<p style="color:var(--text-muted);font-size:12px;margin-bottom:1rem;">What competitors are doing</p>';
+
+    if (feature.whyItMatters) {
+      html += '<div class="detail-section">';
+      html += '<h4 style="color:var(--primary);">Why It Matters</h4>';
+      html += '<p style="color:var(--text-secondary);line-height:1.65;">' + feature.whyItMatters + '</p>';
+      html += '</div>';
+    }
+
+    html += '<div class="detail-section" style="margin-top:1rem;">';
+    html += '<h4 style="color:var(--primary);margin-bottom:0.75rem;">Competitive Landscape</h4>';
+
+    tools.forEach(function (tool) {
+      var cell = feature.cells[tool.id];
+      if (!cell) return;
+      var icon = cell.status === 'YES' ? '✅' : cell.status === 'LIMITED' ? '⚠️' : '❌';
+      var statusLabel = cell.status === 'YES' ? 'Yes' : cell.status === 'LIMITED' ? 'Limited' : 'No';
+      var statusColor = cell.status === 'YES' ? '#67e5ad' : cell.status === 'LIMITED' ? '#f59e0b' : '#ef4444';
+
+      html += '<div style="padding:0.6rem 0;border-bottom:1px solid var(--border);">';
+      html += '<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;">';
+      html += '<span>' + icon + '</span>';
+      html += '<span style="font-weight:600;color:white;">' + tool.name + '</span>';
+      html += '<span style="font-size:12px;color:' + statusColor + ';margin-left:auto;">' + statusLabel + '</span>';
+      html += '</div>';
+      if (cell.note) {
+        html += '<p style="color:var(--text-muted);font-size:13px;line-height:1.5;margin:0;padding-left:1.75rem;">' + cell.note + '</p>';
+      }
+      if (cell.screenshots && cell.screenshots.length > 0) {
+        html += '<div class="screenshot-grid" style="padding-left:1.75rem;margin-top:0.4rem;">';
+        cell.screenshots.forEach(function (filename, idx) {
+          html += '<img class="screenshot-thumb" src="screenshots/' + filename + '" alt="' + filename + '" data-index="' + idx + '" data-screenshots=\'' + JSON.stringify(cell.screenshots) + '\' onclick="openLightbox(this.dataset.screenshots, ' + idx + ')">';
+        });
+        html += '</div>';
+      }
+      html += '</div>';
+    });
+
+    html += '</div>';
+
+    if (feature.unoOpportunity) {
+      html += '<div class="detail-section" style="margin-top:1rem;">';
+      html += '<h4 style="color:var(--uno-violet);">Uno Opportunity</h4>';
+      html += '<p style="color:var(--text-secondary);line-height:1.65;">' + feature.unoOpportunity + '</p>';
+      html += '</div>';
+    }
+
+    // Dev status toggle — Matt only
+    if (_author === 'Matt Tanguay') {
+      var curStatus = getDevStatus(reqId) || 'none';
+      html += '<div class="detail-section" style="margin-top:1rem;">';
+      html += '<h4 style="color:var(--text-muted);margin-bottom:0.5rem;">Studio Live Status</h4>';
+      html += '<div id="req-dev-status-btns" style="display:flex;gap:0.5rem;">';
+
+      var opts = [
+        { val: 'none', label: 'Not started', icon: '—' },
+        { val: 'designed', label: 'Designed', icon: '🎨' },
+        { val: 'implemented', label: 'Implemented', icon: '💻' }
+      ];
+      opts.forEach(function (o) {
+        var active = curStatus === o.val;
+        html += '<button class="req-dev-status-btn' + (active ? ' active' : '') + '" data-status="' + o.val + '" data-req-id="' + reqId + '" style="' +
+          'padding:0.35rem 0.75rem;border-radius:6px;border:1px solid ' + (active ? 'var(--uno-violet)' : 'var(--border)') + ';' +
+          'background:' + (active ? 'rgba(140,0,184,0.15)' : 'var(--surface)') + ';' +
+          'color:' + (active ? 'var(--uno-violet)' : 'var(--text-muted)') + ';' +
+          'cursor:pointer;font-size:13px;">' + o.icon + ' ' + o.label + '</button>';
+      });
+      html += '</div></div>';
+    }
+
+    openDetailPanel(html, event);
+
+    // Attach click handlers for status buttons after panel is open
+    if (_author === 'Matt Tanguay') {
+      var btns = document.querySelectorAll('.req-dev-status-btn');
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var newStatus = btn.getAttribute('data-status');
+          var rid = btn.getAttribute('data-req-id');
+          setDevStatus(rid, newStatus === 'none' ? null : newStatus);
+          // Update button styles
+          btns.forEach(function (b) {
+            var isActive = b === btn;
+            b.classList.toggle('active', isActive);
+            b.style.borderColor = isActive ? 'var(--uno-violet)' : 'var(--border)';
+            b.style.background = isActive ? 'rgba(140,0,184,0.15)' : 'var(--surface)';
+            b.style.color = isActive ? 'var(--uno-violet)' : 'var(--text-muted)';
+          });
+          // Re-render rows to update inline icons
+          renderList();
+        });
+      });
+    }
+  }
+
   // ---- helpers ----
   function el(tag, attrs, children) {
     var node = document.createElement(tag);
@@ -244,27 +397,75 @@
             _openCommentPanel();
           }
           expanded = true;
+          // Position panel fixed relative to toggle button
+          var btnRect = toggleBtn.getBoundingClientRect();
+          panel.style.top = (btnRect.bottom + 4) + 'px';
+          panel.style.left = Math.max(8, btnRect.right - 320) + 'px';
           panel.style.display = 'block';
           toggleBtn.classList.add('req-comments-toggle--open');
           _openCommentPanel = closeThis;
+          document.addEventListener('mousedown', outsideClickHandler);
+          window.addEventListener('scroll', repositionPanel, true);
         } else {
           closeThis();
         }
       }
     });
 
+    function repositionPanel() {
+      if (!expanded) return;
+      var btnRect = toggleBtn.getBoundingClientRect();
+      panel.style.top = (btnRect.bottom + 4) + 'px';
+      panel.style.left = Math.max(8, btnRect.right - 320) + 'px';
+    }
+
     function closeThis() {
+      if (!expanded) return;
+      // Auto-send any typed comment before closing
+      var input = panel.querySelector('.req-comment-input');
+      if (input && input.value.trim()) {
+        var text = input.value.trim();
+        ensureAuthor(function (author) {
+          apiPost('/api/comment', { featureId: featureId, author: author, text: text }, function (res) {
+            if (!_collabData.comments[featureId]) _collabData.comments[featureId] = [];
+            _collabData.comments[featureId].push(res.comment);
+            renderComments();
+          });
+        });
+      }
       expanded = false;
       panel.style.display = 'none';
       toggleBtn.classList.remove('req-comments-toggle--open');
       if (_openCommentPanel === closeThis) _openCommentPanel = null;
+      document.removeEventListener('mousedown', outsideClickHandler);
+      window.removeEventListener('scroll', repositionPanel, true);
+    }
+
+    function outsideClickHandler(e) {
+      if (!expanded) return;
+      // Grace area: 20px around the panel
+      var rect = panel.getBoundingClientRect();
+      var grace = 20;
+      var x = e.clientX, y = e.clientY;
+      if (x >= rect.left - grace && x <= rect.right + grace &&
+          y >= rect.top - grace && y <= rect.bottom + grace) return;
+      // Also allow clicks on the toggle button itself
+      if (wrapper.contains(e.target)) return;
+      closeThis();
     }
 
     var panel = el('div', { cls: 'req-comments-panel', style: 'display:none' });
+    document.body.appendChild(panel);
 
     function renderComments() {
       comments = _collabData.comments[featureId] || [];
       panel.innerHTML = '';
+
+      // Close button
+      panel.appendChild(el('button', {
+        cls: 'req-comments-close', html: '✕', title: 'Close',
+        onclick: function () { closeThis(); }
+      }));
       toggleBtn.innerHTML = '💬 ' + (comments.length || '');
       toggleBtn.classList.toggle('req-comments-toggle--has', comments.length > 0);
 
@@ -280,7 +481,7 @@
           // Show delete button only for the comment author
           if (_author && c.author === _author) {
             headerChildren.push(el('button', {
-              cls: 'req-comment-delete', html: '✕', title: 'Delete your comment',
+              cls: 'req-comment-delete', text: 'delete', title: 'Delete your comment',
               onclick: function () {
                 apiDelete('/api/comment', { featureId: featureId, commentId: c.id }, function () {
                   var arr = _collabData.comments[featureId];
@@ -324,7 +525,6 @@
 
     renderComments();
     wrapper.appendChild(toggleBtn);
-    wrapper.appendChild(panel);
     return wrapper;
   }
 
@@ -339,23 +539,56 @@
     return d.toLocaleDateString();
   }
 
+  // ---- Dev status persistence (localStorage) ----
+  var _devStatuses = JSON.parse(localStorage.getItem('req-dev-status') || '{}');
+
+  function getDevStatus(reqId) { return _devStatuses[reqId] || null; }
+
+  function setDevStatus(reqId, status) {
+    if (status) _devStatuses[reqId] = status;
+    else delete _devStatuses[reqId];
+    localStorage.setItem('req-dev-status', JSON.stringify(_devStatuses));
+  }
+
+  // ---- Status icon for design / implemented state ----
+  function statusIcon(f) {
+    var s = getDevStatus(f.id);
+    if (s === 'implemented') return el('span', { cls: 'req-status-icon', title: 'Implemented in Studio Live', html: '💻' });
+    if (s === 'designed') return el('span', { cls: 'req-status-icon', title: 'Designed', html: '🎨' });
+    return null;
+  }
+
   // ---- Feature row ----
   function featureRow(f, mode) {
     var tagEl = mode === 'category' ? priorityPill(f) : categoryPill(f.category);
+    var hasMapping = !!REQ_TO_FEATURE[f.id];
+    var clickHandler = hasMapping ? function (e) {
+      // Don't trigger if clicking a link or button inside
+      if (e.target.closest('a') || e.target.closest('button')) return;
+      e.preventDefault();
+      showCompetitiveLandscape(f.id, e);
+    } : null;
+
+    var infoEl = el('div', { cls: 'req-feature-info' + (hasMapping ? ' req-feature-clickable' : ''), onclick: clickHandler }, [
+      el('div', { cls: 'req-feature-name' }, [
+        f.highlight ? el('span', { cls: 'req-star', html: '★' }) : null,
+        hasMapping
+          ? el('span', { cls: 'req-feature-link' }, [f.name])
+          : f.name,
+        statusIcon(f),
+        tagEl
+      ]),
+      el('div', { cls: 'req-feature-note', text: f.note })
+    ]);
+
+    var metaEl = el('div', { cls: 'req-feature-meta' + (hasMapping ? ' req-feature-clickable' : ''), onclick: clickHandler }, [
+      coverageBar(f.coverage)
+    ]);
+
     var row = el('div', { cls: 'req-feature-row' + (f.highlight ? ' req-feature-highlight' : ''), 'data-req-id': f.id }, [
       voteWidget(f.id),
-      el('div', { cls: 'req-feature-info' }, [
-        el('div', { cls: 'req-feature-name' }, [
-          f.highlight ? el('span', { cls: 'req-star', html: '★' }) : null,
-          f.name,
-          tagEl
-        ]),
-        el('div', { cls: 'req-feature-note', text: f.note })
-      ]),
-      el('div', { cls: 'req-feature-meta' }, [
-        coverageBar(f.coverage),
-        el('div', { cls: 'req-coverage-detail', text: f.coverageDetail })
-      ]),
+      infoEl,
+      metaEl,
       commentSection(f.id)
     ]);
     return row;
@@ -450,7 +683,7 @@
     if (catId && mode === 'category') {
       var catSuggestions = _collabData.suggestions.filter(function (s) { return s.categoryId === catId; });
       if (catSuggestions.length) {
-        body.appendChild(el('div', { cls: 'req-suggested-divider', text: 'Suggested by team' }));
+        body.appendChild(el('div', { cls: 'req-suggested-divider', text: 'Suggested' }));
         catSuggestions.forEach(function (s) { body.appendChild(suggestionRow(s)); });
       }
       body.appendChild(suggestButton(catId));
@@ -459,8 +692,7 @@
     var collapsed = !startExpanded;
     var header = el('button', { cls: 'req-group-header', type: 'button' }, [
       el('span', { cls: 'req-group-toggle', html: collapsed ? '▸' : '▾' }),
-      el('span', { cls: 'req-group-name', text: title }),
-      el('span', { cls: 'req-group-count', text: features.length + ' feature' + (features.length !== 1 ? 's' : '') })
+      el('span', { cls: 'req-group-name', text: title })
     ]);
 
     var groupId = catId ? 'req-cat-' + catId : '';
@@ -604,7 +836,8 @@
       viewBar.appendChild(btn);
     });
 
-    // Expand/Collapse buttons
+    // Expand/Collapse buttons (grouped together)
+    var expandCollapseGroup = el('div', { cls: 'req-expand-group' });
     var expandBtn = el('button', {
       cls: 'uvc-subnav-btn req-expand-btn', text: 'Expand All', type: 'button',
       onclick: function () { toggleAllGroups(true); }
@@ -613,8 +846,9 @@
       cls: 'uvc-subnav-btn req-expand-btn', text: 'Collapse All', type: 'button',
       onclick: function () { toggleAllGroups(false); }
     });
-    viewBar.appendChild(expandBtn);
-    viewBar.appendChild(collapseBtn);
+    expandCollapseGroup.appendChild(expandBtn);
+    expandCollapseGroup.appendChild(collapseBtn);
+    viewBar.appendChild(expandCollapseGroup);
 
     host.appendChild(viewBar);
 

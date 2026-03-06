@@ -647,7 +647,7 @@ function setupEventListeners() {
     const panel = document.getElementById('detail-panel');
     if (panel && !panel.classList.contains('hidden')) {
       // Ignore clicks on the panel itself, on cells (which open the panel), on feature names, or on lightbox elements
-      if (!e.target.closest('#detail-panel') && !e.target.closest('.cell') && !e.target.closest('.feature-name') && !e.target.closest('.lightbox-backdrop') && !e.target.closest('.lightbox-content')) {
+      if (!e.target.closest('#detail-panel') && !e.target.closest('.cell') && !e.target.closest('.feature-name') && !e.target.closest('.req-feature-clickable') && !e.target.closest('.lightbox-backdrop') && !e.target.closest('.lightbox-content')) {
         closeDetailPanel();
       }
     }
@@ -755,7 +755,7 @@ function renderFeatureMap() {
   let hasContent = false;
   
   matrix.sections.forEach((section, sectionIndex) => {
-    let features = section.features;
+    let features = section.features.slice().sort((a, b) => a.name.localeCompare(b.name));
     
     // Apply filters
     if (features.length === 0) return;
@@ -1174,7 +1174,7 @@ function openDetailPanel(html, event) {
   } // end desktop
   
   const container = document.querySelector('.feature-map-container');
-  container.classList.add('with-panel');
+  if (container) container.classList.add('with-panel');
 }
 
 // Close detail panel
@@ -1191,7 +1191,7 @@ function closeDetailPanel() {
   
   // Move panel back into the container if it was moved to body
   const container = document.querySelector('.feature-map-container');
-  if (panel.parentElement === document.body) {
+  if (container && panel.parentElement === document.body) {
     container.appendChild(panel);
   }
   
@@ -1201,7 +1201,7 @@ function closeDetailPanel() {
     selectedCell.classList.remove('selected');
   }
   
-  container.classList.remove('with-panel');
+  if (container) container.classList.remove('with-panel');
 }
 
 // Render Tool Comparison
