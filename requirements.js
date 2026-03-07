@@ -424,7 +424,7 @@
     }
 
     var pct = (val / max) * 100;
-    var color = val >= max - 1 ? 'var(--status-yes-border)' : val >= max / 2 ? '#fbbf24' : '#ef4444';
+    var color = pct >= 80 ? 'var(--status-yes-border)' : pct >= 50 ? '#fbbf24' : '#ef4444';
 
     // Build tooltip
     if (yes.length || limited.length || no.length) {
