@@ -35,6 +35,7 @@ const AGENT_UX_FEATURES = [
   { id: 'token-management',name: 'Token Management',   icon: '🪙' },
   { id: 'llm-model-selection', name: 'LLM Model Selection', icon: '🤖' },
   { id: 'starting-prompt',     name: 'Starting Prompt',      icon: '🚀' },
+  { id: 'speech-to-prompt',    name: 'Speech to Prompt',     icon: '🗣️' },
 ];
 
 // Video filenames per tool
@@ -76,6 +77,7 @@ const AGENT_UX_MATRIX = {
     'token-management':{ status: 'YES', screenshots: ['13. Token Management - 1.png', '13. Token Management - 2.png'] },
     'llm-model-selection': { status: 'YES', screenshots: [], note: 'Model switching available with 5 options:<ul><li>Claude Haiku 4.5</li><li>Sonnet 4.5 (default)</li><li>Sonnet 4.6</li><li>Opus 4.5</li><li>Opus 4.6</li></ul>' },
     'starting-prompt':     { status: 'YES', screenshots: ['screenshots/bolt-starting-prompt-1.png', 'screenshots/bolt-starting-prompt-2.png', 'screenshots/bolt-starting-prompt-3.png', 'screenshots/bolt-starting-prompt-4.png', 'screenshots/bolt-starting-prompt-5.png', 'screenshots/bolt-starting-prompt-6.png', 'screenshots/bolt-starting-prompt-7.png'] },
+    'speech-to-prompt':    { status: 'NO', screenshots: [] },
   },
 
   // ── Builder ──
@@ -101,6 +103,7 @@ const AGENT_UX_MATRIX = {
     'token-management':{ status: 'YES', screenshots: ['26. Token Management - 1.png', '27. Token Management - 2.png'] },
     'llm-model-selection': { status: 'NO', screenshots: [], note: 'Uses its own proprietary model routing (Visual Copilot). Enterprise plans may offer model configuration but not documented as user-facing choice.' },
     'starting-prompt':     { status: 'YES', screenshots: ['screenshots/builder-starting-prompt-1.png', 'screenshots/builder-starting-prompt-2.png', 'screenshots/builder-starting-prompt-3.png', 'screenshots/builder-starting-prompt-4.png', 'screenshots/builder-starting-prompt-5.png', 'screenshots/builder-starting-prompt-6.png', 'screenshots/builder-starting-prompt-7.png', 'screenshots/builder-starting-prompt-8.png'] },
+    'speech-to-prompt':    { status: 'NO', screenshots: [] },
   },
 
   // ── Claude ──
@@ -126,6 +129,7 @@ const AGENT_UX_MATRIX = {
     'token-management':{ status: 'YES', screenshots: ['10. Token Management.png'] },
     'llm-model-selection': { status: 'YES', screenshots: [], note: 'Model picker in chat with 3 options:<ul><li>Opus 4.6</li><li>Sonnet 4.6</li><li>Haiku 4.5</li></ul>' },
     'starting-prompt':     { status: 'YES', screenshots: ['screenshots/claude-starting-prompt-1.png', 'screenshots/claude-starting-prompt-2.png', 'screenshots/claude-starting-prompt-3.png', 'screenshots/claude-starting-prompt-4.png', 'screenshots/claude-starting-prompt-5.png', 'screenshots/claude-starting-prompt-6.png', 'screenshots/claude-starting-prompt-7.png', 'screenshots/claude-starting-prompt-8.png', 'screenshots/claude-starting-prompt-9.png', 'screenshots/claude-starting-prompt-10.png'] },
+    'speech-to-prompt':    { status: 'NO', screenshots: [] },
   },
 
   // ── Codex ──
@@ -151,6 +155,7 @@ const AGENT_UX_MATRIX = {
     'token-management':{ status: 'YES', screenshots: ['15. Token Management.png'] },
     'llm-model-selection': { status: 'LIMITED', screenshots: [], note: 'OpenAI models only — no third-party providers:<ul><li>GPT-5.3 Codex (default)</li><li>GPT-5.2 Codex</li></ul>' },
     'starting-prompt':     { status: 'YES', screenshots: ['screenshots/codex-starting-prompt-1.png', 'screenshots/codex-starting-prompt-2.png', 'screenshots/codex-starting-prompt-3.png', 'screenshots/codex-starting-prompt-4.png', 'screenshots/codex-starting-prompt-5.png', 'screenshots/codex-starting-prompt-6.png'] },
+    'speech-to-prompt':    { status: 'NO', screenshots: [] },
   },
 
   // ── Cursor ──
@@ -176,6 +181,7 @@ const AGENT_UX_MATRIX = {
     'token-management':{ status: 'NO',  screenshots: [] },
     'llm-model-selection': { status: 'YES', screenshots: [], note: 'Extensive model picker + bring-your-own-model (BYOM) support:<ul><li>Auto</li><li>Composer 1.5</li><li>GPT-5.2</li><li>Opus 4.6</li><li>Gemini 3 Pro</li><li>Grok Code</li></ul>Also supports custom API keys for additional providers.' },
     'starting-prompt':     { status: 'YES', screenshots: [] },
+    'speech-to-prompt':    { status: 'NO', screenshots: [] },
   },
 
   // ── Lovable ──
@@ -201,6 +207,7 @@ const AGENT_UX_MATRIX = {
     'token-management':{ status: 'YES', screenshots: ['17. Token Management - 1.png', '18. Token Management - 2.png'] },
     'llm-model-selection': { status: 'NO', screenshots: [], note: 'No user-facing model selector. Internally uses:<ul><li>Claude Opus 4.5/4.6</li><li>Claude Sonnet 4.5</li></ul>Lovable AI (in-app chatbot) uses:<ul><li>GPT-5.2</li><li>Gemini 3 Flash/Pro</li></ul>' },
     'starting-prompt':     { status: 'YES', screenshots: ['screenshots/lovable-starting-prompt-1.png', 'screenshots/lovable-starting-prompt-2.png', 'screenshots/lovable-starting-prompt-3.png', 'screenshots/lovable-starting-prompt-4.png'] },
+    'speech-to-prompt':    { status: 'YES', screenshots: ['screenshots/lovable-starting-prompt-4.png'] },
   },
 
   // ── Replit ──
@@ -226,6 +233,7 @@ const AGENT_UX_MATRIX = {
     'token-management':{ status: 'YES', screenshots: ['21. Tokens - 1.png'] },
     'llm-model-selection': { status: 'NO', screenshots: [], note: 'No model selection. Uses a fixed undisclosed model for all AI operations.' },
     'starting-prompt':     { status: 'YES', screenshots: ['screenshots/replit-starting-prompt-1.png', 'screenshots/replit-starting-prompt-2.png', 'screenshots/replit-starting-prompt-3.png'] },
+    'speech-to-prompt':    { status: 'NO', screenshots: [] },
   },
 
   // ── Vercel ──
@@ -251,6 +259,7 @@ const AGENT_UX_MATRIX = {
     'token-management':{ status: 'NO',  screenshots: [] },
     'llm-model-selection': { status: 'NO', screenshots: [], note: 'Undisclosed model via Vercel AI Gateway. No user-facing model selection.' },
     'starting-prompt':     { status: 'NO', screenshots: [], note: 'Vercel v0 uses a different workflow — no traditional starting prompt. Users interact through a chat-based interface without a dedicated initial prompt screen.' },
+    'speech-to-prompt':    { status: 'NO', screenshots: [] },
   },
 
   // ── VS Code ──
@@ -276,6 +285,7 @@ const AGENT_UX_MATRIX = {
     'token-management':{ status: 'YES', screenshots: ['25. Token Management - 1.png'] },
     'llm-model-selection': { status: 'YES', screenshots: [], note: 'Broadest model selection with 20+ options and BYOM support:<ul><li>GPT-4.1 / GPT-5.2 / GPT-5.3 Codex</li><li>Claude Opus 4.6 / Sonnet 4.6 / Haiku 4.5</li><li>Gemini 2.5 Pro / Gemini 3 Pro / Flash</li><li>Grok</li></ul>Also supports bring-your-own-model via custom API keys.' },
     'starting-prompt':     { status: 'YES', screenshots: ['screenshots/vscode-starting-prompt-1.png', 'screenshots/vscode-starting-prompt-2.png', 'screenshots/vscode-starting-prompt-3.png', 'screenshots/vscode-starting-prompt-4.png', 'screenshots/vscode-starting-prompt-5.png', 'screenshots/vscode-starting-prompt-6.png', 'screenshots/vscode-starting-prompt-7.png'] },
+    'speech-to-prompt':    { status: 'NO', screenshots: [] },
   },
 };
 

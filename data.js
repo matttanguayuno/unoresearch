@@ -1270,6 +1270,20 @@ const data = {
                 "bolt": { "status": "YES", "note": "", "links": [], "screenshots": ["bolt-starting-prompt-1.png", "bolt-starting-prompt-2.png", "bolt-starting-prompt-3.png", "bolt-starting-prompt-4.png", "bolt-starting-prompt-5.png", "bolt-starting-prompt-6.png", "bolt-starting-prompt-7.png"] },
                 "tempo": { "status": "YES", "note": "", "links": [], "screenshots": ["tempo-starting-prompt-1.png"] }
               }
+            },
+            {
+              "id": "speech_to_prompt",
+              "name": "Speech to Prompt",
+              "whyItMatters": "Voice input for prompts enables hands-free interaction and faster prompt entry, especially for longer or more conversational instructions. It lowers the barrier for non-technical users.",
+              "unoOpportunity": "Integrating speech-to-prompt in Studio Live would make the tool more accessible and enable rapid prototyping through natural voice commands.",
+              "cells": {
+                "dreamflow": { "status": "NO", "note": "", "links": [], "screenshots": [] },
+                "lovable": { "status": "YES", "note": "", "links": [], "screenshots": ["lovable-starting-prompt-4.png"] },
+                "vibecode": { "status": "YES", "note": "", "links": [], "screenshots": ["vibecode-starting-prompt-4.png"] },
+                "builder": { "status": "NO", "note": "", "links": [], "screenshots": [] },
+                "bolt": { "status": "NO", "note": "", "links": [], "screenshots": [] },
+                "tempo": { "status": "NO", "note": "", "links": [], "screenshots": [] }
+              }
             }
           ]
         }

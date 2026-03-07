@@ -54,7 +54,19 @@
     'local-self-hosted-ai': 'local_selfhosted_ai',
     'credits-token-pricing': 'credits',
     'sample-templates': 'templates',
-    'in-app-feedback': 'feedback'
+    'in-app-feedback': 'feedback',
+    'starting-prompt': 'starting_prompt',
+    'speech-to-prompt': 'speech_to_prompt'
+  };
+
+  // Map requirement IDs to Agent UX/UI feature IDs (for supplementary screenshots)
+  var REQ_TO_UX_FEATURE = {
+    'starting-prompt': 'starting-prompt',
+    'speech-to-prompt': 'speech-to-prompt',
+    'in-app-feedback': 'feedback',
+    'llm-model-selection': 'llm-model-selection',
+    'credits-token-pricing': 'token-management',
+    'screenshot-as-prompt-input': 'visual-edits'
   };
 
   // ---- Show competitive landscape panel ----
@@ -105,6 +117,52 @@
     });
 
     html += '</div>';
+
+    // Agent UX/UI Analysis section (supplementary screenshots from the 9-tool analysis)
+    var uxFeatureId = REQ_TO_UX_FEATURE[reqId];
+    if (uxFeatureId && typeof AGENT_UX_TOOLS !== 'undefined' && typeof AGENT_UX_MATRIX !== 'undefined') {
+      var uxRows = '';
+      AGENT_UX_TOOLS.forEach(function (tool) {
+        var uxCell = AGENT_UX_MATRIX[tool.id] && AGENT_UX_MATRIX[tool.id][uxFeatureId];
+        if (!uxCell) return;
+        // Skip NO-status tools that have no screenshots and no note
+        if (uxCell.status === 'NO' && (!uxCell.screenshots || uxCell.screenshots.length === 0) && !uxCell.note) return;
+
+        var icon = uxCell.status === 'YES' ? '✅' : uxCell.status === 'LIMITED' ? '⚠️' : '❌';
+        var statusLabel = uxCell.status === 'YES' ? 'Yes' : uxCell.status === 'LIMITED' ? 'Limited' : 'No';
+        var statusColor = uxCell.status === 'YES' ? '#67e5ad' : uxCell.status === 'LIMITED' ? '#f59e0b' : '#ef4444';
+
+        uxRows += '<div style="padding:0.6rem 0;border-bottom:1px solid var(--border);">';
+        uxRows += '<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;">';
+        uxRows += '<span>' + icon + '</span>';
+        uxRows += '<span style="font-weight:600;color:white;">' + tool.name + '</span>';
+        uxRows += '<span style="font-size:12px;color:' + statusColor + ';margin-left:auto;">' + statusLabel + '</span>';
+        uxRows += '</div>';
+        if (uxCell.note) {
+          uxRows += '<p style="color:var(--text-muted);font-size:13px;line-height:1.5;margin:0;padding-left:1.75rem;">' + uxCell.note + '</p>';
+        }
+        if (uxCell.screenshots && uxCell.screenshots.length > 0) {
+          var paths = uxCell.screenshots.map(function (f) {
+            if (f.indexOf('/') !== -1) return f;
+            return 'AI Agent UI/' + tool.id + '/' + f;
+          });
+          uxRows += '<div class="screenshot-grid" style="padding-left:1.75rem;margin-top:0.4rem;">';
+          paths.forEach(function (p, idx) {
+            var src = p.split('/').map(encodeURIComponent).join('/');
+            uxRows += '<img class="screenshot-thumb" src="' + src + '" alt="' + p + '" data-index="' + idx + '" data-screenshots=\'' + JSON.stringify(paths) + "' onclick=\"openLightbox(this.dataset.screenshots, " + idx + ", '')\">";
+          });
+          uxRows += '</div>';
+        }
+        uxRows += '</div>';
+      });
+
+      if (uxRows) {
+        html += '<div class="detail-section" style="margin-top:1rem;">';
+        html += '<h4 style="color:var(--primary);margin-bottom:0.75rem;">Agent UX/UI Analysis <span style="font-weight:400;font-size:12px;color:var(--text-muted);">(additional tools)</span></h4>';
+        html += uxRows;
+        html += '</div>';
+      }
+    }
 
     if (feature.unoOpportunity) {
       html += '<div class="detail-section" style="margin-top:1rem;">';
