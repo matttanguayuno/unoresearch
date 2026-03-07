@@ -1002,6 +1002,10 @@
     renderList = function () {
       var listHost = document.getElementById('req-list-container');
       var navHost = document.getElementById('req-cat-nav-container');
+
+      // Lock container height to prevent scroll jump when content shrinks (e.g. UVP filter)
+      listHost.style.minHeight = listHost.offsetHeight + 'px';
+
       listHost.innerHTML = '';
       navHost.innerHTML = '';
 
@@ -1016,6 +1020,9 @@
       } else {
         listHost.appendChild(buildPriorityView(features));
       }
+
+      // Release height lock now that new content is in place
+      listHost.style.minHeight = '';
     };
 
     renderList();
