@@ -161,7 +161,8 @@ const requirementsData = {
       features: [
         { id: "credits-token-pricing", name: "Credits / token pricing", priority: "p0", coverage: "6/6", coverageDetail: "all YES", note: "Every competitor has a credit/token system. XAML-aware surgical edits could be more token-efficient — make this a selling point." },
         { id: "sample-templates", name: "Sample templates", priority: "p1", coverage: "3/6", coverageDetail: "3 YES", note: "Lowers the blank-canvas barrier. XAML-native templates would showcase cross-platform advantage." },
-        { id: "in-app-feedback", name: "In-app feedback", priority: "p3", coverage: "4/6", coverageDetail: "4 YES", note: "Built-in bug report / feature request channel. Low effort, good for user signal." }
+        { id: "in-app-feedback", name: "In-app feedback", priority: "p3", coverage: "4/6", coverageDetail: "4 YES", note: "Built-in bug report / feature request channel. Low effort, good for user signal." },
+        { id: "starting-prompt", name: "Starting prompt", priority: "p0", coverage: "6/6", coverageDetail: "all YES", note: "Every competitor provides a starting prompt interface. This is a fundamental UX entry point for AI-assisted app generation." }
       ]
     }
   ]

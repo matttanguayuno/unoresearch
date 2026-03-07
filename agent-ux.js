@@ -143,6 +143,7 @@ function setupUxPopupSwipe() {
 
 function updateUxPopupArrows() {
   const popup = document.getElementById('ux-popup');
+  const wrapper = popup.querySelector('.ux-popup-wrapper');
   const ctx = uxPopupContext;
 
   // Remove existing arrows
@@ -155,7 +156,7 @@ function updateUxPopupArrows() {
     btn.title = title;
     btn.disabled = disabled;
     btn.addEventListener('click', () => navigateUxPopup(axis, dir));
-    popup.appendChild(btn);
+    wrapper.appendChild(btn);
   }
 
   if (ctx.type === 'cell') {
@@ -174,18 +175,6 @@ function updateUxPopupArrows() {
     addArrow('ux-popup-arrow--left',  '&#8249;', 'Previous tool (←)', tIdx <= 0,                           'tool', -1);
     addArrow('ux-popup-arrow--right', '&#8250;', 'Next tool (→)',     tIdx >= AGENT_UX_TOOLS.length - 1,   'tool',  1);
   }
-
-  // Position up/down arrows relative to the panel's actual bounding box
-  const panel = popup.querySelector('.ux-popup-panel');
-  requestAnimationFrame(() => {
-    const rect = panel.getBoundingClientRect();
-    popup.querySelectorAll('.ux-popup-arrow--up').forEach(a => {
-      a.style.top = (rect.top - 48) + 'px';
-    });
-    popup.querySelectorAll('.ux-popup-arrow--down').forEach(a => {
-      a.style.top = (rect.bottom + 8) + 'px';
-    });
-  });
 }
 
 function navigateUxPopup(axis, direction) {
@@ -248,12 +237,18 @@ function buildPinterestGrid(shots) {
 }
 
 function buildShotEntry(toolId, filename) {
+  // Support filenames with explicit path prefix (e.g. "screenshots/foo.png")
+  const hasPath = filename.includes('/');
+  const path = hasPath ? filename : `AI Agent UI/${toolId}/${filename}`;
+  const src = hasPath
+    ? filename.split('/').map(encodeURIComponent).join('/')
+    : `AI Agent UI/${encodeURIComponent(toolId)}/${encodeURIComponent(filename)}`;
   return {
     toolId,
     toolName: AGENT_UX_TOOLS.find(t => t.id === toolId)?.name || toolId,
     filename,
-    path: `AI Agent UI/${toolId}/${filename}`,
-    src: `AI Agent UI/${encodeURIComponent(toolId)}/${encodeURIComponent(filename)}`,
+    path,
+    src,
   };
 }
 

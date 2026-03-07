@@ -3926,16 +3926,22 @@ footer {
     backdrop-filter: blur(4px);
 }
 
-.ux-popup-panel {
+.ux-popup-wrapper {
     position: relative;
     z-index: 1;
+    width: 94vw;
+    max-width: 1600px;
+    max-height: 92vh;
+}
+
+.ux-popup-panel {
+    position: relative;
     background: var(--bg);
     color: var(--text);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    width: 94vw;
+    width: 100%;
     max-height: 92vh;
-    max-width: 1600px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -4058,21 +4064,23 @@ footer {
     border-color: var(--primary);
 }
 .ux-popup-arrow--left {
-    left: calc((100vw - min(94vw, 1600px)) / 2 - 3.2rem);
+    left: -3.2rem;
     top: 50%;
     transform: translateY(-50%);
 }
 .ux-popup-arrow--right {
-    right: calc((100vw - min(94vw, 1600px)) / 2 - 3.2rem);
+    right: -3.2rem;
     top: 50%;
     transform: translateY(-50%);
 }
 .ux-popup-arrow--up {
     left: 50%;
+    bottom: calc(100% + 0.5rem);
     transform: translateX(-50%) rotate(90deg);
 }
 .ux-popup-arrow--down {
     left: 50%;
+    top: calc(100% + 0.5rem);
     transform: translateX(-50%) rotate(90deg);
 }
 .ux-popup-arrow:disabled {
@@ -4598,7 +4606,8 @@ mark.search-query-highlight {
 
 @media (max-width: 768px) {
     .ux-pinterest-grid { columns: 2; }
-    .ux-popup-panel { width: 98vw; height: 95vh; }
+    .ux-popup-wrapper { width: 98vw; max-height: 95vh; }
+    .ux-popup-panel { max-height: 95vh; }
 }
 @media (max-width: 480px) {
     .ux-pinterest-grid { columns: 1; }

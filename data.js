@@ -1256,6 +1256,20 @@ const data = {
                 "bolt": { "status": "YES", "note": "", "links": [], "screenshots": ["bolt-templates-1.png", "bolt-templates-2.png"] },
                 "tempo": { "status": "NO", "note": "", "links": [] }
               }
+            },
+            {
+              "id": "starting_prompt",
+              "name": "Starting Prompt",
+              "whyItMatters": "The starting prompt is the user's first interaction with the AI agent. A well-designed prompt input experience — with rich context options, file/image attachments, and clear guidance — dramatically affects the quality of generated output and the user's first impression of the tool.",
+              "unoOpportunity": "Studio Live can differentiate with a XAML-aware starting prompt that understands Uno Platform project structure, lets users reference existing pages/controls, and offers guided templates for common scenarios (new page, refactor, add feature).",
+              "cells": {
+                "dreamflow": { "status": "YES", "note": "", "links": [], "screenshots": ["dreamflow-starting-prompt-1.png", "dreamflow-starting-prompt-2.png", "dreamflow-starting-prompt-3.png", "dreamflow-starting-prompt-4.png", "dreamflow-starting-prompt-5.png", "dreamflow-starting-prompt-6.png", "dreamflow-starting-prompt-7.png"] },
+                "lovable": { "status": "YES", "note": "", "links": [], "screenshots": ["lovable-starting-prompt-1.png", "lovable-starting-prompt-2.png", "lovable-starting-prompt-3.png", "lovable-starting-prompt-4.png"] },
+                "vibecode": { "status": "YES", "note": "", "links": [], "screenshots": ["vibecode-starting-prompt-1.png", "vibecode-starting-prompt-2.png", "vibecode-starting-prompt-3.png", "vibecode-starting-prompt-4.png", "vibecode-starting-prompt-5.png"] },
+                "builder": { "status": "YES", "note": "", "links": [], "screenshots": ["builder-starting-prompt-1.png", "builder-starting-prompt-2.png", "builder-starting-prompt-3.png", "builder-starting-prompt-4.png", "builder-starting-prompt-5.png", "builder-starting-prompt-6.png", "builder-starting-prompt-7.png", "builder-starting-prompt-8.png"] },
+                "bolt": { "status": "YES", "note": "", "links": [], "screenshots": ["bolt-starting-prompt-1.png", "bolt-starting-prompt-2.png", "bolt-starting-prompt-3.png", "bolt-starting-prompt-4.png", "bolt-starting-prompt-5.png", "bolt-starting-prompt-6.png", "bolt-starting-prompt-7.png"] },
+                "tempo": { "status": "YES", "note": "", "links": [], "screenshots": ["tempo-starting-prompt-1.png"] }
+              }
             }
           ]
         }
