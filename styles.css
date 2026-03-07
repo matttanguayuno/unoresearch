@@ -4993,6 +4993,41 @@ mark.search-query-highlight {
   line-height: 1.4;
 }
 
+/* Coverage tooltip */
+.req-coverage {
+  position: relative;
+}
+.req-cov-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  text-align: left;
+  background: var(--surface-2, #1e1e2a);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  min-width: 180px;
+  z-index: 100;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+.req-coverage:hover .req-cov-tooltip {
+  display: block;
+}
+.req-cov-tip-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.6;
+}
+.req-cov-tip-icon {
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
 /* ---- Category sub-navigation ---- */
 .req-cat-nav-container {
   position: sticky;

@@ -375,17 +375,72 @@
   }
 
   // ---- Coverage bar ----
-  function coverageBar(coverageStr) {
-    var parts = coverageStr.split('/');
-    var val = parseInt(parts[0], 10);
-    var max = parseInt(parts[1], 10);
+  function normalizeToolName(name) {
+    return name.toLowerCase().replace(/\.(new|io|app)$/i, '');
+  }
+
+  function coverageBar(coverageStr, reqId) {
+    var val, max;
+    var yes = [], limited = [], no = [];
+    var tooltipEl = null;
+    var featureKey = reqId ? REQ_TO_FEATURE[reqId] : null;
+    var uxFeatureKey = reqId ? REQ_TO_UX_FEATURE[reqId] : null;
+    var seen = {};
+
+    // Gather statuses from main tools (data.js)
+    if (featureKey) {
+      var feature = findFeature(featureKey);
+      if (feature && typeof currentData !== 'undefined') {
+        currentData.tools.forEach(function (tool) {
+          seen[normalizeToolName(tool.name)] = true;
+          var cell = feature.cells[tool.id];
+          if (!cell || cell.status === 'NO') no.push(tool.name);
+          else if (cell.status === 'LIMITED') limited.push(tool.name);
+          else yes.push(tool.name);
+        });
+      }
+    }
+
+    // Add Agent UX/UI tools (deduplicate by normalized name)
+    if (uxFeatureKey && typeof AGENT_UX_TOOLS !== 'undefined' && typeof AGENT_UX_MATRIX !== 'undefined') {
+      AGENT_UX_TOOLS.forEach(function (tool) {
+        if (seen[normalizeToolName(tool.name)]) return;
+        seen[normalizeToolName(tool.name)] = true;
+        var uxCell = AGENT_UX_MATRIX[tool.id] && AGENT_UX_MATRIX[tool.id][uxFeatureKey];
+        if (!uxCell || uxCell.status === 'NO') no.push(tool.name);
+        else if (uxCell.status === 'LIMITED') limited.push(tool.name);
+        else yes.push(tool.name);
+      });
+    }
+
+    // Compute coverage dynamically if we have tool data, otherwise use static string
+    if (yes.length || limited.length || no.length) {
+      val = yes.length + limited.length;
+      max = val + no.length;
+    } else {
+      var parts = coverageStr.split('/');
+      val = parseInt(parts[0], 10);
+      max = parseInt(parts[1], 10);
+    }
+
     var pct = (val / max) * 100;
-    var color = val >= 5 ? 'var(--status-yes-border)' : val >= 3 ? '#fbbf24' : '#ef4444';
+    var color = val >= max - 1 ? 'var(--status-yes-border)' : val >= max / 2 ? '#fbbf24' : '#ef4444';
+
+    // Build tooltip
+    if (yes.length || limited.length || no.length) {
+      var lines = '';
+      if (yes.length) lines += '<div class="req-cov-tip-row"><span class="req-cov-tip-icon" style="color:#67e5ad">✅</span>' + yes.join(', ') + '</div>';
+      if (limited.length) lines += '<div class="req-cov-tip-row"><span class="req-cov-tip-icon" style="color:#f59e0b">⚠️</span>' + limited.join(', ') + '</div>';
+      if (no.length) lines += '<div class="req-cov-tip-row"><span class="req-cov-tip-icon" style="color:#ef4444">❌</span>' + no.join(', ') + '</div>';
+      tooltipEl = el('div', { cls: 'req-cov-tooltip', html: lines });
+    }
+
     return el('div', { cls: 'req-coverage' }, [
       el('div', { cls: 'req-coverage-track' }, [
         el('div', { cls: 'req-coverage-fill', style: 'width:' + pct + '%;background:' + color })
       ]),
-      el('span', { cls: 'req-coverage-label', text: coverageStr })
+      el('span', { cls: 'req-coverage-label', text: val + '/' + max }),
+      tooltipEl
     ]);
   }
 
@@ -640,7 +695,7 @@
     ]);
 
     var metaEl = el('div', { cls: 'req-feature-meta' + (hasMapping ? ' req-feature-clickable' : ''), onclick: clickHandler }, [
-      coverageBar(f.coverage)
+      coverageBar(f.coverage, f.id)
     ]);
 
     var row = el('div', { cls: 'req-feature-row' + (f.highlight ? ' req-feature-highlight' : ''), 'data-req-id': f.id }, [
