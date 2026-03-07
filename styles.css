@@ -65,6 +65,7 @@ body {
     color: var(--text);
     background: var(--bg);
     font-size: 15px;
+    overflow-x: hidden;
 }
 
 header {
@@ -655,6 +656,124 @@ h4 {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+}
+
+/* ── Requirements master-detail layout ── */
+.req-master-detail {
+    display: flex;
+    gap: 0;
+}
+.req-master-detail > #requirements-content {
+    flex: 1;
+    min-width: 0;
+}
+.req-detail-panel {
+    display: none;
+}
+
+@media (min-width: 1400px) {
+    /* Break out of main's max-width using negative margins */
+    #requirements {
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+        padding-left: calc(50vw - 50% + 3rem);
+        padding-right: calc(50vw - 50% + 3rem);
+    }
+
+    .req-master-detail {
+        gap: 2rem;
+    }
+
+    .req-detail-panel {
+        display: flex;
+        flex-direction: column;
+        width: 35%;
+        min-width: 420px;
+        max-width: 780px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 80px;
+        align-self: flex-start;
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+        background: var(--surface-2);
+        border: var(--stroke) solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+    }
+    .req-detail-panel .close-panel-row {
+        display: flex;
+        justify-content: flex-end;
+        margin: -0.5rem -0.5rem 0.5rem 0;
+        flex-shrink: 0;
+    }
+    .req-detail-panel .close-panel-row .close-panel {
+        background: var(--surface);
+        border: var(--stroke) solid var(--border);
+        font-size: 1.25rem;
+        cursor: pointer;
+        color: var(--text-muted);
+        border-radius: 6px;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .req-detail-panel .close-panel-row .close-panel:hover {
+        color: white;
+        background: var(--surface-hover);
+    }
+    .req-detail-empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 200px;
+        color: var(--text-muted);
+        font-size: 14px;
+        text-align: center;
+    }
+    .req-feature-row.req-row-selected {
+        background: rgba(140, 0, 184, 0.08);
+        border-color: var(--uno-violet);
+    }
+}
+@media (min-width: 1800px) {
+    #requirements {
+        padding: 0 5rem;
+    }
+}
+@media (max-width: 1399px) {
+    .req-detail-empty {
+        display: none;
+    }
+}
+
+/* Fullscreen popup for requirements on narrow screens */
+.req-fullscreen-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1099;
+}
+.detail-panel.req-fullscreen {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    right: 2rem;
+    bottom: 2rem;
+    width: auto;
+    max-width: none;
+    max-height: none;
+    border-radius: var(--radius-lg);
+    border: var(--stroke) solid var(--border-bright);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+    z-index: 1100;
 }
 
 .detail-panel .close-panel-row {
@@ -3796,19 +3915,44 @@ footer {
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     background: var(--surface);
+    position: relative;
+}
+
+.ux-matrix-scroll-inner {
+    /* no overflow here — allow sticky to work */
 }
 
 .ux-matrix-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     min-width: 780px;
     font-size: 0.88rem;
 }
 
-.ux-matrix-table thead {
-    position: sticky;
+.ux-matrix-sticky-header {
+    position: fixed;
     top: 0;
-    z-index: 3;
+    z-index: 100;
+    overflow: hidden;
+    pointer-events: auto;
+    visibility: hidden;
+    background: var(--surface-2);
+    border-bottom: 2px solid var(--border-bright);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.ux-matrix-sticky-header.visible {
+    visibility: visible;
+}
+
+.ux-matrix-sticky-header table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.ux-matrix-sticky-header th {
+    background: var(--surface-2);
 }
 
 .ux-matrix-table th,
@@ -3823,7 +3967,7 @@ footer {
     background: var(--surface-2);
     position: sticky;
     left: 0;
-    z-index: 4;
+    z-index: 5;
 }
 
 .ux-matrix-tool-header {

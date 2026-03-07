@@ -194,11 +194,40 @@
       html += '</div></div>';
     }
 
-    openDetailPanel(html, event);
+    // Wide screen: inject into docked panel; narrow: fullscreen popup
+    var dockedPanel = document.getElementById('req-detail-panel');
+    if (dockedPanel && window.innerWidth >= 1400) {
+      dockedPanel.innerHTML = '<div class="close-panel-row"><button class="close-panel" onclick="closeReqDetailPanel()">&times;</button></div>' + html;
+      // Highlight selected row
+      var prevSelected = document.querySelector('.req-feature-row.req-row-selected');
+      if (prevSelected) prevSelected.classList.remove('req-row-selected');
+      if (event) {
+        var row = (event.currentTarget || event.target).closest('.req-feature-row');
+        if (row) row.classList.add('req-row-selected');
+      }
+    } else {
+      // Force fullscreen popup on narrow screens
+      openDetailPanel(html, event);
+      var panel = document.getElementById('detail-panel');
+      if (panel) {
+        panel.style.cssText = '';
+        panel.classList.add('req-fullscreen');
+        // Add blurred backdrop
+        var existing = document.querySelector('.req-fullscreen-backdrop');
+        if (!existing) {
+          var backdrop = document.createElement('div');
+          backdrop.className = 'req-fullscreen-backdrop';
+          backdrop.addEventListener('click', function () { closeDetailPanel(); });
+          document.body.appendChild(backdrop);
+        }
+        document.body.style.overflow = 'hidden';
+      }
+    }
 
     // Attach click handlers for status buttons after panel is open
     if (_author === 'Matt Tanguay') {
-      var btns = document.querySelectorAll('.req-dev-status-btn');
+      var statusHost = (dockedPanel && window.innerWidth >= 1400) ? dockedPanel : document.getElementById('detail-content');
+      var btns = statusHost ? statusHost.querySelectorAll('.req-dev-status-btn') : [];
       btns.forEach(function (btn) {
         btn.addEventListener('click', function () {
           var newStatus = btn.getAttribute('data-status');
@@ -218,6 +247,16 @@
       });
     }
   }
+
+  // Close docked detail panel and show empty state
+  window.closeReqDetailPanel = function () {
+    var panel = document.getElementById('req-detail-panel');
+    if (panel) {
+      panel.innerHTML = '<div class="req-detail-empty"><p>Click a requirement to see details</p></div>';
+    }
+    var prevSelected = document.querySelector('.req-feature-row.req-row-selected');
+    if (prevSelected) prevSelected.classList.remove('req-row-selected');
+  };
 
   // ---- helpers ----
   function el(tag, attrs, children) {

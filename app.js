@@ -1191,6 +1191,11 @@ function closeDetailPanel() {
   
   // Clear inline styles set by mobile/desktop positioning
   panel.style.cssText = '';
+  panel.classList.remove('req-fullscreen');
+  
+  // Remove requirements fullscreen backdrop
+  const backdrop = document.querySelector('.req-fullscreen-backdrop');
+  if (backdrop) backdrop.remove();
   
   // Move panel back into the container if it was moved to body
   const container = document.querySelector('.feature-map-container');

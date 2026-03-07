@@ -81,6 +81,66 @@ function renderUxMatrix() {
         <tbody>${rowsHtml}</tbody>
       </table>
     </div>`;
+
+  // Set up sticky header via JS (CSS sticky doesn't work inside overflow-x:auto containers)
+  setupUxStickyHeader();
+}
+
+// ─── Sticky Header ────────────────────────────────────────────────────────
+
+function setupUxStickyHeader() {
+  const scrollWrapper = document.querySelector('.ux-matrix-scroll');
+  const table = document.querySelector('.ux-matrix-table');
+  const thead = table && table.querySelector('thead');
+  if (!scrollWrapper || !thead) return;
+
+  // Remove any previous sticky header
+  const old = document.querySelector('.ux-matrix-sticky-header');
+  if (old) old.remove();
+
+  // Clone thead into a fixed container
+  const stickyDiv = document.createElement('div');
+  stickyDiv.className = 'ux-matrix-sticky-header';
+  const stickyTable = document.createElement('table');
+  stickyTable.className = 'ux-matrix-table';
+  stickyTable.appendChild(thead.cloneNode(true));
+  stickyDiv.appendChild(stickyTable);
+  document.body.appendChild(stickyDiv);
+
+  // Re-attach click handlers on cloned header cells
+  stickyDiv.querySelectorAll('.ux-matrix-tool-header').forEach(th => {
+    const toolId = th.getAttribute('data-tool');
+    if (toolId) th.addEventListener('click', () => openToolPopup(toolId));
+  });
+
+  function sync() {
+    const wrapperRect = scrollWrapper.getBoundingClientRect();
+    const theadRect = thead.getBoundingClientRect();
+
+    // Show when original thead is scrolled above viewport AND table bottom is still in view
+    const tableRect = table.getBoundingClientRect();
+    const shouldShow = theadRect.bottom < 0 && tableRect.bottom > 0;
+
+    stickyDiv.classList.toggle('visible', shouldShow);
+    if (!shouldShow) return;
+
+    // Match widths of each column
+    const origCells = thead.querySelectorAll('th');
+    const cloneCells = stickyDiv.querySelectorAll('th');
+    origCells.forEach((cell, i) => {
+      if (cloneCells[i]) cloneCells[i].style.width = cell.offsetWidth + 'px';
+    });
+
+    // Position: match wrapper's horizontal position and scroll offset
+    stickyDiv.style.left = wrapperRect.left + 'px';
+    stickyDiv.style.width = wrapperRect.width + 'px';
+    stickyTable.style.transform = `translateX(-${scrollWrapper.scrollLeft}px)`;
+  }
+
+  window.addEventListener('scroll', sync, { passive: true });
+  scrollWrapper.addEventListener('scroll', sync, { passive: true });
+  window.addEventListener('resize', sync, { passive: true });
+  sync();
 }
 
 // ─── Popup Helpers ─────────────────────────────────────────────────────────
