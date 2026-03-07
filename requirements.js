@@ -3,7 +3,7 @@
 // ============================================================
 (function () {
   var _initDone = false;
-  var _viewMode = 'category'; // 'category' | 'priority'
+  var _viewMode = 'category'; // 'category' | 'priority' | 'uvp'
   var _collabData = { votes: {}, comments: {}, suggestions: [] };
   var _author = localStorage.getItem('req-author') || '';
   var _openCommentPanel = null; // track currently open comment panel to auto-close
@@ -824,12 +824,17 @@
   }
 
   // ---- Category sub-navigation ----
-  function buildCategoryNav() {
+  function buildCategoryNav(features) {
     var container = el('div', { cls: 'req-cat-nav-container', id: 'req-cat-nav' });
+
+    // Determine which categories have features
+    var catIds = {};
+    features.forEach(function (f) { catIds[f.categoryId] = true; });
 
     // Desktop: pill links
     var nav = el('nav', { cls: 'req-cat-nav req-cat-nav--pills' });
     requirementsData.categories.forEach(function (cat) {
+      if (!catIds[cat.id]) return;
       var letter = cat.name.split('.')[0];
       var shortLabel = cat.name.replace(/^[A-L]\.\s*/, '');
       var item = el('a', {
@@ -849,6 +854,7 @@
     var select = el('select', { cls: 'req-cat-nav req-cat-nav--dropdown' });
     select.appendChild(el('option', { value: '', text: 'Jump to section…' }));
     requirementsData.categories.forEach(function (cat) {
+      if (!catIds[cat.id]) return;
       var letter = cat.name.split('.')[0];
       var shortLabel = cat.name.replace(/^[A-L]\.\s*/, '');
       select.appendChild(el('option', { value: cat.id, text: letter + '. ' + shortLabel }));
@@ -949,14 +955,16 @@
     var viewBar = el('nav', { cls: 'uvc-subnav req-subnav' });
     var views = [
       { id: 'category', label: 'By Category' },
-      { id: 'priority', label: 'By Priority' }
+      { id: 'priority', label: 'By Priority' },
+      { id: 'uvp', label: '★ UVP', tooltip: 'Unique Value Proposition — features that set Uno Studio apart' }
     ];
     views.forEach(function (v) {
       var btn = el('button', {
         cls: 'uvc-subnav-btn req-view-btn' + (v.id === _viewMode ? ' active' : ''),
         'data-view': v.id,
         type: 'button',
-        text: v.label
+        text: v.label,
+        title: v.tooltip || ''
       });
       btn.addEventListener('click', function () {
         if (_viewMode === v.id) return;
@@ -997,11 +1005,16 @@
       listHost.innerHTML = '';
       navHost.innerHTML = '';
 
-      if (_viewMode === 'category') {
-        navHost.appendChild(buildCategoryNav());
-        listHost.appendChild(buildCategoryView(_allFeatures));
+      var features = _allFeatures;
+      if (_viewMode === 'uvp') {
+        features = _allFeatures.filter(function (f) { return f.highlight; });
+      }
+
+      if (_viewMode === 'category' || _viewMode === 'uvp') {
+        navHost.appendChild(buildCategoryNav(features));
+        listHost.appendChild(buildCategoryView(features));
       } else {
-        listHost.appendChild(buildPriorityView(_allFeatures));
+        listHost.appendChild(buildPriorityView(features));
       }
     };
 
