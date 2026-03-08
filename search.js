@@ -291,24 +291,36 @@
     arr.forEach(function (s) { push(entry(tabId, title, s, opts)); });
   }
 
+  // ── Query parsing (supports "quoted phrases") ──
+  function parseQuery(raw) {
+    var phrases = [];
+    var rest = raw.replace(/"([^"]+)"/g, function (_, p) {
+      var trimmed = p.trim();
+      if (trimmed) phrases.push(trimmed.toLowerCase());
+      return ' ';
+    });
+    var words = rest.toLowerCase().split(/\s+/).filter(function (w) { return w.length > 0; });
+    // terms = individual words + quoted phrases, all lowercased
+    return { words: words, phrases: phrases, terms: words.concat(phrases) };
+  }
+
   // ── Search Logic ──
   function search(query) {
     if (!query) return {};
     lastQuery = query;
-    var q = query.toLowerCase();
-    var words = q.split(/\s+/).filter(function (w) { return w.length > 0; });
-    if (words.length === 0) return {};
+    var parsed = parseQuery(query);
+    if (parsed.terms.length === 0) return {};
     var grouped = {};
 
     for (var i = 0; i < searchIndex.length; i++) {
       var e = searchIndex[i];
       var combined = (e.title + ' ' + e.text).toLowerCase();
 
-      // Every word must appear somewhere in the title or text
+      // Every term (word or quoted phrase) must appear somewhere in the title or text
       var allMatch = true;
       var firstIdx = -1;
-      for (var w = 0; w < words.length; w++) {
-        var wIdx = combined.indexOf(words[w]);
+      for (var w = 0; w < parsed.terms.length; w++) {
+        var wIdx = combined.indexOf(parsed.terms[w]);
         if (wIdx === -1) { allMatch = false; break; }
         if (firstIdx === -1 || wIdx < firstIdx) firstIdx = wIdx;
       }
@@ -326,8 +338,8 @@
       // Compute firstIdx relative to text only (for snippet extraction)
       var textLower = e.text.toLowerCase();
       var snippetIdx = -1;
-      for (var si = 0; si < words.length; si++) {
-        var sIdx = textLower.indexOf(words[si]);
+      for (var si = 0; si < parsed.terms.length; si++) {
+        var sIdx = textLower.indexOf(parsed.terms[si]);
         if (sIdx !== -1 && (snippetIdx === -1 || sIdx < snippetIdx)) snippetIdx = sIdx;
       }
       // If match is only in title, show start of text
@@ -339,31 +351,32 @@
         section: e.section,
         dataId: e.dataId,
         toolId: e.toolId || '',
-        snippet: buildSnippet(e.text, snippetIdx, words, textLower)
+        snippet: buildSnippet(e.text, snippetIdx, parsed.terms, textLower)
       });
     }
 
     return grouped;
   }
 
-  function buildSnippet(text, firstIdx, words, lower) {
-    // Show context around the first matching word
-    var firstWordLen = 0;
-    for (var i = 0; i < words.length; i++) {
-      if (lower.indexOf(words[i]) === firstIdx) { firstWordLen = words[i].length; break; }
+  function buildSnippet(text, firstIdx, terms, lower) {
+    // Show context around the first matching term
+    var firstTermLen = 0;
+    for (var i = 0; i < terms.length; i++) {
+      if (lower.indexOf(terms[i]) === firstIdx) { firstTermLen = terms[i].length; break; }
     }
-    if (firstWordLen === 0) firstWordLen = words[0].length;
+    if (firstTermLen === 0) firstTermLen = terms[0].length;
 
     var start = Math.max(0, firstIdx - SNIPPET_RADIUS);
-    var end = Math.min(text.length, firstIdx + firstWordLen + SNIPPET_RADIUS);
+    var end = Math.min(text.length, firstIdx + firstTermLen + SNIPPET_RADIUS);
     var prefix = start > 0 ? '…' : '';
     var suffix = end < text.length ? '…' : '';
     var raw = text.substring(start, end);
 
-    // Highlight all matched words in the snippet
+    // Highlight all matched terms in the snippet (longest first to avoid partial overlap)
     var escaped = escHtml(raw);
-    for (var j = 0; j < words.length; j++) {
-      var re = new RegExp('(' + escRegex(escHtml(words[j])) + ')', 'gi');
+    var sorted = terms.slice().sort(function (a, b) { return b.length - a.length; });
+    for (var j = 0; j < sorted.length; j++) {
+      var re = new RegExp('(' + escRegex(escHtml(sorted[j])) + ')', 'gi');
       escaped = escaped.replace(re, '<mark>$1</mark>');
     }
     return prefix + escaped + suffix;
@@ -404,9 +417,9 @@
         var hiddenClass = (collapsed && i >= MAX_RESULTS_PER_TAB) ? ' search-result-hidden' : '';
         html += '<button class="search-result-item' + hiddenClass + '" data-tab="' + item.tabId + '" data-id="' + escHtml(item.dataId || '') + '" data-section="' + escHtml(item.section || '') + '" data-tool="' + escHtml(item.toolId || '') + '">';
         var highlightedTitle = escHtml(item.title);
-        var titleWords = lastQuery.toLowerCase().split(/\s+/).filter(function(w) { return w.length > 0; });
-        for (var tw = 0; tw < titleWords.length; tw++) {
-          var tre = new RegExp('(' + escRegex(titleWords[tw]) + ')', 'gi');
+        var titleTerms = parseQuery(lastQuery).terms.slice().sort(function(a,b) { return b.length - a.length; });
+        for (var tw = 0; tw < titleTerms.length; tw++) {
+          var tre = new RegExp('(' + escRegex(titleTerms[tw]) + ')', 'gi');
           highlightedTitle = highlightedTitle.replace(tre, '<mark>$1</mark>');
         }
         html += '<span class="search-result-title">' + highlightedTitle + '</span>';

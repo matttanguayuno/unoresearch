@@ -679,6 +679,8 @@ function setupEventListeners() {
   document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
   document.querySelector('.lightbox-prev').addEventListener('click', lightboxPrev);
   document.querySelector('.lightbox-next').addEventListener('click', lightboxNext);
+  document.querySelector('.lightbox-up').addEventListener('click', lightboxUp);
+  document.querySelector('.lightbox-down').addEventListener('click', lightboxDown);
 }
 
 // Switch tab
@@ -960,13 +962,23 @@ function showCellDetail(featureId, toolId, event) {
 }
 
 // ── Lightbox logic ──
-let lightboxState = { screenshots: [], currentIndex: 0, basePath: 'screenshots/' };
+let lightboxState = { screenshots: [], currentIndex: 0, basePath: 'screenshots/', toolGroups: null, currentGroupIndex: -1 };
+
+function openReqLightbox(groupIndex, screenshotIndex) {
+  var groups = window._reqToolGroups;
+  if (!groups || !groups[groupIndex]) return;
+  lightboxState.toolGroups = groups;
+  lightboxState.currentGroupIndex = groupIndex;
+  var g = groups[groupIndex];
+  openLightbox(g.screenshots, screenshotIndex, g.basePath);
+}
 
 function openLightbox(screenshotsJson, index, basePath) {
   const screenshots = typeof screenshotsJson === 'string' ? JSON.parse(screenshotsJson) : screenshotsJson;
   lightboxState.screenshots = screenshots;
   lightboxState.currentIndex = index;
   lightboxState.basePath = (basePath !== undefined) ? basePath : 'screenshots/';
+  if (!lightboxState.toolGroups) { lightboxState.currentGroupIndex = -1; }
   updateLightboxImage();
   const lb = document.getElementById('screenshot-lightbox');
   lb.classList.remove('hidden');
@@ -1010,6 +1022,8 @@ function closeLightbox() {
     lightboxState._touchCleanup();
     lightboxState._touchCleanup = null;
   }
+  lightboxState.toolGroups = null;
+  lightboxState.currentGroupIndex = -1;
 }
 
 function updateLightboxImage() {
@@ -1019,11 +1033,28 @@ function updateLightboxImage() {
   document.getElementById('lightbox-img').src = prefix ? `${prefix}${filename}` : filename;
   document.getElementById('lightbox-caption').textContent = `${currentIndex + 1} / ${screenshots.length}`;
   
-  // Show/hide nav arrows
+  // Show/hide left/right nav arrows
   const prevBtn = document.querySelector('.lightbox-prev');
   const nextBtn = document.querySelector('.lightbox-next');
   prevBtn.classList.toggle('lightbox-btn-hidden', currentIndex === 0);
   nextBtn.classList.toggle('lightbox-btn-hidden', currentIndex === screenshots.length - 1);
+
+  // Show/hide up/down tool nav arrows
+  const upBtn = document.querySelector('.lightbox-up');
+  const downBtn = document.querySelector('.lightbox-down');
+  const toolLabel = document.getElementById('lightbox-tool-label');
+  const groups = lightboxState.toolGroups;
+  const gi = lightboxState.currentGroupIndex;
+  if (groups && gi >= 0) {
+    upBtn.classList.toggle('lightbox-btn-hidden', gi === 0);
+    downBtn.classList.toggle('lightbox-btn-hidden', gi === groups.length - 1);
+    toolLabel.textContent = groups[gi].name;
+    toolLabel.classList.remove('hidden');
+  } else {
+    upBtn.classList.add('lightbox-btn-hidden');
+    downBtn.classList.add('lightbox-btn-hidden');
+    toolLabel.classList.add('hidden');
+  }
 }
 
 function lightboxPrev() {
@@ -1040,10 +1071,38 @@ function lightboxNext() {
   }
 }
 
+function lightboxUp() {
+  var groups = lightboxState.toolGroups;
+  var gi = lightboxState.currentGroupIndex;
+  if (!groups || gi <= 0) return;
+  gi--;
+  lightboxState.currentGroupIndex = gi;
+  var g = groups[gi];
+  lightboxState.screenshots = g.screenshots;
+  lightboxState.currentIndex = 0;
+  lightboxState.basePath = g.basePath;
+  updateLightboxImage();
+}
+
+function lightboxDown() {
+  var groups = lightboxState.toolGroups;
+  var gi = lightboxState.currentGroupIndex;
+  if (!groups || gi >= groups.length - 1) return;
+  gi++;
+  lightboxState.currentGroupIndex = gi;
+  var g = groups[gi];
+  lightboxState.screenshots = g.screenshots;
+  lightboxState.currentIndex = 0;
+  lightboxState.basePath = g.basePath;
+  updateLightboxImage();
+}
+
 function lightboxKeyHandler(e) {
   if (e.key === 'Escape') closeLightbox();
   if (e.key === 'ArrowLeft') lightboxPrev();
   if (e.key === 'ArrowRight') lightboxNext();
+  if (e.key === 'ArrowUp') { e.preventDefault(); lightboxUp(); }
+  if (e.key === 'ArrowDown') { e.preventDefault(); lightboxDown(); }
 }
 
 // Find feature by ID

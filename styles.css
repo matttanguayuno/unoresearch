@@ -1832,7 +1832,9 @@ footer {
     }
 
     .lightbox-prev,
-    .lightbox-next {
+    .lightbox-next,
+    .lightbox-up,
+    .lightbox-down {
         display: none;
     }
 
@@ -1894,8 +1896,8 @@ footer {
     .lightbox-prev,
     .lightbox-next {
         width: 2.2rem;
-        height: 2.8rem;
-        font-size: 1.5rem;
+        height: 2.2rem;
+        font-size: 1rem;
     }
 
     .download-btn-tooltip {
@@ -2451,38 +2453,72 @@ footer {
 }
 
 .lightbox-prev,
-.lightbox-next {
+.lightbox-next,
+.lightbox-up,
+.lightbox-down {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: rgba(255, 255, 255, 0.8);
-    font-size: 2rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    width: 2.8rem;
-    height: 3.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--radius-md);
     transition: all 0.15s ease;
     z-index: 10;
 }
 
-.lightbox-prev { left: -3.5rem; }
-.lightbox-next { right: -3.5rem; }
+.lightbox-prev,
+.lightbox-next {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lightbox-prev { left: -3.2rem; }
+.lightbox-next { right: -3.2rem; }
+
+.lightbox-up,
+.lightbox-down {
+    left: 50%;
+}
+
+.lightbox-up {
+    bottom: calc(100% + 0.5rem);
+    transform: translateX(-50%) rotate(90deg);
+}
+.lightbox-down {
+    top: calc(100% + 0.5rem);
+    transform: translateX(-50%) rotate(90deg);
+}
 
 .lightbox-prev:hover,
-.lightbox-next:hover {
-    background: rgba(255, 255, 255, 0.2);
+.lightbox-next:hover,
+.lightbox-up:hover,
+.lightbox-down:hover {
+    background: rgba(255, 255, 255, 0.25);
     color: white;
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .lightbox-prev.lightbox-btn-hidden,
-.lightbox-next.lightbox-btn-hidden {
+.lightbox-next.lightbox-btn-hidden,
+.lightbox-up.lightbox-btn-hidden,
+.lightbox-down.lightbox-btn-hidden {
     visibility: hidden;
 }
+
+.lightbox-tool-label {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+.lightbox-tool-label.hidden { display: none; }
 
 .lightbox-caption {
     color: rgba(255, 255, 255, 0.6);
@@ -4905,6 +4941,29 @@ mark.search-query-highlight {
 /* ============================================================
    REQUIREMENTS TAB
    ============================================================ */
+
+/* ── Loading Spinner ── */
+.req-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  gap: 1rem;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+.req-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: req-spin 0.8s linear infinite;
+}
+@keyframes req-spin {
+  to { transform: rotate(360deg); }
+}
 
 /* Sub-nav override (inherits .uvc-subnav fully) */
 .req-subnav { margin-bottom: 1.25rem; }

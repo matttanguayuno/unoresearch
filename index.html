@@ -161,7 +161,7 @@
         <!-- Requirements Tab -->
         <section id="requirements" class="tab-content">
             <div class="req-master-detail">
-                <div id="requirements-content"></div>
+                <div id="requirements-content"><div class="req-loading"><div class="req-spinner"></div><p>Loading requirements…</p></div></div>
                 <div id="req-detail-panel" class="req-detail-panel">
                     <div class="req-detail-empty">
                         <p>Click a requirement to see details</p>
@@ -191,6 +191,9 @@
             <button class="lightbox-close">&times;</button>
             <button class="lightbox-prev">&#8249;</button>
             <button class="lightbox-next">&#8250;</button>
+            <button class="lightbox-up lightbox-btn-hidden">&#8249;</button>
+            <button class="lightbox-down lightbox-btn-hidden">&#8250;</button>
+            <div class="lightbox-tool-label hidden" id="lightbox-tool-label"></div>
             <img id="lightbox-img" src="" alt="Screenshot">
             <div class="lightbox-caption" id="lightbox-caption"></div>
         </div>

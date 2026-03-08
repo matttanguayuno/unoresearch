@@ -116,6 +116,7 @@ These features are offered by 4–6 of the 6 competitors. Shipping without them 
 | Feature | Competitors with it | Notes for Uno |
 |---------|-------------------|---------------|
 | **LLM model selection** | 5/6 (4 YES + 1 LIMITED) | Dreamflow, Builder (10 models + Auto), Bolt, and Tempo let users choose. Vibecode has 4 Claude models. Uno should offer model-agnostic architecture: BYOK, per-task model routing. |
+| **Mode selection** | 5/6 (5 YES) | Dreamflow, Lovable, Builder, Bolt, and Tempo offer distinct modes (chat, edit, reasoning, search). Vibecode uses a single mode. Offer plan/code/chat/review modes with auto-switching. |
 
 ### Quality
 
@@ -356,6 +357,7 @@ These are the features that make Studio Live _different_, not just _another AI b
 | Feature | Dreamflow | Lovable | Vibecode | Builder | Bolt | Tempo |
 |---------|-----------|---------|----------|---------|------|-------|
 | LLM model selection | ✅ | ✅ | ⚠️ | ✅ | ✅ | ✅ |
+| Mode selection | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | Local/self-hosted AI | ❌ | ❌ | ❌ | ❌ | ⚠️ | ❌ |
 
 ### L. Misc

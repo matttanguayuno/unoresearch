@@ -152,6 +152,7 @@ const requirementsData = {
       name: "K. AI Agent Configuration",
       features: [
         { id: "llm-model-selection", name: "LLM model selection", priority: "p1", coverage: "5/6", coverageDetail: "4 YES + 1 LIMITED", note: "Dreamflow (8 models), Builder (10 models + Auto), Bolt (7 models incl. Codex), and Tempo (7 models) let users choose. Vibecode has 4 Claude models via Claude Code. Offer model-agnostic architecture." },
+        { id: "mode-selection", name: "Mode selection", priority: "p1", coverage: "5/6", coverageDetail: "5 YES", note: "Dreamflow, Lovable, Builder, Bolt, and Tempo offer distinct modes (chat, edit, reasoning, search). Vibecode uses a single mode. Offer plan/code/chat/review modes with auto-switching." },
         { id: "local-self-hosted-ai", name: "Local / self-hosted AI execution", priority: "p2", coverage: "0/6", coverageDetail: "1 LIMITED (bolt.diy only)", note: "Enterprise and government need code to never leave their network. Unique enterprise offering.", highlight: true }
       ]
     },

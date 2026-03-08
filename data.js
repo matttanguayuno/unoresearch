@@ -1106,6 +1106,20 @@ const data = {
               }
             },
             {
+              "id": "mode_selection",
+              "name": "Mode selection",
+              "whyItMatters": "Different tasks benefit from different agent behaviors. Plan mode thinks before acting, agent mode executes autonomously, chat mode enables conversation. Letting users choose modes gives finer control over the AI's approach.",
+              "unoOpportunity": "Offer configurable agent modes (plan, code, chat, review) with auto-mode switching based on context. This is table stakes — most competitors already support it.",
+              "cells": {
+                "dreamflow": { "status": "YES", "note": "Mode selection available.", "links": [], "screenshots": ["dreamflow-mode-selection.png"] },
+                "lovable": { "status": "YES", "note": "Supports Chat mode and Edit mode.", "links": [], "screenshots": ["lovable-mode-selection-1.png", "lovable-mode-selection-2.png"] },
+                "vibecode": { "status": "NO", "note": "Single agent mode via Claude Code. No mode switching.", "links": [] },
+                "builder": { "status": "YES", "note": "Multiple interaction modes available.", "links": [], "screenshots": ["builder-mode-selection-1.png", "builder-mode-selection-2.png", "builder-mode-selection-3.png"] },
+                "bolt": { "status": "YES", "note": "Multiple agent modes available.", "links": [], "screenshots": ["bolt-mode-selection-1.png", "bolt-mode-selection-2.png"] },
+                "tempo": { "status": "YES", "note": "Three chat modes: Normal, Reasoning (multi-model), and Search (with sourced answers).", "links": [], "screenshots": ["tempo-mode-selection.png"] }
+              }
+            },
+            {
               "id": "local_selfhosted_ai",
               "name": "Local / self-hosted AI execution",
               "whyItMatters": "Enterprise and government customers require code to never leave their network. Air-gapped AI execution is a hard requirement for regulated industries.",
