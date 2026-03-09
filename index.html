@@ -171,12 +171,227 @@
         </section>
 
         <section id="documentation" class="tab-content">
-            <div id="documentation-content">
-                <p style="color:var(--text-muted);padding:2rem;">Documentation content coming soon.</p>
+            <div id="documentation-content" class="doc-page">
+
+                <!-- Hero -->
+                <div class="doc-hero">
+                    <h1 class="doc-hero-title">Documentation is changing</h1>
+                    <p class="doc-hero-subtitle">Docs are not just for humans anymore. They now need to work for <strong>people</strong>, <strong>LLMs</strong>, and <strong>agents/tools</strong> too.</p>
+                </div>
+
+                <!-- The Short Version -->
+                <div class="doc-section">
+                    <h2 class="doc-section-title">The short version</h2>
+                    <p class="doc-body">The biggest shift is that we should stop thinking about everything as just "docs". There are really a few different layers now:</p>
+                    <div class="doc-layer-cards">
+                        <div class="doc-layer-card" data-accent="blue">
+                            <span class="doc-layer-icon">📖</span>
+                            <h4>Traditional Docs</h4>
+                            <p>Help humans understand things</p>
+                            <span class="doc-layer-chevron">▾</span>
+                            <div class="doc-layer-detail">
+                                <p>Still the foundation. People need tutorials, how-to guides, reference pages, and explanation. This part has not gone away.</p>
+                            </div>
+                        </div>
+                        <div class="doc-layer-card" data-accent="violet">
+                            <span class="doc-layer-icon">🤖</span>
+                            <h4>LLM-Ingestible Docs</h4>
+                            <p>Help models retrieve the right context</p>
+                            <span class="doc-layer-chevron">▾</span>
+                            <div class="doc-layer-detail">
+                                <p>Documentation structured so models can use it well. The key idea is not "AI magic" - it is mostly clean structure, good headings, self-contained sections, and markdown or plain-text outputs.</p>
+                            </div>
+                        </div>
+                        <div class="doc-layer-card" data-accent="green">
+                            <span class="doc-layer-icon">🔧</span>
+                            <h4>Tools</h4>
+                            <p>Let models take actions</p>
+                            <span class="doc-layer-chevron">▾</span>
+                            <div class="doc-layer-detail">
+                                <p>A tool is not just a page explaining a feature - it is something callable, with clear inputs, outputs, and expected actions. Tool documentation needs to be much more explicit than normal prose.</p>
+                            </div>
+                        </div>
+                        <div class="doc-layer-card" data-accent="rose">
+                            <span class="doc-layer-icon">💬</span>
+                            <h4>Prompts</h4>
+                            <p>Guide how a model approaches a task</p>
+                            <span class="doc-layer-chevron">▾</span>
+                            <div class="doc-layer-detail">
+                                <p>Reusable guidance - useful for framing, templates, and repeatable instructions. But usually not the best long-term place to store important operational knowledge.</p>
+                            </div>
+                        </div>
+                        <div class="doc-layer-card" data-accent="cyan">
+                            <span class="doc-layer-icon">⚡</span>
+                            <h4>Skills</h4>
+                            <p>Package repeatable workflows or playbooks</p>
+                            <span class="doc-layer-chevron">▾</span>
+                            <div class="doc-layer-detail">
+                                <p>Probably the most interesting layer. A skill is a reusable playbook the model can load when needed - a great fit for repeated internal workflows, conventions, and step-by-step processes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The Simple Model -->
+                <div class="doc-section">
+                    <h2 class="doc-section-title">The simple model</h2>
+                    <div class="doc-model-grid">
+                        <div class="doc-model-card" data-accent="blue">
+                            <div class="doc-model-label">Context</div>
+                            <div class="doc-model-desc">What the model should know</div>
+                            <div class="doc-model-maps">Docs &amp; resources</div>
+                        </div>
+                        <div class="doc-model-card" data-accent="green">
+                            <div class="doc-model-label">Action</div>
+                            <div class="doc-model-desc">What the model can do</div>
+                            <div class="doc-model-maps">Tools</div>
+                        </div>
+                        <div class="doc-model-card" data-accent="violet">
+                            <div class="doc-model-label">Workflow</div>
+                            <div class="doc-model-desc">How the model should do it</div>
+                            <div class="doc-model-maps">Prompts &amp; Skills</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Why This Matters -->
+                <div class="doc-section">
+                    <h2 class="doc-section-title">Why this matters</h2>
+                    <div class="doc-shift-compare">
+                        <div class="doc-shift-box doc-shift-old">
+                            <div class="doc-shift-label">Old model</div>
+                            <p>Write docs pages for humans</p>
+                        </div>
+                        <div class="doc-shift-arrow">→</div>
+                        <div class="doc-shift-box doc-shift-new">
+                            <div class="doc-shift-label">New model</div>
+                            <p>Write once, then publish in a few ways depending on the job</p>
+                        </div>
+                    </div>
+                    <p class="doc-body" style="margin-top:1.25rem;">So the same source material might become:</p>
+                    <ul class="doc-list">
+                        <li>A normal docs page for people</li>
+                        <li>A markdown or LLM-friendly version for retrieval</li>
+                        <li>A tool schema for action</li>
+                        <li>A skill for repeatable workflows</li>
+                    </ul>
+                    <div class="doc-callout" style="margin-top:1.5rem;">
+                        <p class="doc-callout-lead">The real shift is not just "make docs AI-friendly".</p>
+                        <p class="doc-callout-main">It is: <strong>separate context, actions, and workflows clearly.</strong></p>
+                    </div>
+                    <p class="doc-body" style="margin-top:1.25rem;">When those are separated:</p>
+                    <div class="doc-benefits-grid">
+                        <div class="doc-benefit">
+                            <span class="doc-benefit-icon">📄</span>
+                            <span>Docs are easier to read</span>
+                        </div>
+                        <div class="doc-benefit">
+                            <span class="doc-benefit-icon">🔍</span>
+                            <span>Retrieval gets cleaner</span>
+                        </div>
+                        <div class="doc-benefit">
+                            <span class="doc-benefit-icon">🛡️</span>
+                            <span>Tools become safer and more reliable</span>
+                        </div>
+                        <div class="doc-benefit">
+                            <span class="doc-benefit-icon">🔁</span>
+                            <span>Repeated processes are easier to automate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Comparison -->
+                <div class="doc-section">
+                    <h2 class="doc-section-title">Quick comparison</h2>
+                    <table class="doc-comparison-table">
+                        <thead>
+                            <tr><th>Layer</th><th>Purpose</th><th>Examples</th><th>Tools &amp; Resources</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="doc-dot" style="background:var(--uno-blue)"></span> Traditional Docs</td><td>Human understanding for developers &amp; users</td><td>Tutorials, API reference, how-to guides</td><td><a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'mintlify')">Mintlify</a>, <a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'gitbook')">GitBook</a>, <a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'docusaurus')">Docusaurus</a>, <a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'readme')">ReadMe</a></td></tr>
+                            <tr><td><span class="doc-dot" style="background:var(--uno-violet)"></span> LLM-Ingestible Docs</td><td>Retrieval &amp; context for AI models</td><td>Markdown files, <a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'llmstxt')">llms.txt</a>, structured sections</td><td><a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'llmstxt')">llms.txt</a>, <a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'llmsfulltxt')">llms-full.txt</a>, <a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'context7')">Context7</a></td></tr>
+                            <tr><td><span class="doc-dot" style="background:var(--uno-green)"></span> Tools</td><td>Actions for AI agents</td><td>Tool schemas, API endpoints, function calling</td><td><a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'mcp')">MCP</a>, <a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'openapi')">OpenAPI</a>, <a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'tooljson')">Tool-use JSON specs</a></td></tr>
+                            <tr><td><span class="doc-dot" style="background:var(--uno-rose)"></span> Prompts</td><td>Guidance for AI models</td><td>System prompts, templates</td><td><a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'promptmd')">.prompt.md</a>, <a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'copilotinstructions')">copilot-instructions.md</a>, <a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'cursorrules')">.cursorrules</a></td></tr>
+                            <tr><td><span class="doc-dot" style="background:var(--uno-cyan)"></span> Skills</td><td>Repeatable workflows for agents &amp; teams</td><td>Playbooks, workflow definitions</td><td><a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'skillmd')">SKILL.md</a>, <a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'agentsmd')">AGENTS.md</a>, <a href="#" class="doc-inline-link" onclick="openResourcePopup(event,'agentmodes')">Custom agent modes</a></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="doc-section">
+                    <h2 class="doc-section-title">Recommendations</h2>
+                    <div class="doc-recs">
+                        <div class="doc-rec">
+                            <span class="doc-rec-num">1</span>
+                            <div>
+                                <h4>Keep strong human docs</h4>
+                                <p>Good human docs still matter - and they also improve machine ingestion downstream.</p>
+                            </div>
+                        </div>
+                        <div class="doc-rec">
+                            <span class="doc-rec-num">2</span>
+                            <div>
+                                <h4>Add an LLM-ingestible layer</h4>
+                                <p>Think clean markdown, strong headings, self-contained sections, and possibly an llms.txt-style entry point.</p>
+                            </div>
+                        </div>
+                        <div class="doc-rec">
+                            <span class="doc-rec-num">3</span>
+                            <div>
+                                <h4>Treat actions as tools, not prose</h4>
+                                <p>If something can be done by an agent, describe it like a callable capability, not just paragraphs.</p>
+                            </div>
+                        </div>
+                        <div class="doc-rec">
+                            <span class="doc-rec-num">4</span>
+                            <div>
+                                <h4>Use prompts lightly</h4>
+                                <p>They are useful, but should not become the dumping ground for every important process.</p>
+                            </div>
+                        </div>
+                        <div class="doc-rec">
+                            <span class="doc-rec-num">5</span>
+                            <div>
+                                <h4>Turn repeated workflows into skills</h4>
+                                <p>That is likely where a lot of the practical value is.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Line -->
+                <div class="doc-section">
+                    <div class="doc-bottom-line">
+                        <h2>Bottom line</h2>
+                        <p class="doc-bottom-lead">Docs are turning into a <strong>system</strong>, not just a website.</p>
+                        <div class="doc-bottom-layers">
+                            <span class="doc-bottom-tag" style="--tag-color:var(--uno-blue)">Human Docs</span>
+                            <span class="doc-bottom-tag" style="--tag-color:var(--uno-violet)">LLM Context</span>
+                            <span class="doc-bottom-tag" style="--tag-color:var(--uno-green)">Tools</span>
+                            <span class="doc-bottom-tag" style="--tag-color:var(--uno-rose)">Prompts</span>
+                            <span class="doc-bottom-tag" style="--tag-color:var(--uno-cyan)">Skills</span>
+                        </div>
+                        <p class="doc-bottom-close">Each has a different job. The teams that separate those jobs clearly will be in a much better place for search, copilots, agents, and internal AI workflows.</p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
     </main>
+
+    <!-- Resource detail popup -->
+    <div id="resource-popup" class="doc-popup hidden">
+        <div class="doc-popup-backdrop" onclick="closeResourcePopup()"></div>
+        <div class="doc-popup-panel">
+            <button class="doc-popup-close" onclick="closeResourcePopup()">&times;</button>
+            <h3 id="resource-popup-title"></h3>
+            <p class="doc-popup-desc" id="resource-popup-desc"></p>
+            <div id="resource-popup-url" style="margin-bottom:1rem;"></div>
+            <div id="resource-popup-screenshot" style="margin-bottom:1rem;"></div>
+            <div id="resource-popup-example"></div>
+        </div>
+    </div>
 
     <!-- Agent UX popup overlay -->
     <div id="ux-popup" class="ux-popup hidden">

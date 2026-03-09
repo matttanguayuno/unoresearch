@@ -715,6 +715,20 @@ function setupEventListeners() {
   document.querySelector('.lightbox-next').addEventListener('click', lightboxNext);
   document.querySelector('.lightbox-up').addEventListener('click', lightboxUp);
   document.querySelector('.lightbox-down').addEventListener('click', lightboxDown);
+
+  // Doc layer cards expand/collapse (accordion)
+  document.querySelectorAll('.doc-layer-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const wasExpanded = card.classList.contains('expanded');
+      document.querySelectorAll('.doc-layer-card.expanded').forEach(c => c.classList.remove('expanded'));
+      if (!wasExpanded) card.classList.add('expanded');
+    });
+  });
+
+  // Close llms.txt popup on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeResourcePopup();
+  });
 }
 
 // ── Features dropdown helpers ──
@@ -1102,6 +1116,279 @@ function openReqLightbox(groupIndex, screenshotIndex) {
   lightboxState.currentGroupIndex = groupIndex;
   var g = groups[groupIndex];
   openLightbox(g.screenshots, screenshotIndex, g.basePath);
+}
+
+// ── Resource popup ──
+const RESOURCE_DATA = {
+  mintlify: {
+    title: 'Mintlify',
+    desc: 'Modern documentation platform that makes it easy to build beautiful, fast docs. Supports MDX, API references, and AI-powered search out of the box.',
+    url: 'https://mintlify.com',
+    screenshot: 'screenshots/mintlify.png'
+  },
+  gitbook: {
+    title: 'GitBook',
+    desc: 'Documentation platform with Git-backed editing, collaborative workflows, and AI-powered search. Popular for product and API documentation.',
+    url: 'https://www.gitbook.com',
+    screenshot: 'screenshots/gitbook.png'
+  },
+  docusaurus: {
+    title: 'Docusaurus',
+    desc: 'Open-source documentation framework by Meta. React-based, supports versioning, i18n, and plugin ecosystem. Great for developer docs.',
+    url: 'https://docusaurus.io',
+    screenshot: 'screenshots/docusaurus.png'
+  },
+  readme: {
+    title: 'ReadMe',
+    desc: 'Interactive API documentation platform with built-in API explorer, changelogs, and developer analytics.',
+    url: 'https://readme.com',
+    screenshot: 'screenshots/readme.png'
+  },
+  llmstxt: {
+    title: 'llms.txt',
+    desc: 'A proposed standard entry point that tells AI models what documentation is available and how to access it.',
+    url: 'https://llmstxt.org',
+    screenshot: 'screenshots/llmstxt.png',
+    example: `# Uno Platform
+
+> Cross-platform .NET UI framework for building
+> native mobile, desktop, and web apps with C# and XAML.
+
+## Docs
+
+- [Getting Started](https://platform.uno/docs/getting-started.md)
+- [Controls Reference](https://platform.uno/docs/controls.md)
+- [XAML Overview](https://platform.uno/docs/xaml-overview.md)
+- [Hot Reload](https://platform.uno/docs/hot-reload.md)
+
+## API
+
+- [REST API](https://platform.uno/api/rest.md)
+- [Authentication](https://platform.uno/api/auth.md)
+
+## Optional
+
+- [Architecture Guide](https://platform.uno/docs/architecture.md)
+- [Migration from WPF](https://platform.uno/docs/migration-wpf.md)
+- [Troubleshooting](https://platform.uno/docs/troubleshooting.md)`
+  },
+  llmsfulltxt: {
+    title: 'llms-full.txt',
+    desc: 'The extended companion to llms.txt - a single file containing all documentation content concatenated together, designed for models with large context windows that can ingest everything at once.',
+    url: 'https://llmstxt.org',
+    example: `# Uno Platform - Full Documentation
+
+> This file contains the complete documentation for Uno Platform,
+> concatenated into a single document for LLM ingestion.
+
+## Getting Started
+
+Uno Platform allows you to build native mobile, desktop,
+and web applications using C# and XAML from a single codebase.
+
+### Installation
+\`\`\`bash
+dotnet new install Uno.Templates
+dotnet new unoapp -o MyApp
+\`\`\`
+
+### Project Structure
+- MyApp/           → Shared code
+- MyApp.Mobile/    → iOS & Android
+- MyApp.Desktop/   → Windows, macOS, Linux
+- MyApp.Wasm/      → WebAssembly
+
+## Controls Reference
+
+### Button
+A standard button control that responds to click events.
+…
+
+### TextBox
+A text input control with support for validation.
+…
+
+(… full docs continue for all sections …)`
+  },
+  context7: {
+    title: 'Context7',
+    desc: 'MCP server that provides up-to-date, version-specific documentation directly into your AI coding prompts. Pulls from source docs so the model always has current context.',
+    url: 'https://context7.com',
+    screenshot: 'screenshots/context7.png'
+  },
+  mcp: {
+    title: 'MCP (Model Context Protocol)',
+    desc: 'An open protocol by Anthropic that standardizes how AI models connect to external tools and data sources. Think of it as a USB-C port for AI - one standard interface for any capability.',
+    url: 'https://modelcontextprotocol.io',
+    screenshot: 'screenshots/mcp.png'
+  },
+  openapi: {
+    title: 'OpenAPI',
+    desc: 'The industry standard for describing REST APIs. OpenAPI specs can be automatically converted into tool schemas that AI agents can call directly.',
+    url: 'https://www.openapis.org',
+    screenshot: 'screenshots/openapi.png'
+  },
+  tooljson: {
+    title: 'Tool-use JSON Specs',
+    desc: 'JSON schemas that describe callable tools for AI models - including function name, description, parameters, and expected outputs. Used by OpenAI, Anthropic, and others for function calling.',
+    example: `{
+  "name": "create_ticket",
+  "description": "Create a support ticket in the system",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "description": "Short summary of the issue"
+      },
+      "priority": {
+        "type": "string",
+        "enum": ["low", "medium", "high"]
+      },
+      "description": {
+        "type": "string",
+        "description": "Detailed description of the problem"
+      }
+    },
+    "required": ["title", "priority"]
+  }
+}`
+  },
+  promptmd: {
+    title: '.prompt.md',
+    desc: 'A VS Code convention for reusable prompt files. Stored in your repo, they can be invoked by name in Copilot Chat to provide consistent guidance for specific tasks.',
+    url: 'https://code.visualstudio.com/docs/copilot/copilot-customization',
+    example: `---
+mode: "agent"
+tools: ["run_in_terminal", "read_file"]
+description: "Run tests and fix failures"
+---
+
+Run the test suite. If any tests fail, read the failing
+test file and the source file, then fix the issue.
+Always run the tests again after making changes.`
+  },
+  copilotinstructions: {
+    title: 'copilot-instructions.md',
+    desc: 'A file placed in .github/ that provides persistent custom instructions to GitHub Copilot across your entire repository. Sets coding conventions, preferred patterns, and project-specific guidance.',
+    url: 'https://code.visualstudio.com/docs/copilot/copilot-customization',
+    example: `# Project conventions
+
+- Use TypeScript strict mode
+- Prefer functional components with hooks
+- Use Tailwind CSS for styling, not CSS modules
+- Always add error boundaries around async components
+- Write tests using Vitest, not Jest
+- Use pnpm, not npm or yarn`
+  },
+  cursorrules: {
+    title: '.cursorrules',
+    desc: 'A project-level configuration file for the Cursor editor that provides custom instructions to the AI assistant. Similar to copilot-instructions.md but for the Cursor ecosystem.',
+    url: 'https://cursor.com',
+    example: `You are an expert in TypeScript and Next.js 14.
+
+Key conventions:
+- Use server components by default
+- Use 'use client' only when needed
+- Prefer server actions over API routes
+- Use Zod for validation
+- Handle errors with Result types, not try/catch`
+  },
+  skillmd: {
+    title: 'SKILL.md',
+    desc: 'A VS Code convention for packaging domain-specific knowledge as a loadable skill. Skills are reusable playbooks that an agent can invoke when it encounters a matching task.',
+    url: 'https://code.visualstudio.com/docs/copilot/copilot-customization',
+    example: `---
+name: "database-migration"
+description: "Create and run database migrations"
+tools: ["run_in_terminal", "create_file"]
+---
+
+# Database Migration Skill
+
+## Steps
+1. Generate a migration file with timestamp prefix
+2. Write the up() and down() functions
+3. Run the migration with \`npx prisma migrate dev\`
+4. Verify the schema matches the models
+5. Update seed data if needed
+
+## Conventions
+- Always add both up and down migrations
+- Use descriptive migration names
+- Test rollback before committing`
+  },
+  agentsmd: {
+    title: 'AGENTS.md',
+    desc: 'A convention for defining custom AI agent personas with specific tool access, expertise, and behavioral guidelines. Allows teams to create specialized agents for different workflows.',
+    example: `---
+name: "security-reviewer"
+description: "Reviews code for security vulnerabilities"
+tools: ["read_file", "grep_search", "semantic_search"]
+---
+
+You are a security-focused code reviewer.
+
+## Focus Areas
+- Check for SQL injection, XSS, CSRF
+- Verify authentication and authorization
+- Review secrets management
+- Check dependency vulnerabilities
+
+## Process
+1. Scan for common vulnerability patterns
+2. Review auth middleware and access controls
+3. Check input validation at system boundaries
+4. Report findings with severity ratings`
+  },
+  agentmodes: {
+    title: 'Custom Agent Modes',
+    desc: 'Pre-configured agent personalities in VS Code that combine specific tools, instructions, and constraints. Modes let you switch between specialized workflows like "code review", "debugging", or "documentation" with different tool access.',
+    url: 'https://code.visualstudio.com/docs/copilot/copilot-customization',
+    screenshot: 'screenshots/custom-prompts-vs-code.png'
+  }
+};
+
+function openResourcePopup(e, key) {
+  e.preventDefault();
+  const data = RESOURCE_DATA[key];
+  if (!data) return;
+  const popup = document.getElementById('resource-popup');
+  document.getElementById('resource-popup-title').textContent = data.title;
+  document.getElementById('resource-popup-desc').textContent = data.desc;
+
+  const urlEl = document.getElementById('resource-popup-url');
+  if (data.url) {
+    urlEl.innerHTML = '<a href="' + data.url + '" target="_blank" rel="noopener" class="doc-resource-url">' + data.url + ' ↗</a>';
+  } else {
+    urlEl.innerHTML = '';
+  }
+
+  const ssEl = document.getElementById('resource-popup-screenshot');
+  if (data.screenshot) {
+    var ssHtml = '<img src="' + data.screenshot + '" alt="' + data.title + '" class="doc-resource-screenshot" onerror="this.parentNode.style.display=\'none\'">';
+    if (data.url) {
+      ssHtml = '<a href="' + data.url + '" target="_blank" rel="noopener">' + ssHtml + '</a>';
+    }
+    ssEl.style.display = '';
+    ssEl.innerHTML = ssHtml;
+  } else {
+    ssEl.innerHTML = '';
+  }
+
+  const exEl = document.getElementById('resource-popup-example');
+  if (data.example) {
+    const escaped = data.example.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    exEl.innerHTML = '<div class="doc-popup-example-label">Example</div><pre class="doc-popup-code"><code>' + escaped + '</code></pre>';
+  } else {
+    exEl.innerHTML = '';
+  }
+
+  popup.classList.remove('hidden');
+}
+
+function closeResourcePopup() {
+  document.getElementById('resource-popup').classList.add('hidden');
 }
 
 function openLightbox(screenshotsJson, index, basePath) {
