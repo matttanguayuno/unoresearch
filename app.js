@@ -615,15 +615,45 @@ async function init() {
 
 // Setup event listeners
 function setupEventListeners() {
+  // Features dropdown tabs
+  const FEATURES_TABS = ['feature-map', 'tool-comparison', 'agent-ux', 'requirements'];
+
   // Tab navigation — normal click switches in-page; Ctrl/middle-click opens new tab via native <a> behavior
-  document.querySelectorAll('.tab-btn').forEach(btn => {
+  document.querySelectorAll('.tab-btn[data-tab]').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      // Let Ctrl+click, Cmd+click, middle-click, and Shift+click use default <a> behaviour (open in new tab/window)
       if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
       e.preventDefault();
       const tab = e.currentTarget.dataset.tab;
       switchTab(tab);
     });
+  });
+
+  // Dropdown item clicks
+  document.querySelectorAll('.tab-dropdown-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+      e.preventDefault();
+      const tab = e.currentTarget.dataset.tab;
+      closeFeaturesDropdown();
+      switchTab(tab);
+    });
+  });
+
+  // Dropdown trigger toggle
+  const dropdownTrigger = document.getElementById('features-dropdown-trigger');
+  if (dropdownTrigger) {
+    dropdownTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleFeaturesDropdown();
+    });
+  }
+
+  // Close dropdown on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.tab-dropdown')) {
+      closeFeaturesDropdown();
+    }
   });
 
   // Handle browser back/forward with hash changes
@@ -662,6 +692,10 @@ function setupEventListeners() {
   // Close panels on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      // If lightbox is open, let lightboxKeyHandler handle it — don't also close the detail panel
+      const lb = document.getElementById('screenshot-lightbox');
+      if (lb && !lb.classList.contains('hidden')) return;
+
       const panel = document.getElementById('detail-panel');
       if (panel && !panel.classList.contains('hidden')) {
         closeDetailPanel();
@@ -683,8 +717,35 @@ function setupEventListeners() {
   document.querySelector('.lightbox-down').addEventListener('click', lightboxDown);
 }
 
+// ── Features dropdown helpers ──
+function toggleFeaturesDropdown() {
+  var dropdown = document.querySelector('.tab-dropdown');
+  var menu = document.getElementById('features-dropdown-menu');
+  if (!dropdown || !menu) return;
+  if (dropdown.classList.contains('open')) {
+    closeFeaturesDropdown();
+  } else {
+    dropdown.classList.add('open');
+    menu.classList.remove('hidden');
+    menu.offsetHeight; // reflow
+    menu.classList.add('visible');
+  }
+}
+
+function closeFeaturesDropdown() {
+  var dropdown = document.querySelector('.tab-dropdown');
+  var menu = document.getElementById('features-dropdown-menu');
+  if (!dropdown || !menu) return;
+  dropdown.classList.remove('open');
+  menu.classList.remove('visible');
+  setTimeout(function() { menu.classList.add('hidden'); }, 150);
+}
+
+
+
 // Switch tab
 function switchTab(tabId, fromHash) {
+  const FEATURES_TABS = ['feature-map', 'tool-comparison', 'agent-ux', 'requirements'];
   state.activeTab = tabId;
 
   // Update URL hash (skip if already triggered by hashchange to avoid loops)
@@ -692,12 +753,27 @@ function switchTab(tabId, fromHash) {
     history.replaceState(null, '', '#tab/' + tabId);
   }
   
-  // Update buttons
-  document.querySelectorAll('.tab-btn').forEach(btn => {
+  // Update top-level tab buttons (not dropdown items)
+  document.querySelectorAll('.tab-btn[data-tab]').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.tab === tabId);
     if (btn.dataset.tab === tabId) {
       btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
+  });
+
+  // Update Features dropdown trigger & items
+  const isFeatureTab = FEATURES_TABS.includes(tabId);
+  const trigger = document.getElementById('features-dropdown-trigger');
+  if (trigger) {
+    trigger.classList.toggle('active', isFeatureTab);
+    // Update trigger label to show current sub-tab
+    const activeItem = document.querySelector('.tab-dropdown-item[data-tab="' + tabId + '"]');
+    const label = activeItem ? activeItem.textContent : 'Features';
+    trigger.innerHTML = (isFeatureTab ? label : 'Features') +
+      ' <svg class="tab-dropdown-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+  }
+  document.querySelectorAll('.tab-dropdown-item').forEach(item => {
+    item.classList.toggle('active', item.dataset.tab === tabId);
   });
   
   // Update content
@@ -843,24 +919,79 @@ function renderFeatureMap() {
   });
 }
 
-// Show feature detail
+// Show feature detail — fullscreen popup with tools as columns
 function showFeatureDetail(featureId, event) {
   const feature = findFeature(featureId);
   if (!feature) return;
   
-  let html = `<h3 style="color: white;">${feature.name}</h3>`;
+  let html = '<div class="fm-popup-header">' + feature.name + '</div>';
   
-  html += '<div class="detail-section">';
-  html += '<h4 style="color: var(--primary);">Why It Matters</h4>';
-  html += `<p style="color: var(--text-secondary); line-height: 1.65;">${feature.whyItMatters}</p>`;
-  html += '</div>';
+  // Why It Matters & Uno Opportunity as context cards
+  if (feature.whyItMatters || feature.unoOpportunity) {
+    html += '<div class="fm-popup-context">';
+    if (feature.whyItMatters) {
+      html += '<div class="fm-popup-context-card">';
+      html += '<h4>Why It Matters</h4>';
+      html += '<p>' + feature.whyItMatters + '</p>';
+      html += '</div>';
+    }
+    if (feature.unoOpportunity) {
+      html += '<div class="fm-popup-context-card">';
+      html += '<h4>Uno Opportunity</h4>';
+      html += '<p>' + feature.unoOpportunity + '</p>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
   
-  html += '<div class="detail-section">';
-  html += '<h4 style="color: var(--primary);">Uno Opportunity</h4>';
-  html += `<p style="color: var(--text-secondary); line-height: 1.65;">${feature.unoOpportunity}</p>`;
-  html += '</div>';
+  // Build horizontal table: each column = one tool
+  html += '<table class="fm-popup-table">';
+  html += '<thead><tr>';
+  currentData.tools.forEach(function(tool) {
+    html += '<th>' + tool.name + '</th>';
+  });
+  html += '</tr></thead>';
+  html += '<tbody><tr>';
+  currentData.tools.forEach(function(tool) {
+    var cell = feature.cells[tool.id];
+    html += '<td data-tool="' + tool.name + '">';
+    if (cell) {
+      var icon = getStatusIcon(cell.status);
+      var statusLabel = cell.status === 'YES' ? 'Supported' : cell.status === 'LIMITED' ? 'Limited' : cell.status === 'NO' ? 'Not Supported' : 'Unknown';
+      var pillClass = cell.status === 'YES' ? 'status-yes' : cell.status === 'LIMITED' ? 'status-limited' : cell.status === 'NO' ? 'status-no' : 'status-unknown';
+      html += '<div class="fm-popup-status-pill ' + pillClass + '">' + icon + ' ' + statusLabel + '</div>';
+      if (cell.note) {
+        html += '<p class="fm-popup-note">' + cell.note + '</p>';
+      }
+      if (cell.screenshots && cell.screenshots.length > 0) {
+        html += '<div class="fm-popup-screenshots">';
+        cell.screenshots.forEach(function(filename, index) {
+          html += '<img class="screenshot-thumb" src="screenshots/' + encodeURIComponent(filename) + '" alt="' + filename + '" data-index="' + index + '" data-screenshots=\'' + JSON.stringify(cell.screenshots).replace(/'/g, '&#39;') + '\' onclick="openLightbox(this.dataset.screenshots, ' + index + ')">';
+        });
+        html += '</div>';
+      }
+    } else {
+      html += '<span style="color:var(--text-muted);">N/A</span>';
+    }
+    html += '</td>';
+  });
+  html += '</tr></tbody></table>';
   
+  // Always show as fullscreen popup
   openDetailPanel(html, event);
+  var panel = document.getElementById('detail-panel');
+  if (panel) {
+    panel.style.cssText = '';
+    panel.classList.add('req-fullscreen');
+    var existing = document.querySelector('.req-fullscreen-backdrop');
+    if (!existing) {
+      var backdrop = document.createElement('div');
+      backdrop.className = 'req-fullscreen-backdrop';
+      backdrop.addEventListener('click', function () { closeDetailPanel(); });
+      document.body.appendChild(backdrop);
+    }
+    document.body.style.overflow = 'hidden';
+  }
 }
 
 // Show cell detail
@@ -1234,9 +1365,6 @@ function openDetailPanel(html, event) {
     panel.style.top = `${margin}px`;
   }
   } // end desktop
-  
-  const container = document.querySelector('.feature-map-container');
-  if (container) container.classList.add('with-panel');
 }
 
 // Close detail panel
@@ -1256,10 +1384,10 @@ function closeDetailPanel() {
   const backdrop = document.querySelector('.req-fullscreen-backdrop');
   if (backdrop) backdrop.remove();
   
-  // Move panel back into the container if it was moved to body
-  const container = document.querySelector('.feature-map-container');
-  if (container && panel.parentElement === document.body) {
-    container.appendChild(panel);
+  // Move panel back into feature-map section if it was moved to body
+  const section = document.getElementById('feature-map');
+  if (section && panel.parentElement === document.body) {
+    section.appendChild(panel);
   }
   
   // Remove selected cell highlight
@@ -1267,8 +1395,6 @@ function closeDetailPanel() {
   if (selectedCell) {
     selectedCell.classList.remove('selected');
   }
-  
-  if (container) container.classList.remove('with-panel');
 }
 
 // Render Tool Comparison

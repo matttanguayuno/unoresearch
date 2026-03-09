@@ -162,6 +162,68 @@ header h1 {
     box-shadow: 0 0 12px rgba(21, 155, 255, 0.25);
 }
 
+/* ── Features dropdown ──────────────────────────────────────── */
+
+.tab-dropdown {
+    position: relative;
+}
+
+.tab-dropdown-trigger {
+    gap: 0.4rem;
+}
+
+.tab-dropdown-caret {
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.tab-dropdown.open .tab-dropdown-caret {
+    transform: rotate(180deg);
+}
+
+.tab-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 0;
+    min-width: 180px;
+    background: var(--surface-2);
+    border: var(--stroke) solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    padding: 0.35rem 0;
+    z-index: 600;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    pointer-events: none;
+}
+
+.tab-dropdown-menu.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.tab-dropdown-item {
+    display: block;
+    padding: 0.6rem 1rem;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.1s ease;
+    cursor: pointer;
+}
+
+.tab-dropdown-item:hover {
+    color: var(--primary);
+    background: var(--surface-3);
+}
+
+.tab-dropdown-item.active {
+    color: var(--primary);
+}
+
 main {
     max-width: 1400px;
     margin: 0 auto;
@@ -392,15 +454,226 @@ h4 {
     cursor: pointer;
 }
 
-.feature-map-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    position: relative;
+/* ── Feature detail fullscreen popup ── */
+.fm-popup-header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--border-bright);
+}
+.fm-popup-context {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+.fm-popup-context-card {
+    flex: 1;
+    min-width: 250px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--primary);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1rem;
+}
+.fm-popup-context-card h4 {
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+}
+.fm-popup-context-card p {
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 0;
 }
 
-.feature-map-container.with-panel {
-    grid-template-columns: 1fr;
+/* Table */
+.fm-popup-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: visible;
+}
+.fm-popup-table th,
+.fm-popup-table td {
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    padding: 1rem 1.1rem;
+    vertical-align: top;
+    text-align: left;
+    min-width: 180px;
+}
+.fm-popup-table th:last-child,
+.fm-popup-table td:last-child {
+    border-right: none;
+}
+.fm-popup-table tbody tr:last-child td {
+    border-bottom: none;
+}
+.fm-popup-table thead th {
+    background: var(--surface-3);
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    white-space: nowrap;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 2px solid var(--border-bright);
+}
+.fm-popup-table tbody td {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+    background: var(--surface);
+}
+
+/* Status pill badge */
+.fm-popup-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 0.65rem;
+    white-space: nowrap;
+}
+.fm-popup-status-pill.status-yes {
+    background: rgba(103, 229, 173, 0.12);
+    color: #67e5ad;
+    border: 1px solid rgba(103, 229, 173, 0.25);
+}
+.fm-popup-status-pill.status-limited {
+    background: rgba(245, 158, 11, 0.12);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+}
+.fm-popup-status-pill.status-no {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+.fm-popup-status-pill.status-unknown {
+    background: rgba(156, 163, 175, 0.12);
+    color: var(--text-muted);
+    border: 1px solid rgba(156, 163, 175, 0.25);
+}
+
+.fm-popup-note {
+    color: var(--text-muted);
+    margin: 0 0 0.65rem 0;
+    line-height: 1.6;
+    font-size: 13px;
+}
+.fm-popup-screenshots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 0.5rem;
+}
+.fm-popup-screenshots .screenshot-thumb {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    transition: border-color 0.15s, transform 0.15s;
+}
+.fm-popup-screenshots .screenshot-thumb:hover {
+    border-color: var(--primary);
+    transform: scale(1.04);
+}
+
+/* Make fullscreen popup scrollable horizontally for many tools */
+.detail-panel.req-fullscreen #detail-content {
+    overflow-x: auto;
+}
+
+/* Mobile: convert feature popup table to stacked cards */
+@media (max-width: 768px) {
+    .detail-panel.req-fullscreen {
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        border-radius: 0 !important;
+    }
+
+    .fm-popup-header {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+    }
+
+    .fm-popup-context {
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+    .fm-popup-context-card {
+        min-width: 0;
+    }
+
+    .fm-popup-table,
+    .fm-popup-table thead,
+    .fm-popup-table tbody,
+    .fm-popup-table tr,
+    .fm-popup-table th,
+    .fm-popup-table td {
+        display: block;
+    }
+
+    .fm-popup-table {
+        border: none;
+        border-radius: 0;
+    }
+
+    /* Hide the header row — tool names shown via data-tool */
+    .fm-popup-table thead {
+        display: none;
+    }
+
+    .fm-popup-table tbody tr {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .fm-popup-table td {
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 1rem;
+        background: var(--surface-2);
+    }
+
+    /* Show tool name as a card header */
+    .fm-popup-table td::before {
+        content: attr(data-tool);
+        display: block;
+        font-weight: 700;
+        font-size: 14px;
+        color: white;
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .fm-popup-screenshots .screenshot-thumb {
+        width: 80px;
+        height: 56px;
+    }
 }
 
 #feature-grid {
@@ -659,96 +932,6 @@ h4 {
 }
 
 /* ── Requirements master-detail layout ── */
-.req-master-detail {
-    display: flex;
-    gap: 0;
-}
-.req-master-detail > #requirements-content {
-    flex: 1;
-    min-width: 0;
-}
-.req-detail-panel {
-    display: none;
-}
-
-@media (min-width: 1400px) {
-    /* Break out of main's max-width using negative margins */
-    #requirements {
-        margin-left: calc(-50vw + 50%);
-        margin-right: calc(-50vw + 50%);
-        padding-left: calc(50vw - 50% + 3rem);
-        padding-right: calc(50vw - 50% + 3rem);
-    }
-
-    .req-master-detail {
-        gap: 2rem;
-    }
-
-    .req-detail-panel {
-        display: flex;
-        flex-direction: column;
-        width: 35%;
-        min-width: 420px;
-        max-width: 780px;
-        flex-shrink: 0;
-        position: sticky;
-        top: 80px;
-        align-self: flex-start;
-        max-height: calc(100vh - 100px);
-        overflow-y: auto;
-        background: var(--surface-2);
-        border: var(--stroke) solid var(--border);
-        border-radius: var(--radius-lg);
-        padding: 1.5rem;
-    }
-    .req-detail-panel .close-panel-row {
-        display: flex;
-        justify-content: flex-end;
-        margin: -0.5rem -0.5rem 0.5rem 0;
-        flex-shrink: 0;
-    }
-    .req-detail-panel .close-panel-row .close-panel {
-        background: var(--surface);
-        border: var(--stroke) solid var(--border);
-        font-size: 1.25rem;
-        cursor: pointer;
-        color: var(--text-muted);
-        border-radius: 6px;
-        width: 28px;
-        height: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .req-detail-panel .close-panel-row .close-panel:hover {
-        color: white;
-        background: var(--surface-hover);
-    }
-    .req-detail-empty {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 200px;
-        color: var(--text-muted);
-        font-size: 14px;
-        text-align: center;
-    }
-    .req-feature-row.req-row-selected {
-        background: rgba(140, 0, 184, 0.08);
-        border-color: var(--uno-violet);
-    }
-}
-@media (min-width: 1800px) {
-    #requirements {
-        padding: 0 5rem;
-    }
-}
-@media (max-width: 1399px) {
-    .req-detail-empty {
-        display: none;
-    }
-}
-
 /* Fullscreen popup for requirements on narrow screens */
 .req-fullscreen-backdrop {
     position: fixed;
@@ -1714,10 +1897,6 @@ footer {
         padding: 1.25rem;
     }
 
-    .feature-map-container.with-panel {
-        grid-template-columns: 1fr;
-    }
-
     .detail-panel,
     .opportunity-detail-panel {
         position: fixed !important;
@@ -1838,11 +2017,38 @@ footer {
         display: none;
     }
 
-    .lightbox-close { top: -2rem; right: 0; }
-
     .lightbox-content img {
         max-width: 94vw;
         max-height: 78vh;
+    }
+}
+
+/* Mobile landscape: table layout but tight viewport — reduce insets and ensure scroll */
+@media (max-width: 1024px) and (max-height: 500px) {
+    .detail-panel.req-fullscreen {
+        top: 0.5rem !important;
+        left: 0.5rem !important;
+        right: 0.5rem !important;
+        bottom: 0.5rem !important;
+        border-radius: var(--radius-sm) !important;
+    }
+    #detail-content {
+        padding: 0 1rem 1rem 1rem;
+    }
+    .fm-popup-header {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.5rem;
+    }
+}
+
+/* Landscape phones — ensure image fits short viewports */
+@media (max-height: 500px) {
+    .lightbox-content {
+        max-height: 100vh;
+    }
+    .lightbox-content img {
+        max-height: 85vh;
     }
 
     header {
@@ -2431,25 +2637,29 @@ footer {
 }
 
 .lightbox-close {
-    position: absolute;
-    top: -2.5rem;
-    right: -0.5rem;
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 2.2rem;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: var(--surface);
+    border: var(--stroke) solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    font-size: 1.5rem;
     cursor: pointer;
-    z-index: 10;
+    z-index: 10001;
     width: 2.5rem;
     height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.15s ease;
+    transition: all 0.15s ease;
 }
 
 .lightbox-close:hover {
-    color: white;
+    background: var(--surface-2);
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: scale(1.05);
 }
 
 .lightbox-prev,

@@ -14,12 +14,21 @@
     <nav class="tab-nav">
         <div class="tab-nav-layout">
             <div class="tab-nav-inner">
-                <a class="tab-btn active" href="#tab/feature-map" data-tab="feature-map">By Feature</a>
-                <a class="tab-btn" href="#tab/tool-comparison" data-tab="tool-comparison">By Tool</a>
-                <a class="tab-btn" href="#tab/agent-ux" data-tab="agent-ux">Agent UX/UI</a>
+                <div class="tab-dropdown">
+                    <button class="tab-btn tab-dropdown-trigger active" id="features-dropdown-trigger">
+                        Features
+                        <svg class="tab-dropdown-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="tab-dropdown-menu hidden" id="features-dropdown-menu">
+                        <a class="tab-dropdown-item active" href="#tab/feature-map" data-tab="feature-map">By Category</a>
+                        <a class="tab-dropdown-item" href="#tab/tool-comparison" data-tab="tool-comparison">By Tool</a>
+                        <a class="tab-dropdown-item" href="#tab/agent-ux" data-tab="agent-ux">Agent UX/UI</a>
+                        <a class="tab-dropdown-item" href="#tab/requirements" data-tab="requirements">Requirements</a>
+                    </div>
+                </div>
                 <a class="tab-btn" href="#tab/uno-vs-competitors" data-tab="uno-vs-competitors">Uno vs Competitors</a>
                 <a class="tab-btn" href="#tab/ai-value-outlook" data-tab="ai-value-outlook">Uno + AI</a>
-                <a class="tab-btn" href="#tab/requirements" data-tab="requirements">Requirements</a>
+                <a class="tab-btn" href="#tab/documentation" data-tab="documentation">Documentation</a>
             </div>
             <div class="download-btn-group">
                 <button class="download-btn" onclick="toggleDownloadDropdown(event)" aria-label="Download screenshots as ZIP">
@@ -50,12 +59,10 @@
     <main>
         <!-- By Feature Tab -->
         <section id="feature-map" class="tab-content active">
-            <div class="feature-map-container">
-                <div id="feature-grid"></div>
-                <div id="detail-panel" class="detail-panel hidden">
-                    <div class="close-panel-row"><button class="close-panel">&times;</button></div>
-                    <div id="detail-content"></div>
-                </div>
+            <div id="feature-grid"></div>
+            <div id="detail-panel" class="detail-panel hidden">
+                <div class="close-panel-row"><button class="close-panel">&times;</button></div>
+                <div id="detail-content"></div>
             </div>
         </section>
 
@@ -160,13 +167,12 @@
 
         <!-- Requirements Tab -->
         <section id="requirements" class="tab-content">
-            <div class="req-master-detail">
-                <div id="requirements-content"><div class="req-loading"><div class="req-spinner"></div><p>Loading requirements…</p></div></div>
-                <div id="req-detail-panel" class="req-detail-panel">
-                    <div class="req-detail-empty">
-                        <p>Click a requirement to see details</p>
-                    </div>
-                </div>
+            <div id="requirements-content"><div class="req-loading"><div class="req-spinner"></div><p>Loading requirements…</p></div></div>
+        </section>
+
+        <section id="documentation" class="tab-content">
+            <div id="documentation-content">
+                <p style="color:var(--text-muted);padding:2rem;">Documentation content coming soon.</p>
             </div>
         </section>
 

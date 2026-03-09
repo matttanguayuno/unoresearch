@@ -79,24 +79,31 @@
     if (!feature) return;
 
     var tools = currentData.tools;
-    var html = '<h3 style="color:white;margin-bottom:0.25rem;">' + feature.name + '</h3>';
-    html += '<p style="color:var(--text-muted);font-size:12px;margin-bottom:1rem;">What competitors are doing</p>';
+    var html = '<div class="fm-popup-header">' + feature.name + '</div>';
 
-    if (feature.whyItMatters) {
-      html += '<div class="detail-section">';
-      html += '<h4 style="color:var(--primary);">Why It Matters</h4>';
-      html += '<p style="color:var(--text-secondary);line-height:1.65;">' + feature.whyItMatters + '</p>';
+    // Why It Matters & Uno Opportunity as context cards
+    if (feature.whyItMatters || feature.unoOpportunity) {
+      html += '<div class="fm-popup-context">';
+      if (feature.whyItMatters) {
+        html += '<div class="fm-popup-context-card">';
+        html += '<h4>Why It Matters</h4>';
+        html += '<p>' + feature.whyItMatters + '</p>';
+        html += '</div>';
+      }
+      if (feature.unoOpportunity) {
+        html += '<div class="fm-popup-context-card">';
+        html += '<h4>Uno Opportunity</h4>';
+        html += '<p>' + feature.unoOpportunity + '</p>';
+        html += '</div>';
+      }
       html += '</div>';
     }
 
-    html += '<div class="detail-section" style="margin-top:1rem;">';
-
-    // Build a merged list of all tools (data.js + agent-ux, deduplicated)
+    // Build merged tool list (data.js + agent-ux, deduplicated)
     var uxFeatureId = REQ_TO_UX_FEATURE[reqId];
     var seenTools = {};
     var allToolRows = [];
 
-    // 1. Tools from data.js feature matrix
     tools.forEach(function (tool) {
       var cell = feature.cells[tool.id];
       if (!cell) return;
@@ -104,7 +111,6 @@
       allToolRows.push({ name: tool.name, status: cell.status, note: cell.note, screenshots: cell.screenshots || [], basePath: 'screenshots/' });
     });
 
-    // 2. Tools from Agent UX/UI matrix (skip duplicates)
     if (uxFeatureId && typeof AGENT_UX_TOOLS !== 'undefined' && typeof AGENT_UX_MATRIX !== 'undefined') {
       AGENT_UX_TOOLS.forEach(function (tool) {
         if (seenTools[normalizeToolName(tool.name)]) return;
@@ -112,7 +118,6 @@
         if (!uxCell) return;
         if (uxCell.status === 'NO' && (!uxCell.screenshots || uxCell.screenshots.length === 0) && !uxCell.note) return;
         seenTools[normalizeToolName(tool.name)] = true;
-
         var paths = (uxCell.screenshots || []).map(function (f) {
           if (f.indexOf('/') !== -1) return f;
           return 'AI Agent UI/' + tool.id + '/' + f;
@@ -121,7 +126,7 @@
       });
     }
 
-    // Build tool groups for lightbox up/down navigation (only tools with screenshots)
+    // Build tool groups for lightbox navigation
     var toolGroups = [];
     allToolRows.forEach(function (row) {
       if (row.screenshots.length > 0) {
@@ -130,43 +135,38 @@
     });
     window._reqToolGroups = toolGroups;
 
-    // Render all tools in a flat list
+    // Build horizontal table: each column = one tool
+    html += '<table class="fm-popup-table">';
+    html += '<thead><tr>';
+    allToolRows.forEach(function (row) {
+      html += '<th>' + row.name + '</th>';
+    });
+    html += '</tr></thead>';
+    html += '<tbody><tr>';
     var groupIdx = 0;
     allToolRows.forEach(function (row) {
       var icon = row.status === 'YES' ? '✅' : row.status === 'LIMITED' ? '⚠️' : '❌';
-      var statusLabel = row.status === 'YES' ? 'Yes' : row.status === 'LIMITED' ? 'Limited' : 'No';
-      var statusColor = row.status === 'YES' ? '#67e5ad' : row.status === 'LIMITED' ? '#f59e0b' : '#ef4444';
+      var statusLabel = row.status === 'YES' ? 'Supported' : row.status === 'LIMITED' ? 'Limited' : row.status === 'NO' ? 'Not Supported' : 'Unknown';
+      var pillClass = row.status === 'YES' ? 'status-yes' : row.status === 'LIMITED' ? 'status-limited' : row.status === 'NO' ? 'status-no' : 'status-unknown';
 
-      html += '<div style="padding:0.6rem 0;border-bottom:1px solid var(--border);">';
-      html += '<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;">';
-      html += '<span>' + icon + '</span>';
-      html += '<span style="font-weight:600;color:white;">' + row.name + '</span>';
-      html += '<span style="font-size:12px;color:' + statusColor + ';margin-left:auto;">' + statusLabel + '</span>';
-      html += '</div>';
+      html += '<td data-tool="' + row.name + '">';
+      html += '<div class="fm-popup-status-pill ' + pillClass + '">' + icon + ' ' + statusLabel + '</div>';
       if (row.note) {
-        html += '<p style="color:var(--text-muted);font-size:13px;line-height:1.5;margin:0;padding-left:1.75rem;">' + row.note + '</p>';
+        html += '<p class="fm-popup-note">' + row.note + '</p>';
       }
       if (row.screenshots.length > 0) {
         var gi = groupIdx;
         groupIdx++;
-        html += '<div class="screenshot-grid" style="padding-left:1.75rem;margin-top:0.4rem;">';
+        html += '<div class="fm-popup-screenshots">';
         row.screenshots.forEach(function (f, idx) {
           var src = (row.basePath + f).split('/').map(encodeURIComponent).join('/');
           html += '<img class="screenshot-thumb" src="' + src + '" alt="' + f + '" data-index="' + idx + '" data-group="' + gi + '" onclick="openReqLightbox(' + gi + ', ' + idx + ')">';
         });
         html += '</div>';
       }
-      html += '</div>';
+      html += '</td>';
     });
-
-    html += '</div>';
-
-    if (feature.unoOpportunity) {
-      html += '<div class="detail-section" style="margin-top:1rem;">';
-      html += '<h4 style="color:var(--uno-violet);">Uno Opportunity</h4>';
-      html += '<p style="color:var(--text-secondary);line-height:1.65;">' + feature.unoOpportunity + '</p>';
-      html += '</div>';
-    }
+    html += '</tr></tbody></table>';
 
     // Dev status toggle — Matt only
     if (_author === 'Matt Tanguay') {
@@ -191,46 +191,31 @@
       html += '</div></div>';
     }
 
-    // Wide screen: inject into docked panel; narrow: fullscreen popup
-    var dockedPanel = document.getElementById('req-detail-panel');
-    if (dockedPanel && window.innerWidth >= 1400) {
-      dockedPanel.innerHTML = '<div class="close-panel-row"><button class="close-panel" onclick="closeReqDetailPanel()">&times;</button></div>' + html;
-      // Highlight selected row
-      var prevSelected = document.querySelector('.req-feature-row.req-row-selected');
-      if (prevSelected) prevSelected.classList.remove('req-row-selected');
-      if (event) {
-        var row = (event.currentTarget || event.target).closest('.req-feature-row');
-        if (row) row.classList.add('req-row-selected');
+    // Always show as fullscreen popup
+    openDetailPanel(html, event);
+    var panel = document.getElementById('detail-panel');
+    if (panel) {
+      panel.style.cssText = '';
+      panel.classList.add('req-fullscreen');
+      var existing = document.querySelector('.req-fullscreen-backdrop');
+      if (!existing) {
+        var backdrop = document.createElement('div');
+        backdrop.className = 'req-fullscreen-backdrop';
+        backdrop.addEventListener('click', function () { closeDetailPanel(); });
+        document.body.appendChild(backdrop);
       }
-    } else {
-      // Force fullscreen popup on narrow screens
-      openDetailPanel(html, event);
-      var panel = document.getElementById('detail-panel');
-      if (panel) {
-        panel.style.cssText = '';
-        panel.classList.add('req-fullscreen');
-        // Add blurred backdrop
-        var existing = document.querySelector('.req-fullscreen-backdrop');
-        if (!existing) {
-          var backdrop = document.createElement('div');
-          backdrop.className = 'req-fullscreen-backdrop';
-          backdrop.addEventListener('click', function () { closeDetailPanel(); });
-          document.body.appendChild(backdrop);
-        }
-        document.body.style.overflow = 'hidden';
-      }
+      document.body.style.overflow = 'hidden';
     }
 
-    // Attach click handlers for status buttons after panel is open
+    // Attach click handlers for status buttons
     if (_author === 'Matt Tanguay') {
-      var statusHost = (dockedPanel && window.innerWidth >= 1400) ? dockedPanel : document.getElementById('detail-content');
+      var statusHost = document.getElementById('detail-content');
       var btns = statusHost ? statusHost.querySelectorAll('.req-dev-status-btn') : [];
       btns.forEach(function (btn) {
         btn.addEventListener('click', function () {
           var newStatus = btn.getAttribute('data-status');
           var rid = btn.getAttribute('data-req-id');
           setDevStatus(rid, newStatus === 'none' ? null : newStatus);
-          // Update button styles
           btns.forEach(function (b) {
             var isActive = b === btn;
             b.classList.toggle('active', isActive);
@@ -238,22 +223,14 @@
             b.style.background = isActive ? 'rgba(140,0,184,0.15)' : 'var(--surface)';
             b.style.color = isActive ? 'var(--uno-violet)' : 'var(--text-muted)';
           });
-          // Re-render rows to update inline icons
           renderList();
         });
       });
     }
   }
 
-  // Close docked detail panel and show empty state
-  window.closeReqDetailPanel = function () {
-    var panel = document.getElementById('req-detail-panel');
-    if (panel) {
-      panel.innerHTML = '<div class="req-detail-empty"><p>Click a requirement to see details</p></div>';
-    }
-    var prevSelected = document.querySelector('.req-feature-row.req-row-selected');
-    if (prevSelected) prevSelected.classList.remove('req-row-selected');
-  };
+  // Close detail panel (no longer needed for docked panel)
+  window.closeReqDetailPanel = function () {};
 
   // ---- helpers ----
   function el(tag, attrs, children) {
