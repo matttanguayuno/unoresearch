@@ -245,18 +245,7 @@
                             <div class="doc-mapping-item" data-accent="cyan"><span class="doc-mapping-icon">⚡</span> Skills</div>
                         </div>
                         <div class="doc-mapping-arrows">
-                            <div class="doc-mapping-line" data-from="blue" data-to="blue"></div>
-                            <div class="doc-mapping-line" data-from="violet" data-to="blue"></div>
-                            <div class="doc-mapping-line" data-from="green" data-to="green"></div>
-                            <div class="doc-mapping-line" data-from="rose" data-to="violet"></div>
-                            <div class="doc-mapping-line" data-from="cyan" data-to="violet"></div>
-                            <svg class="doc-mapping-svg" viewBox="0 0 120 200" preserveAspectRatio="none">
-                                <path d="M0,20 C60,20 60,30 120,30" stroke="var(--uno-blue)" stroke-width="2" fill="none" opacity="0.5"/>
-                                <path d="M0,60 C60,60 60,30 120,30" stroke="var(--uno-violet)" stroke-width="2" fill="none" opacity="0.5"/>
-                                <path d="M0,100 C60,100 60,100 120,100" stroke="var(--uno-green)" stroke-width="2" fill="none" opacity="0.5"/>
-                                <path d="M0,140 C60,140 60,170 120,170" stroke="var(--uno-rose)" stroke-width="2" fill="none" opacity="0.5"/>
-                                <path d="M0,180 C60,180 60,170 120,170" stroke="var(--uno-cyan)" stroke-width="2" fill="none" opacity="0.5"/>
-                            </svg>
+                            <svg class="doc-mapping-svg" id="doc-mapping-svg"></svg>
                         </div>
                         <div class="doc-mapping-col">
                             <div class="doc-mapping-header">3 Jobs</div>
@@ -376,6 +365,11 @@
                                 </div>
                             </div>
                             <p>Publishes OpenAPI specs for every endpoint, ships an MCP server for agent integration, and maintains some of the best human docs in the industry.</p>
+                            <div class="doc-example-links">
+                                <a href="https://docs.stripe.com" target="_blank" rel="noopener" class="doc-example-link"><span class="doc-example-link-dot" style="background:var(--uno-blue)"></span>docs.stripe.com <span class="doc-example-link-arrow">↗</span></a>
+                                <a href="#" class="doc-example-link" onclick="openResourcePopup(event,'openapi')"><span class="doc-example-link-dot" style="background:var(--uno-green)"></span>OpenAPI spec for every API</a>
+                                <a href="https://github.com/stripe/agent-toolkit" target="_blank" rel="noopener" class="doc-example-link"><span class="doc-example-link-dot" style="background:var(--uno-green)"></span>stripe/agent-toolkit (MCP) <span class="doc-example-link-arrow">↗</span></a>
+                            </div>
                         </div>
                         <div class="doc-example-card">
                             <div class="doc-example-header">
@@ -387,6 +381,11 @@
                                 </div>
                             </div>
                             <p>Ships the AI SDK with built-in tool calling, provides structured docs that work well for retrieval, and publishes reusable workflow patterns.</p>
+                            <div class="doc-example-links">
+                                <a href="https://sdk.vercel.ai/docs" target="_blank" rel="noopener" class="doc-example-link"><span class="doc-example-link-dot" style="background:var(--uno-blue)"></span>AI SDK docs <span class="doc-example-link-arrow">↗</span></a>
+                                <a href="https://sdk.vercel.ai/docs/ai-sdk-core/tools-and-tool-calling" target="_blank" rel="noopener" class="doc-example-link"><span class="doc-example-link-dot" style="background:var(--uno-green)"></span>Tool calling guide <span class="doc-example-link-arrow">↗</span></a>
+                                <a href="https://vercel.com/docs/agent-resources/skills" target="_blank" rel="noopener" class="doc-example-link"><span class="doc-example-link-dot" style="background:var(--uno-cyan)"></span>AI templates &amp; patterns <span class="doc-example-link-arrow">↗</span></a>
+                            </div>
                         </div>
                         <div class="doc-example-card">
                             <div class="doc-example-header">
@@ -398,83 +397,27 @@
                                 </div>
                             </div>
                             <p>Created the MCP standard itself. Docs are well-structured for both humans and models, with clear tool schemas and working reference implementations.</p>
+                            <div class="doc-example-links">
+                                <a href="https://docs.anthropic.com" target="_blank" rel="noopener" class="doc-example-link"><span class="doc-example-link-dot" style="background:var(--uno-blue)"></span>docs.anthropic.com <span class="doc-example-link-arrow">↗</span></a>
+                                <a href="https://www.anthropic.com/news/model-context-protocol" target="_blank" rel="noopener" class="doc-example-link"><span class="doc-example-link-dot" style="background:var(--uno-green)"></span>Model Context Protocol (MCP) <span class="doc-example-link-arrow">↗</span></a>
+                                <a href="https://www.anthropic.com/engineering/writing-tools-for-agents" target="_blank" rel="noopener" class="doc-example-link"><span class="doc-example-link-dot" style="background:var(--uno-green)"></span>Writing tools for agents <span class="doc-example-link-arrow">↗</span></a>
+                            </div>
                         </div>
                         <div class="doc-example-card">
                             <div class="doc-example-header">
                                 <span class="doc-example-company">GitHub / VS Code</span>
                                 <div class="doc-example-tags">
+                                    <span class="doc-example-tag" style="--tag-color:var(--uno-green)">Tools</span>
                                     <span class="doc-example-tag" style="--tag-color:var(--uno-rose)">Prompts</span>
                                     <span class="doc-example-tag" style="--tag-color:var(--uno-cyan)">Skills</span>
-                                    <span class="doc-example-tag" style="--tag-color:var(--uno-green)">Tools</span>
                                 </div>
                             </div>
                             <p>Shipping .prompt.md, SKILL.md, AGENTS.md, and custom agent modes - the most complete prompt and skill layer implementation so far.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Adoption Roadmap -->
-                <div class="doc-section">
-                    <h2 class="doc-section-title">Adoption roadmap</h2>
-                    <p class="doc-body">You don't need to do everything at once. Here's a practical sequence:</p>
-                    <div class="doc-roadmap">
-                        <div class="doc-roadmap-phase">
-                            <div class="doc-roadmap-phase-header">
-                                <span class="doc-roadmap-phase-badge" style="background:var(--uno-blue)">Phase 1</span>
-                                <span class="doc-roadmap-phase-label">Quick wins</span>
-                            </div>
-                            <div class="doc-roadmap-items">
-                                <div class="doc-roadmap-item">
-                                    <span class="doc-roadmap-num">1</span>
-                                    <div>
-                                        <h4>Keep strong human docs</h4>
-                                        <p>Good human docs still matter - and they also improve machine ingestion downstream.</p>
-                                    </div>
-                                </div>
-                                <div class="doc-roadmap-item">
-                                    <span class="doc-roadmap-num">2</span>
-                                    <div>
-                                        <h4>Add an LLM-ingestible layer</h4>
-                                        <p>Clean markdown, strong headings, self-contained sections, and possibly an llms.txt-style entry point.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="doc-roadmap-phase">
-                            <div class="doc-roadmap-phase-header">
-                                <span class="doc-roadmap-phase-badge" style="background:var(--uno-green)">Phase 2</span>
-                                <span class="doc-roadmap-phase-label">Enable agents</span>
-                            </div>
-                            <div class="doc-roadmap-items">
-                                <div class="doc-roadmap-item">
-                                    <span class="doc-roadmap-num">3</span>
-                                    <div>
-                                        <h4>Treat actions as tools, not prose</h4>
-                                        <p>If something can be done by an agent, describe it like a callable capability with clear inputs and outputs.</p>
-                                    </div>
-                                </div>
-                                <div class="doc-roadmap-item">
-                                    <span class="doc-roadmap-num">4</span>
-                                    <div>
-                                        <h4>Use prompts lightly</h4>
-                                        <p>Useful for framing, but should not become the dumping ground for every important process.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="doc-roadmap-phase">
-                            <div class="doc-roadmap-phase-header">
-                                <span class="doc-roadmap-phase-badge" style="background:var(--uno-violet)">Phase 3</span>
-                                <span class="doc-roadmap-phase-label">Scale workflows</span>
-                            </div>
-                            <div class="doc-roadmap-items">
-                                <div class="doc-roadmap-item">
-                                    <span class="doc-roadmap-num">5</span>
-                                    <div>
-                                        <h4>Turn repeated workflows into skills</h4>
-                                        <p>Package conventions, processes, and playbooks as reusable skills. This is likely where a lot of the practical value is.</p>
-                                    </div>
-                                </div>
+                            <div class="doc-example-links">
+                                <a href="#" class="doc-example-link" onclick="openResourcePopup(event,'promptmd')"><span class="doc-example-link-dot" style="background:var(--uno-rose)"></span>.prompt.md</a>
+                                <a href="#" class="doc-example-link" onclick="openResourcePopup(event,'skillmd')"><span class="doc-example-link-dot" style="background:var(--uno-cyan)"></span>SKILL.md</a>
+                                <a href="#" class="doc-example-link" onclick="openResourcePopup(event,'agentsmd')"><span class="doc-example-link-dot" style="background:var(--uno-cyan)"></span>AGENTS.md</a>
+                                <a href="#" class="doc-example-link" onclick="openResourcePopup(event,'agentmodes')"><span class="doc-example-link-dot" style="background:var(--uno-green)"></span>Custom agent modes</a>
                             </div>
                         </div>
                     </div>
@@ -491,39 +434,39 @@
                                 <span class="doc-check-layer"><span class="doc-dot" style="background:var(--uno-blue)"></span>Traditional Docs</span>
                                 <span class="doc-check-status">Strong foundation</span>
                             </div>
-                            <p class="doc-check-note">Uno Platform has extensive human docs - tutorials, API references, and getting-started guides already in place.</p>
+                            <p class="doc-check-note">Uno already has a strong documentation base for humans, with getting started content, tutorials, references, and broader platform guidance already in place.</p>
                         </div>
-                        <div class="doc-check-row doc-check-partial">
-                            <span class="doc-check-icon">🟡</span>
+                        <div class="doc-check-row doc-check-yes">
+                            <span class="doc-check-icon">✅</span>
                             <div class="doc-check-content">
                                 <span class="doc-check-layer"><span class="doc-dot" style="background:var(--uno-violet)"></span>LLM-Ingestible Docs</span>
-                                <span class="doc-check-status">Opportunity</span>
+                                <span class="doc-check-status">Already in place</span>
                             </div>
-                            <p class="doc-check-note">Docs are structured reasonably well, but no dedicated llms.txt or retrieval-optimized format yet. Adding this layer would immediately improve AI tool compatibility.</p>
+                            <p class="doc-check-note">Uno already publishes llms.txt and llms-full.txt, so it has started building a real LLM-friendly documentation layer rather than just treating this as a future opportunity.</p>
+                        </div>
+                        <div class="doc-check-row doc-check-yes">
+                            <span class="doc-check-icon">✅</span>
+                            <div class="doc-check-content">
+                                <span class="doc-check-layer"><span class="doc-dot" style="background:var(--uno-green)"></span>Tools</span>
+                                <span class="doc-check-status">Already in place, expanding</span>
+                            </div>
+                            <p class="doc-check-note">Uno already exposes AI-facing tooling through its MCP setup, including doc search/fetch, rules initialization, and live app interaction through the local App MCP.</p>
+                        </div>
+                        <div class="doc-check-row doc-check-yes">
+                            <span class="doc-check-icon">✅</span>
+                            <div class="doc-check-content">
+                                <span class="doc-check-layer"><span class="doc-dot" style="background:var(--uno-rose)"></span>Prompts</span>
+                                <span class="doc-check-status">Already in place</span>
+                            </div>
+                            <p class="doc-check-note">Uno already provides built-in MCP prompts such as /new and /init to help guide agent workflows and prime sessions with Uno best practices.</p>
                         </div>
                         <div class="doc-check-row doc-check-partial">
                             <span class="doc-check-icon">🟡</span>
                             <div class="doc-check-content">
-                                <span class="doc-check-layer"><span class="doc-dot" style="background:var(--uno-green)"></span>Tools</span>
-                                <span class="doc-check-status">Opportunity</span>
-                            </div>
-                            <p class="doc-check-note">Uno Studio has agent capabilities in development. Publishing tool schemas (MCP, OpenAPI) would let external AI agents interact with Uno Platform services directly.</p>
-                        </div>
-                        <div class="doc-check-row doc-check-no">
-                            <span class="doc-check-icon">⬜</span>
-                            <div class="doc-check-content">
-                                <span class="doc-check-layer"><span class="doc-dot" style="background:var(--uno-rose)"></span>Prompts</span>
-                                <span class="doc-check-status">Not yet</span>
-                            </div>
-                            <p class="doc-check-note">No published .prompt.md or copilot-instructions.md files for Uno development workflows. Low effort to add and would guide AI tools using Uno APIs.</p>
-                        </div>
-                        <div class="doc-check-row doc-check-no">
-                            <span class="doc-check-icon">⬜</span>
-                            <div class="doc-check-content">
                                 <span class="doc-check-layer"><span class="doc-dot" style="background:var(--uno-cyan)"></span>Skills</span>
-                                <span class="doc-check-status">Not yet</span>
+                                <span class="doc-check-status">Emerging</span>
                             </div>
-                            <p class="doc-check-note">No SKILL.md or reusable workflow packages for common Uno patterns (e.g. "create a new page", "add a data service", "set up navigation"). High potential value.</p>
+                            <p class="doc-check-note">Uno does not yet have a formal public skills layer in the SKILL.md sense, but it already has reusable agent guidance and specialized agent documents in the repo, which is a strong step in that direction.</p>
                         </div>
                     </div>
                 </div>

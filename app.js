@@ -725,6 +725,10 @@ function setupEventListeners() {
     });
   });
 
+  // Draw mapping connectors dynamically
+  drawMappingConnectors();
+  window.addEventListener('resize', drawMappingConnectors);
+
   // Close llms.txt popup on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeResourcePopup();
@@ -808,6 +812,11 @@ function switchTab(tabId, fromHash) {
   // Initialise Requirements on first activation
   if (tabId === 'requirements' && typeof initRequirements === 'function') {
     initRequirements();
+  }
+
+  // Draw mapping connectors when Documentation tab is shown
+  if (tabId === 'documentation') {
+    setTimeout(drawMappingConnectors, 50);
   }
 }
 
@@ -1348,6 +1357,54 @@ You are a security-focused code reviewer.
     screenshot: 'screenshots/custom-prompts-vs-code.png'
   }
 };
+
+// ── Mapping diagram connectors ──
+function drawMappingConnectors() {
+  var svg = document.getElementById('doc-mapping-svg');
+  if (!svg) return;
+  var container = svg.parentElement;
+  var mapping = container.parentElement;
+  var leftCol = mapping.querySelector('.doc-mapping-col:first-child');
+  var rightCol = mapping.querySelector('.doc-mapping-col:last-child');
+  if (!leftCol || !rightCol) return;
+
+  var leftItems = leftCol.querySelectorAll('.doc-mapping-item');
+  var rightItems = rightCol.querySelectorAll('.doc-mapping-item');
+  if (leftItems.length < 5 || rightItems.length < 3) return;
+
+  var cRect = container.getBoundingClientRect();
+  var w = cRect.width;
+  var h = cRect.height;
+
+  function midY(el) {
+    var r = el.getBoundingClientRect();
+    return r.top + r.height / 2 - cRect.top;
+  }
+
+  var left = [midY(leftItems[0]), midY(leftItems[1]), midY(leftItems[2]), midY(leftItems[3]), midY(leftItems[4])];
+  var right = [midY(rightItems[0]), midY(rightItems[1]), midY(rightItems[2])];
+
+  // connections: left index -> right index, color
+  var connections = [
+    [0, 0, 'var(--uno-blue)'],
+    [1, 0, 'var(--uno-violet)'],
+    [2, 1, 'var(--uno-green)'],
+    [3, 2, 'var(--uno-rose)'],
+    [4, 2, 'var(--uno-cyan)']
+  ];
+
+  svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+  svg.setAttribute('width', w);
+  svg.setAttribute('height', h);
+  var paths = '';
+  for (var i = 0; i < connections.length; i++) {
+    var c = connections[i];
+    var y1 = left[c[0]];
+    var y2 = right[c[1]];
+    paths += '<path d="M0,' + y1 + ' C' + (w * 0.45) + ',' + y1 + ' ' + (w * 0.55) + ',' + y2 + ' ' + w + ',' + y2 + '" stroke="' + c[2] + '" stroke-width="2" fill="none" opacity="0.5"/>';
+  }
+  svg.innerHTML = paths;
+}
 
 function openResourcePopup(e, key) {
   e.preventDefault();
