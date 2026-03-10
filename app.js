@@ -1406,6 +1406,129 @@ function drawMappingConnectors() {
   svg.innerHTML = paths;
 }
 
+/* --- Competitive Matrix --- */
+var MATRIX_NOTES = {
+  uno: {
+    docs: 'Uno already has a strong documentation base for humans, with getting started content, tutorials, references, and broader platform guidance already in place.',
+    llm: 'Uno already publishes llms.txt and llms-full.txt, giving it a real LLM-friendly documentation layer.',
+    tools: 'Uno exposes AI-facing tooling through its MCP setup, including doc search/fetch, rules initialization, and live app interaction through the local App MCP.',
+    prompts: 'Uno provides built-in MCP prompts such as /new and /init to guide agent workflows and prime sessions with Uno best practices.',
+    skills: 'Uno does not yet have a formal public skills layer in the SKILL.md sense, but it already has reusable agent guidance and specialized agent documents, which is a strong step in that direction.'
+  },
+  bolt: {
+    docs: 'Bolt has a pretty substantial help center with product docs, tutorials, best practices, and release notes.',
+    llm: 'No public llms.txt-style docs surface was found in this pass.',
+    tools: 'Bolt has documented MCP connectors, built-in connectors, custom MCP servers, and tool-level enable/disable controls.',
+    prompts: 'Bolt has prompt enhancement, a prompt library, and explicit Plan / Discussion modes.',
+    skills: 'No formal public skills layer was found.'
+  },
+  builder: {
+    docs: 'Builder has extensive public developer docs.',
+    llm: 'No public llms.txt / llms-full.txt style surface was found in this pass.',
+    tools: 'Builder has an Agents Run API, MCP server support, local MCP support, and multiple documented integrations.',
+    prompts: 'Builder has AGENTS.md support plus Builder-specific rules and configuration files for instructing the AI.',
+    skills: 'Builder has a formal skills layer with .builder/skills and SKILL.md.'
+  },
+  claudecode: {
+    docs: 'Anthropic has strong official Claude Code docs.',
+    llm: 'No public llms.txt / llms-full.txt style docs surface was found in this pass.',
+    tools: 'Claude Code has strong MCP support and can connect to hundreds of external tools and data sources through MCP.',
+    prompts: 'Claude Code has built-in slash commands, MCP prompts-as-slash-commands, and CLAUDE.md memory / instruction files.',
+    skills: 'Claude Code\u2019s closest public equivalent is subagents plus CLAUDE.md plus hooks, which gives it reusable workflow power, but no formal SKILL.md-style layer was found.'
+  },
+  codex: {
+    docs: 'OpenAI has a large public docs ecosystem around Codex and developer workflows.',
+    llm: 'OpenAI publicly publishes llms.txt and multiple llms-full.txt style documentation sets.',
+    tools: 'Codex is explicitly positioned as an agentic coding system, and OpenAI\u2019s developer docs expose a large tools/connectors/MCP ecosystem.',
+    prompts: 'OpenAI\u2019s docs explicitly surface Codex prompting guidance.',
+    skills: 'OpenAI has a formal skills layer built around SKILL.md bundles.'
+  },
+  cursor: {
+    docs: 'Cursor has strong public docs.',
+    llm: 'No public llms.txt-style docs surface was found in this pass.',
+    tools: 'Cursor Agent has built-in tools for file operations, search, shell commands, and MCP.',
+    prompts: 'Cursor has a mature rules layer with .cursor/rules, AGENTS.md, user rules, and legacy .cursorrules support.',
+    skills: 'No formal public skills layer comparable to Builder, Replit, or VS Code was found.'
+  },
+  dreamflow: {
+    docs: 'Dreamflow has a real docs site with product, workspace, agent, and integration docs.',
+    llm: 'No public llms.txt-style machine-doc surface was found in this pass.',
+    tools: 'Dreamflow clearly has an AI agent and documented integrations like Git and Firebase, but no public MCP-style tool layer was found.',
+    prompts: 'The Agent Panel is prompt-first, and Dreamflow explicitly supports AGENTS.md, CLAUDE.md, .cursorrules, and ARCHITECTURE.md as reusable instruction files.',
+    skills: 'Nested AGENTS.md files give it a reusable workflow/rules story, but no formal SKILL.md-style skills layer was found.'
+  },
+  lovable: {
+    docs: 'Lovable has a broad, well-structured docs site covering product overview, features, integrations, security, testing, and prompting.',
+    llm: 'No public llms.txt / llms-full.txt style surface was found in this pass.',
+    tools: 'Lovable has MCP-based personal connectors and browser testing, so there is clearly a tool/integration layer.',
+    prompts: 'Lovable has a substantial prompt-engineering layer with concrete prompting guidance and debugging workflows.',
+    skills: 'No formal public skills layer comparable to Builder or VS Code was found.'
+  },
+  replit: {
+    docs: 'Replit has a broad public docs site.',
+    llm: 'Replit explicitly publishes llms.txt and llms-full.txt and even calls the docs \u201cLLM-friendly\u201d.',
+    tools: 'Replit Agent has strong MCP support, including custom MCP servers and install links.',
+    prompts: 'Replit is obviously prompt-first, but its prompt layer feels less formalized than its tools and skills layers.',
+    skills: 'Replit has a very explicit skills layer, including /.agents/skills and markdown skill files loaded on demand.'
+  },
+  tempo: {
+    docs: 'Tempo has a real docs site, though it feels lighter / less mature than Builder, VS Code, or Replit.',
+    llm: 'No public llms.txt-style docs surface was found in this pass.',
+    tools: 'Tempo has an MCP App Store, tool integrations, and local sync with VS Code, Cursor, and Windsurf.',
+    prompts: 'Tempo has explicit prompting docs and even a named prompting framework.',
+    skills: 'No formal public skills layer was found.'
+  },
+  vercel: {
+    docs: 'v0 has strong public docs and API docs.',
+    llm: 'No public llms.txt / llms-full.txt style surface was found in this pass.',
+    tools: 'v0 has a model API, platform API, Codex/Cursor integrations, and an AI Tools adapter for autonomous workflows.',
+    prompts: 'v0 has explicit text prompting guidance and prompt enhancement.',
+    skills: 'No formal public skills layer was found in this pass.'
+  },
+  vibecode: {
+    docs: 'Vibecode has a real docs site with getting started, features, integrations, deployment, and resources content.',
+    llm: 'No public llms.txt-style docs surface was found in this pass.',
+    tools: 'Vibecode has integrations and a Sandbox that exposes Claude Code, Codex, Cursor Agent, and Vibecode together, but no formal MCP / tool-schema style layer was found.',
+    prompts: 'Vibecode\u2019s core product is built around natural-language prompting.',
+    skills: 'No formal public skills layer was found.'
+  },
+  vscode: {
+    docs: 'VS Code has very strong official docs.',
+    llm: 'No public llms.txt-style docs surface was found in this pass.',
+    tools: 'VS Code agent mode supports MCP servers, extension-contributed tools, and tool configuration.',
+    prompts: 'VS Code has prompt files, custom instructions, and custom agents.',
+    skills: 'Agent Skills are now GA in VS Code and use a formal SKILL.md-based structure.'
+  }
+};
+
+function toggleMatrixRow(rowEl) {
+  var next = rowEl.nextElementSibling;
+  if (next && next.classList.contains('doc-matrix-detail')) {
+    next.remove();
+    rowEl.classList.remove('doc-matrix-expanded');
+    return;
+  }
+  // close any other open detail
+  document.querySelectorAll('.doc-matrix-detail').forEach(function(el) {
+    if (el.previousElementSibling) el.previousElementSibling.classList.remove('doc-matrix-expanded');
+    el.remove();
+  });
+  var company = rowEl.dataset.company;
+  var notes = MATRIX_NOTES[company];
+  if (!notes) return;
+  var detail = document.createElement('tr');
+  detail.className = 'doc-matrix-detail';
+  detail.innerHTML = '<td colspan="6"><div class="doc-matrix-notes">' +
+    '<div class="doc-matrix-note"><strong>Docs</strong>' + notes.docs + '</div>' +
+    '<div class="doc-matrix-note"><strong>LLM Docs</strong>' + notes.llm + '</div>' +
+    '<div class="doc-matrix-note"><strong>Tools</strong>' + notes.tools + '</div>' +
+    '<div class="doc-matrix-note"><strong>Prompts</strong>' + notes.prompts + '</div>' +
+    '<div class="doc-matrix-note"><strong>Skills</strong>' + notes.skills + '</div>' +
+    '</div></td>';
+  rowEl.after(detail);
+  rowEl.classList.add('doc-matrix-expanded');
+}
+
 function openResourcePopup(e, key) {
   e.preventDefault();
   const data = RESOURCE_DATA[key];

@@ -423,51 +423,137 @@
                     </div>
                 </div>
 
-                <!-- Where Uno Stands -->
+                <!-- Competitive Matrix -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">Where Uno stands today</h2>
-                    <p class="doc-body">Mapping Uno's current documentation against the 5-layer model:</p>
-                    <div class="doc-checklist">
-                        <div class="doc-check-row doc-check-yes">
-                            <span class="doc-check-icon">✅</span>
-                            <div class="doc-check-content">
-                                <span class="doc-check-layer"><span class="doc-dot" style="background:var(--uno-blue)"></span>Traditional Docs</span>
-                                <span class="doc-check-status">Strong foundation</span>
-                            </div>
-                            <p class="doc-check-note">Uno already has a strong documentation base for humans, with getting started content, tutorials, references, and broader platform guidance already in place.</p>
-                        </div>
-                        <div class="doc-check-row doc-check-yes">
-                            <span class="doc-check-icon">✅</span>
-                            <div class="doc-check-content">
-                                <span class="doc-check-layer"><span class="doc-dot" style="background:var(--uno-violet)"></span>LLM-Ingestible Docs</span>
-                                <span class="doc-check-status">Already in place</span>
-                            </div>
-                            <p class="doc-check-note">Uno already publishes llms.txt and llms-full.txt, so it has started building a real LLM-friendly documentation layer rather than just treating this as a future opportunity.</p>
-                        </div>
-                        <div class="doc-check-row doc-check-yes">
-                            <span class="doc-check-icon">✅</span>
-                            <div class="doc-check-content">
-                                <span class="doc-check-layer"><span class="doc-dot" style="background:var(--uno-green)"></span>Tools</span>
-                                <span class="doc-check-status">Already in place, expanding</span>
-                            </div>
-                            <p class="doc-check-note">Uno already exposes AI-facing tooling through its MCP setup, including doc search/fetch, rules initialization, and live app interaction through the local App MCP.</p>
-                        </div>
-                        <div class="doc-check-row doc-check-yes">
-                            <span class="doc-check-icon">✅</span>
-                            <div class="doc-check-content">
-                                <span class="doc-check-layer"><span class="doc-dot" style="background:var(--uno-rose)"></span>Prompts</span>
-                                <span class="doc-check-status">Already in place</span>
-                            </div>
-                            <p class="doc-check-note">Uno already provides built-in MCP prompts such as /new and /init to help guide agent workflows and prime sessions with Uno best practices.</p>
-                        </div>
-                        <div class="doc-check-row doc-check-partial">
-                            <span class="doc-check-icon">🟡</span>
-                            <div class="doc-check-content">
-                                <span class="doc-check-layer"><span class="doc-dot" style="background:var(--uno-cyan)"></span>Skills</span>
-                                <span class="doc-check-status">Emerging</span>
-                            </div>
-                            <p class="doc-check-note">Uno does not yet have a formal public skills layer in the SKILL.md sense, but it already has reusable agent guidance and specialized agent documents in the repo, which is a strong step in that direction.</p>
-                        </div>
+                    <h2 class="doc-section-title">Competitive matrix</h2>
+                    <p class="doc-body">How the industry stacks up across the 5-layer documentation model. Click any row for details.</p>
+
+                    <div class="doc-matrix-legend">
+                        <div class="doc-matrix-legend-item"><span class="doc-matrix-badge matrix-strong">Strong</span><span class="doc-matrix-legend-text">Clearly productized and publicly documented</span></div>
+                        <div class="doc-matrix-legend-item"><span class="doc-matrix-badge matrix-present">Present</span><span class="doc-matrix-legend-text">Clearly there, but not as formal / complete</span></div>
+                        <div class="doc-matrix-legend-item"><span class="doc-matrix-badge matrix-partial">Partial</span><span class="doc-matrix-legend-text">Some of the layer is there, but not a full layer yet</span></div>
+                        <div class="doc-matrix-legend-item"><span class="doc-matrix-badge matrix-unclear">Unclear</span><span class="doc-matrix-legend-text">Not enough public official evidence to rate higher</span></div>
+                    </div>
+
+                    <div class="doc-matrix-wrap">
+                        <table class="doc-matrix">
+                            <thead>
+                                <tr>
+                                    <th class="doc-matrix-company-col"></th>
+                                    <th><span class="doc-dot" style="background:var(--uno-blue)"></span>Docs</th>
+                                    <th><span class="doc-dot" style="background:var(--uno-violet)"></span>LLM Docs</th>
+                                    <th><span class="doc-dot" style="background:var(--uno-green)"></span>Tools</th>
+                                    <th><span class="doc-dot" style="background:var(--uno-rose)"></span>Prompts</th>
+                                    <th><span class="doc-dot" style="background:var(--uno-cyan)"></span>Skills</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="doc-matrix-row doc-matrix-highlight" onclick="toggleMatrixRow(this)" data-company="uno">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>Uno Platform</td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-partial">Partial</span></td>
+                                </tr>
+                                <tr class="doc-matrix-row" onclick="toggleMatrixRow(this)" data-company="bolt">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>Bolt.new</td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                </tr>
+                                <tr class="doc-matrix-row" onclick="toggleMatrixRow(this)" data-company="builder">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>Builder.io</td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                </tr>
+                                <tr class="doc-matrix-row" onclick="toggleMatrixRow(this)" data-company="claudecode">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>Claude Code</td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-partial">Partial</span></td>
+                                </tr>
+                                <tr class="doc-matrix-row" onclick="toggleMatrixRow(this)" data-company="codex">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>Codex</td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                </tr>
+                                <tr class="doc-matrix-row" onclick="toggleMatrixRow(this)" data-company="cursor">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>Cursor</td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                </tr>
+                                <tr class="doc-matrix-row" onclick="toggleMatrixRow(this)" data-company="dreamflow">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>Dreamflow</td>
+                                    <td><span class="doc-matrix-badge matrix-present">Present</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                    <td><span class="doc-matrix-badge matrix-present">Present</span></td>
+                                    <td><span class="doc-matrix-badge matrix-present">Present</span></td>
+                                    <td><span class="doc-matrix-badge matrix-partial">Partial</span></td>
+                                </tr>
+                                <tr class="doc-matrix-row" onclick="toggleMatrixRow(this)" data-company="lovable">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>Lovable</td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                    <td><span class="doc-matrix-badge matrix-present">Present</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                </tr>
+                                <tr class="doc-matrix-row" onclick="toggleMatrixRow(this)" data-company="replit">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>Replit</td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-present">Present</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                </tr>
+                                <tr class="doc-matrix-row" onclick="toggleMatrixRow(this)" data-company="tempo">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>Tempo Labs</td>
+                                    <td><span class="doc-matrix-badge matrix-present">Present</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                </tr>
+                                <tr class="doc-matrix-row" onclick="toggleMatrixRow(this)" data-company="vercel">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>Vercel v0</td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                </tr>
+                                <tr class="doc-matrix-row" onclick="toggleMatrixRow(this)" data-company="vibecode">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>Vibecode</td>
+                                    <td><span class="doc-matrix-badge matrix-present">Present</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                    <td><span class="doc-matrix-badge matrix-partial">Partial</span></td>
+                                    <td><span class="doc-matrix-badge matrix-present">Present</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                </tr>
+                                <tr class="doc-matrix-row" onclick="toggleMatrixRow(this)" data-company="vscode">
+                                    <td class="doc-matrix-company"><span class="doc-matrix-chevron">&#9656;</span>VS Code</td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-unclear">Unclear</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                    <td><span class="doc-matrix-badge matrix-strong">Strong</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
