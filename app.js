@@ -1417,7 +1417,7 @@ var MATRIX_NOTES = {
   },
   bolt: {
     docs: 'Bolt has a pretty substantial help center with product docs, tutorials, best practices, and release notes.',
-    llm: 'No public llms.txt-style docs surface was found in this pass.',
+    llm: 'Bolt publishes llms.txt at support.bolt.new/llms.txt.',
     tools: 'Bolt has documented MCP connectors, built-in connectors, custom MCP servers, and tool-level enable/disable controls.',
     prompts: 'Bolt has prompt enhancement, a prompt library, and explicit Plan / Discussion modes.',
     skills: 'No formal public skills layer was found.'
@@ -1431,10 +1431,10 @@ var MATRIX_NOTES = {
   },
   claudecode: {
     docs: 'Anthropic has strong official Claude Code docs.',
-    llm: 'No public llms.txt / llms-full.txt style docs surface was found in this pass.',
+    llm: 'Anthropic publishes llms.txt and llms-full.txt at platform.claude.com.',
     tools: 'Claude Code has strong MCP support and can connect to hundreds of external tools and data sources through MCP.',
     prompts: 'Claude Code has built-in slash commands, MCP prompts-as-slash-commands, and CLAUDE.md memory / instruction files.',
-    skills: 'Claude Code\u2019s closest public equivalent is subagents plus CLAUDE.md plus hooks, which gives it reusable workflow power, but no formal SKILL.md-style layer was found.'
+    skills: 'Claude Code has a formal skills layer with dedicated public docs for skills and sub-agents.'
   },
   codex: {
     docs: 'OpenAI has a large public docs ecosystem around Codex and developer workflows.',
@@ -1445,10 +1445,10 @@ var MATRIX_NOTES = {
   },
   cursor: {
     docs: 'Cursor has strong public docs.',
-    llm: 'No public llms.txt-style docs surface was found in this pass.',
+    llm: 'Cursor publishes llms.txt at cursor.com/llms.txt.',
     tools: 'Cursor Agent has built-in tools for file operations, search, shell commands, and MCP.',
     prompts: 'Cursor has a mature rules layer with .cursor/rules, AGENTS.md, user rules, and legacy .cursorrules support.',
-    skills: 'No formal public skills layer comparable to Builder, Replit, or VS Code was found.'
+    skills: 'Cursor has a formal public skills layer with dedicated docs at cursor.com/docs/skills.'
   },
   dreamflow: {
     docs: 'Dreamflow has a real docs site with product, workspace, agent, and integration docs.',
@@ -1459,7 +1459,7 @@ var MATRIX_NOTES = {
   },
   lovable: {
     docs: 'Lovable has a broad, well-structured docs site covering product overview, features, integrations, security, testing, and prompting.',
-    llm: 'No public llms.txt / llms-full.txt style surface was found in this pass.',
+    llm: 'Lovable has an LLM-ingestible docs surface at url-text-weaver.lovable.app.',
     tools: 'Lovable has MCP-based personal connectors and browser testing, so there is clearly a tool/integration layer.',
     prompts: 'Lovable has a substantial prompt-engineering layer with concrete prompting guidance and debugging workflows.',
     skills: 'No formal public skills layer comparable to Builder or VS Code was found.'
@@ -1480,21 +1480,21 @@ var MATRIX_NOTES = {
   },
   vercel: {
     docs: 'v0 has strong public docs and API docs.',
-    llm: 'No public llms.txt / llms-full.txt style surface was found in this pass.',
+    llm: 'Vercel publishes llms-full.txt at vercel.com/docs/llms-full.txt.',
     tools: 'v0 has a model API, platform API, Codex/Cursor integrations, and an AI Tools adapter for autonomous workflows.',
     prompts: 'v0 has explicit text prompting guidance and prompt enhancement.',
-    skills: 'No formal public skills layer was found in this pass.'
+    skills: 'Vercel has a formal public skills layer with dedicated docs at vercel.com/docs/agent-resources/skills.'
   },
   vibecode: {
     docs: 'Vibecode has a real docs site with getting started, features, integrations, deployment, and resources content.',
     llm: 'No public llms.txt-style docs surface was found in this pass.',
     tools: 'Vibecode has integrations and a Sandbox that exposes Claude Code, Codex, Cursor Agent, and Vibecode together, but no formal MCP / tool-schema style layer was found.',
     prompts: 'Vibecode\u2019s core product is built around natural-language prompting.',
-    skills: 'No formal public skills layer was found.'
+    skills: 'Vibecode has a public skills page at vibecoding.app/skills.'
   },
   vscode: {
     docs: 'VS Code has very strong official docs.',
-    llm: 'No public llms.txt-style docs surface was found in this pass.',
+    llm: 'VS Code publishes llms.txt at code.visualstudio.com/llms.txt.',
     tools: 'VS Code agent mode supports MCP servers, extension-contributed tools, and tool configuration.',
     prompts: 'VS Code has prompt files, custom instructions, and custom agents.',
     skills: 'Agent Skills are now GA in VS Code and use a formal SKILL.md-based structure.'
