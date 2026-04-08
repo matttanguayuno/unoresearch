@@ -822,6 +822,7 @@ function switchTab(tabId, fromHash) {
   // Initialise Skills table sorting on first activation
   if (tabId === 'skills') {
     initSkillsTableSort();
+    initSkillsModal();
   }
 }
 
@@ -2234,5 +2235,174 @@ function initSkillsTableSort() {
 
       rows.forEach(r => tbody.appendChild(r));
     });
+  });
+}
+
+// ── Skills page: full-screen code modal ──
+const SK_EXAMPLES = {
+  vscode: {
+    title: 'VS Code / GitHub Copilot — SKILL.md',
+    code: `---
+description: "Uno Platform XAML component generation"
+applyTo: "**/*.xaml"
+---
+
+# Uno XAML Component Skill
+
+## Context
+You are working in an Uno Platform project that targets
+iOS, Android, Web (WASM), macOS, and Windows from a
+single C# / XAML codebase.
+
+## Instructions
+- Use \`xmlns:utu="using:Uno.Toolkit.UI"\` for Toolkit controls
+- Always set \`AutomationProperties.Name\` for accessibility
+- Prefer \`x:Uid\` with \`.resw\` resource files for localization
+- Use \`muxc:NavigationView\` for shell navigation patterns
+- Apply theme resources from \`Generic.xaml\`, never hardcode colors
+
+## Quality Checks
+1. Builds on all 5 target heads
+2. Passes accessibility automation peer checks
+3. Uses Uno.Extensions for MVUX data binding`
+  },
+  claude: {
+    title: 'Claude Code — testing.md',
+    code: `# Testing Skill
+
+## Description
+Run and fix failing tests for this project.
+
+## When to Use
+- User asks to "fix tests" or "run tests"
+- After any refactor that touches public APIs
+
+## Steps
+1. Run \`npm test\` and capture output
+2. Parse failures — group by file
+3. For each failing test:
+   a. Read the test file and the source file it tests
+   b. Determine if the test or the source is wrong
+   c. Fix the correct file
+4. Re-run \`npm test\` to confirm green
+5. If still failing, repeat from step 3 (max 3 retries)
+
+## Constraints
+- Never delete a test to make it pass
+- Never modify test assertions without explaining why
+- Preserve existing test descriptions`
+  },
+  replit: {
+    title: 'Replit Agent — db-migration.md',
+    code: `# Database Migration Skill
+
+## Trigger
+User asks to add/change database tables or columns.
+
+## Context
+- Project uses PostgreSQL with Drizzle ORM
+- Migrations live in \`drizzle/migrations/\`
+- Schema defined in \`src/db/schema.ts\`
+
+## Procedure
+1. Edit \`src/db/schema.ts\` with the new table/column
+2. Run \`npx drizzle-kit generate\` to create migration
+3. Run \`npx drizzle-kit push\` to apply to dev database
+4. Update any affected queries in \`src/db/queries/\`
+5. Verify with \`npm run typecheck\`
+
+## Rules
+- Never drop columns without explicit user confirmation
+- Always add \`NOT NULL\` with a default value
+- Add an index for any foreign key column`
+  },
+  codex: {
+    title: 'OpenAI Codex — SKILL.md',
+    code: `---
+name: "API Endpoint Generator"
+description: "Scaffolds REST API endpoints following project conventions"
+triggers:
+  - "create endpoint"
+  - "add API route"
+  - "new REST resource"
+---
+
+# API Endpoint Generator
+
+Generate a new REST endpoint following these conventions:
+
+## File Structure
+- Route: \`src/routes/{resource}.ts\`
+- Controller: \`src/controllers/{resource}Controller.ts\`
+- Validation: \`src/validators/{resource}Schema.ts\`
+- Test: \`src/__tests__/{resource}.test.ts\`
+
+## Standards
+- Use Zod for request/response validation
+- Return RFC 7807 problem details for errors
+- Add OpenAPI JSDoc annotations on every handler
+- Include rate limiting middleware for public endpoints
+- Log structured JSON via the project logger`
+  },
+  cursor: {
+    title: 'Cursor — react-components.md',
+    code: `---
+description: "React component creation following project design system"
+globs: ["src/components/**/*.tsx"]
+---
+
+# React Component Skill
+
+## Design System Rules
+- Import tokens from \`@/styles/tokens\`
+- Use \`styled-components\` with theme provider
+- Every component must export a Storybook story
+- Props interface must extend \`HTMLAttributes\`
+
+## Component Template
+1. Create component file at \`src/components/{Name}/{Name}.tsx\`
+2. Create story at \`src/components/{Name}/{Name}.stories.tsx\`
+3. Create test at \`src/components/{Name}/{Name}.test.tsx\`
+4. Export from \`src/components/index.ts\` barrel
+
+## Accessibility
+- Add \`role\` attribute where semantic HTML is insufficient
+- Support \`aria-label\` prop passthrough
+- Test with keyboard navigation`
+  }
+};
+
+let _skillsModalInit = false;
+function initSkillsModal() {
+  if (_skillsModalInit) return;
+  const overlay = document.getElementById('sk-modal');
+  if (!overlay) return;
+  _skillsModalInit = true;
+
+  const titleEl = overlay.querySelector('.sk-modal-title');
+  const codeEl = overlay.querySelector('.sk-modal-code');
+  const closeBtn = overlay.querySelector('.sk-modal-close');
+
+  function open(key) {
+    const data = SK_EXAMPLES[key];
+    if (!data) return;
+    titleEl.textContent = data.title;
+    codeEl.textContent = data.code;
+    overlay.classList.add('sk-modal-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    overlay.classList.remove('sk-modal-open');
+    document.body.style.overflow = '';
+  }
+
+  // Buttons
+  document.querySelectorAll('.sk-view-btn').forEach(btn => {
+    btn.addEventListener('click', () => open(btn.dataset.skill));
+  });
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && overlay.classList.contains('sk-modal-open')) close();
   });
 }
