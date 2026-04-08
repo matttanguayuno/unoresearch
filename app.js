@@ -818,6 +818,11 @@ function switchTab(tabId, fromHash) {
   if (tabId === 'documentation') {
     setTimeout(drawMappingConnectors, 50);
   }
+
+  // Initialise Skills table sorting on first activation
+  if (tabId === 'skills') {
+    initSkillsTableSort();
+  }
 }
 
 // Render Overview
@@ -2179,3 +2184,55 @@ function closeOpportunityPanel() {
 
 // Start the app
 init();
+
+// ── Skills page: sortable competitive landscape table ──
+let _skillsSortInit = false;
+function initSkillsTableSort() {
+  if (_skillsSortInit) return;
+  const table = document.getElementById('sk-comp-table');
+  if (!table) return;
+  _skillsSortInit = true;
+
+  const maturityOrder = { 'Strong': 3, 'Medium': 2, 'Weak': 1 };
+  const headers = table.querySelectorAll('th.sk-sortable');
+  let currentKey = null;
+  let currentDir = null;
+
+  headers.forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.sortKey;
+      if (currentKey === key) {
+        currentDir = currentDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentDir = th.dataset.sortDefault || 'asc';
+        currentKey = key;
+      }
+      // Update header classes
+      headers.forEach(h => h.classList.remove('sk-sort-asc', 'sk-sort-desc'));
+      th.classList.add('sk-sort-' + currentDir);
+
+      // Gather rows
+      const tbody = table.querySelector('tbody');
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+
+      // Column index by key
+      const colMap = {};
+      headers.forEach((h, i) => { colMap[h.dataset.sortKey] = i; });
+      const ci = colMap[key];
+
+      rows.sort((a, b) => {
+        let va = a.cells[ci].textContent.trim();
+        let vb = b.cells[ci].textContent.trim();
+        if (key === 'maturity') {
+          va = maturityOrder[va] || 0;
+          vb = maturityOrder[vb] || 0;
+          return currentDir === 'asc' ? va - vb : vb - va;
+        }
+        const cmp = va.localeCompare(vb, undefined, { sensitivity: 'base' });
+        return currentDir === 'asc' ? cmp : -cmp;
+      });
+
+      rows.forEach(r => tbody.appendChild(r));
+    });
+  });
+}

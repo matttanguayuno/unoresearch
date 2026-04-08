@@ -184,18 +184,18 @@
                 <!-- 1. What AI Skills Are -->
                 <div class="doc-section">
                     <h2 class="doc-section-title">1. What AI Skills Are</h2>
-                    <p class="doc-body">Skills are modular, reusable AI capability bundles that can be invoked on demand by an agent. Unlike prompts (which are always loaded), skills are <strong>selectively loaded</strong> &mdash; pulled in only when the agent encounters a matching task.</p>
+                    <p class="doc-body">Skills are modular, reusable AI capability bundles invoked on demand by an agent. Unlike prompts (always loaded), skills are <strong>selectively loaded</strong> &mdash; pulled in only when the agent encounters a matching task. Four layers of AI customization are emerging &mdash; skills sit at the top as the most structured and first layer that can be packaged, shared, and sold.</p>
 
                     <div class="sk-anatomy-grid">
                         <div class="sk-anatomy-card" data-accent="blue">
                             <span class="sk-anatomy-icon">&#x1F4CB;</span>
                             <h4>Instructions</h4>
-                            <p>What to do &mdash; step-by-step playbook</p>
+                            <p>Step-by-step playbook</p>
                         </div>
                         <div class="sk-anatomy-card" data-accent="violet">
                             <span class="sk-anatomy-icon">&#x1F9E0;</span>
                             <h4>Context</h4>
-                            <p>Domain knowledge the agent needs</p>
+                            <p>Domain knowledge</p>
                         </div>
                         <div class="sk-anatomy-card" data-accent="green">
                             <span class="sk-anatomy-icon">&#x1F527;</span>
@@ -204,33 +204,15 @@
                         </div>
                         <div class="sk-anatomy-card" data-accent="rose">
                             <span class="sk-anatomy-icon">&#x1F4C1;</span>
-                            <h4>Resources / Files</h4>
-                            <p>Optional supporting assets</p>
+                            <h4>Resources</h4>
+                            <p>Supporting assets</p>
                         </div>
                         <div class="sk-anatomy-card" data-accent="cyan">
                             <span class="sk-anatomy-icon">&#x1F3AF;</span>
                             <h4>Trigger Metadata</h4>
-                            <p>When to activate the skill</p>
+                            <p>When to activate</p>
                         </div>
                     </div>
-
-                    <div class="sk-compare-strip">
-                        <div class="sk-compare-box sk-compare-old">
-                            <span class="sk-compare-label">Prompts</span>
-                            <span class="sk-compare-desc">Always loaded into context</span>
-                        </div>
-                        <span class="sk-compare-arrow">&rarr;</span>
-                        <div class="sk-compare-box sk-compare-new">
-                            <span class="sk-compare-label">Skills</span>
-                            <span class="sk-compare-desc">Selectively loaded on demand</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. Conceptual Landscape -->
-                <div class="doc-section">
-                    <h2 class="doc-section-title">2. Conceptual Landscape</h2>
-                    <p class="doc-body">Four layers of AI customization are emerging. Skills sit at the top &mdash; the most structured, and the first layer that can be packaged, shared, and sold.</p>
 
                     <div class="sk-layers-stack">
                         <div class="sk-layer-row" data-accent="blue">
@@ -269,21 +251,221 @@
                     </div>
                 </div>
 
+                <!-- 2. Skill Examples (moved from section 6) -->
+                <div class="doc-section">
+                    <h2 class="doc-section-title">2. Skill Examples</h2>
+                    <p class="doc-body">Real skill files from major vendors. Click any card to see the actual file content.</p>
+
+                    <div class="sk-examples-grid">
+
+                        <div class="sk-example-card" data-accent="blue">
+                            <div class="sk-example-header">
+                                <h4>VS Code / GitHub Copilot</h4>
+                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
+                            </div>
+                            <p><code>SKILL.md</code> in <code>.github/skills/</code>. YAML frontmatter declares when the skill applies. Agent auto-loads it based on file context.</p>
+                            <details class="sk-code-details">
+                                <summary>View example SKILL.md</summary>
+                                <pre class="sk-code-block"><code>---
+description: "Uno Platform XAML component generation"
+applyTo: "**/*.xaml"
+---
+
+# Uno XAML Component Skill
+
+## Context
+You are working in an Uno Platform project that targets
+iOS, Android, Web (WASM), macOS, and Windows from a
+single C# / XAML codebase.
+
+## Instructions
+- Use `xmlns:utu="using:Uno.Toolkit.UI"` for Toolkit controls
+- Always set `AutomationProperties.Name` for accessibility
+- Prefer `x:Uid` with `.resw` resource files for localization
+- Use `muxc:NavigationView` for shell navigation patterns
+- Apply theme resources from `Generic.xaml`, never hardcode colors
+
+## Quality Checks
+1. Builds on all 5 target heads
+2. Passes accessibility automation peer checks
+3. Uses Uno.Extensions for MVUX data binding</code></pre>
+                            </details>
+                            <div class="sk-example-details">
+                                <span>Path: .github/skills/uno-xaml/SKILL.md</span>
+                                <span>Trigger: Auto via <code>applyTo</code> glob</span>
+                            </div>
+                        </div>
+
+                        <div class="sk-example-card" data-accent="violet">
+                            <div class="sk-example-header">
+                                <h4>Claude Code (Anthropic)</h4>
+                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
+                            </div>
+                            <p>Markdown files in <code>.claude/skills/</code>. Claude auto-detects or explicitly invokes them. Supports sub-agent chaining.</p>
+                            <details class="sk-code-details">
+                                <summary>View example skill file</summary>
+                                <pre class="sk-code-block"><code># Testing Skill
+
+## Description
+Run and fix failing tests for this project.
+
+## When to Use
+- User asks to "fix tests" or "run tests"
+- After any refactor that touches public APIs
+
+## Steps
+1. Run `npm test` and capture output
+2. Parse failures — group by file
+3. For each failing test:
+   a. Read the test file and the source file it tests
+   b. Determine if the test or the source is wrong
+   c. Fix the correct file
+4. Re-run `npm test` to confirm green
+5. If still failing, repeat from step 3 (max 3 retries)
+
+## Constraints
+- Never delete a test to make it pass
+- Never modify test assertions without explaining why
+- Preserve existing test descriptions</code></pre>
+                            </details>
+                            <div class="sk-example-details">
+                                <span>Path: .claude/skills/testing.md</span>
+                                <span>Trigger: Auto + explicit invoke</span>
+                            </div>
+                        </div>
+
+                        <div class="sk-example-card" data-accent="green">
+                            <div class="sk-example-header">
+                                <h4>Replit Agent</h4>
+                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
+                            </div>
+                            <p>Skills at <code>/.agents/skills/</code>. Markdown files loaded on demand by the cloud agent for specific task types.</p>
+                            <details class="sk-code-details">
+                                <summary>View example skill file</summary>
+                                <pre class="sk-code-block"><code># Database Migration Skill
+
+## Trigger
+User asks to add/change database tables or columns.
+
+## Context
+- Project uses PostgreSQL with Drizzle ORM
+- Migrations live in `drizzle/migrations/`
+- Schema defined in `src/db/schema.ts`
+
+## Procedure
+1. Edit `src/db/schema.ts` with the new table/column
+2. Run `npx drizzle-kit generate` to create migration
+3. Run `npx drizzle-kit push` to apply to dev database
+4. Update any affected queries in `src/db/queries/`
+5. Verify with `npm run typecheck`
+
+## Rules
+- Never drop columns without explicit user confirmation
+- Always add `NOT NULL` with a default value
+- Add an index for any foreign key column</code></pre>
+                            </details>
+                            <div class="sk-example-details">
+                                <span>Path: .agents/skills/db-migration.md</span>
+                                <span>Trigger: Auto cloud agent</span>
+                            </div>
+                        </div>
+
+                        <div class="sk-example-card" data-accent="rose">
+                            <div class="sk-example-header">
+                                <h4>OpenAI Codex</h4>
+                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
+                            </div>
+                            <p>Folder-based SKILL.md bundles with metadata for auto-selection. Designed for local + org distribution.</p>
+                            <details class="sk-code-details">
+                                <summary>View example SKILL.md</summary>
+                                <pre class="sk-code-block"><code>---
+name: "API Endpoint Generator"
+description: "Scaffolds REST API endpoints following project conventions"
+triggers:
+  - "create endpoint"
+  - "add API route"
+  - "new REST resource"
+---
+
+# API Endpoint Generator
+
+Generate a new REST endpoint following these conventions:
+
+## File Structure
+- Route: `src/routes/{resource}.ts`
+- Controller: `src/controllers/{resource}Controller.ts`
+- Validation: `src/validators/{resource}Schema.ts`
+- Test: `src/__tests__/{resource}.test.ts`
+
+## Standards
+- Use Zod for request/response validation
+- Return RFC 7807 problem details for errors
+- Add OpenAPI JSDoc annotations on every handler
+- Include rate limiting middleware for public endpoints
+- Log structured JSON via the project logger</code></pre>
+                            </details>
+                            <div class="sk-example-details">
+                                <span>Path: .codex/skills/api-endpoint/SKILL.md</span>
+                                <span>Trigger: Auto-select via metadata</span>
+                            </div>
+                        </div>
+
+                        <div class="sk-example-card" data-accent="cyan">
+                            <div class="sk-example-header">
+                                <h4>Cursor</h4>
+                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
+                            </div>
+                            <p>Agent Skills compatible format. Loads skill files from <code>.cursor/skills/</code> matching the current task context.</p>
+                            <details class="sk-code-details">
+                                <summary>View example skill file</summary>
+                                <pre class="sk-code-block"><code>---
+description: "React component creation following project design system"
+globs: ["src/components/**/*.tsx"]
+---
+
+# React Component Skill
+
+## Design System Rules
+- Import tokens from `@/styles/tokens`
+- Use `styled-components` with theme provider
+- Every component must export a Storybook story
+- Props interface must extend `HTMLAttributes`
+
+## Component Template
+1. Create component file at `src/components/{Name}/{Name}.tsx`
+2. Create story at `src/components/{Name}/{Name}.stories.tsx`
+3. Create test at `src/components/{Name}/{Name}.test.tsx`
+4. Export from `src/components/index.ts` barrel
+
+## Accessibility
+- Add `role` attribute where semantic HTML is insufficient
+- Support `aria-label` prop passthrough
+- Test with keyboard navigation</code></pre>
+                            </details>
+                            <div class="sk-example-details">
+                                <span>Path: .cursor/skills/react-components.md</span>
+                                <span>Trigger: Auto via globs</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
                 <!-- 3. Competitive Landscape -->
                 <div class="doc-section">
                     <h2 class="doc-section-title">3. Competitive Landscape</h2>
-                    <p class="doc-body">This is the core section. How each major AI coding tool approaches skills support today.</p>
+                    <p class="doc-body">How each major AI coding tool approaches skills support today. Click any column header to sort.</p>
 
                     <div class="sk-table-wrapper">
-                        <table class="sk-comp-table">
+                        <table class="sk-comp-table" id="sk-comp-table">
                             <thead>
                                 <tr>
-                                    <th>Tool</th>
-                                    <th>Native Skills Concept</th>
-                                    <th>Format</th>
-                                    <th>Trigger Model</th>
-                                    <th>Distribution</th>
-                                    <th>Maturity</th>
+                                    <th class="sk-sortable" data-sort-key="tool">Tool <span class="sk-sort-icon"></span></th>
+                                    <th class="sk-sortable" data-sort-key="native">Native Skills Concept <span class="sk-sort-icon"></span></th>
+                                    <th class="sk-sortable" data-sort-key="format">Format <span class="sk-sort-icon"></span></th>
+                                    <th class="sk-sortable" data-sort-key="trigger">Trigger Model <span class="sk-sort-icon"></span></th>
+                                    <th class="sk-sortable" data-sort-key="distribution">Distribution <span class="sk-sort-icon"></span></th>
+                                    <th class="sk-sortable" data-sort-key="maturity" data-sort-default="desc">Maturity <span class="sk-sort-icon"></span></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -380,7 +562,7 @@
                     </div>
                 </div>
 
-                <!-- 4. Trends -->
+                <!-- 3b. Trends -->
                 <div class="doc-section">
                     <h2 class="doc-section-title">4. Trends</h2>
 
@@ -481,70 +663,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-
-                <!-- 6. Skill Examples -->
-                <div class="doc-section">
-                    <h2 class="doc-section-title">6. Skill Examples</h2>
-                    <p class="doc-body">Real-world examples from vendors that already expose skills or skill-like workflows.</p>
-
-                    <div class="sk-examples-grid">
-                        <div class="sk-example-card" data-accent="blue">
-                            <div class="sk-example-header">
-                                <h4>VS Code &mdash; Agent Skills (GA)</h4>
-                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
-                            </div>
-                            <p>SKILL.md files in <code>.github/skills/</code> folders. Each skill includes a YAML frontmatter with <code>applyTo</code> glob patterns and description. The agent auto-loads matching skills based on file context.</p>
-                            <div class="sk-example-details">
-                                <span>Format: Markdown + YAML frontmatter</span>
-                                <span>Trigger: Auto via file pattern matching</span>
-                            </div>
-                        </div>
-                        <div class="sk-example-card" data-accent="violet">
-                            <div class="sk-example-header">
-                                <h4>Claude Code &mdash; Skills &amp; Sub-agents</h4>
-                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
-                            </div>
-                            <p>Filesystem-based skills with dedicated public docs. Skills are markdown playbooks stored in the project. Claude Code can auto-detect or explicitly invoke them, and chain sub-agents for multi-step workflows.</p>
-                            <div class="sk-example-details">
-                                <span>Format: Markdown files</span>
-                                <span>Trigger: Auto + explicit</span>
-                            </div>
-                        </div>
-                        <div class="sk-example-card" data-accent="green">
-                            <div class="sk-example-header">
-                                <h4>Replit &mdash; Agent Skills Standard</h4>
-                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
-                            </div>
-                            <p>Very explicit skills layer at <code>/.agents/skills/</code>. Markdown skill files are loaded on demand by the cloud agent. Skills define step-by-step processes the agent follows for specific task types.</p>
-                            <div class="sk-example-details">
-                                <span>Format: /.agents/skills/ directory</span>
-                                <span>Trigger: Auto cloud agent</span>
-                            </div>
-                        </div>
-                        <div class="sk-example-card" data-accent="rose">
-                            <div class="sk-example-header">
-                                <h4>OpenAI Codex &mdash; Folder Bundles</h4>
-                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
-                            </div>
-                            <p>Folder-based open standard using SKILL.md bundles. Skills include metadata for auto-selection. Designed for local + org distribution with a clear path to marketplace sharing.</p>
-                            <div class="sk-example-details">
-                                <span>Format: Folder-based (open standard)</span>
-                                <span>Trigger: Auto-select via metadata</span>
-                            </div>
-                        </div>
-                        <div class="sk-example-card" data-accent="cyan">
-                            <div class="sk-example-header">
-                                <h4>Builder.io &mdash; Structured Workflows</h4>
-                                <span class="sk-example-badge sk-maturity-medium">Medium</span>
-                            </div>
-                            <p>Partial skills support through <code>.builder/skills</code> and SKILL.md. Docs + structured workflows provide project-level guidance, but trigger model is manual/implicit rather than fully automatic.</p>
-                            <div class="sk-example-details">
-                                <span>Format: Docs + SKILL.md</span>
-                                <span>Trigger: Manual / implicit</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
 

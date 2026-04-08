@@ -6955,7 +6955,6 @@ mark.search-query-highlight {
   color: var(--text-muted);
   font-size: 15px;
   line-height: 1.7;
-  max-width: 720px;
 }
 
 /* ── Section 1: Anatomy Cards ── */
@@ -7381,5 +7380,83 @@ mark.search-query-highlight {
   .sk-comp-table, .sk-cost-table { font-size: 13px; }
   .sk-comp-table th, .sk-comp-table td,
   .sk-cost-table th, .sk-cost-table td { padding: .5rem .6rem; }
+}
+
+/* ── Sortable table headers ── */
+.sk-sortable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: color .15s;
+}
+.sk-sortable:hover {
+  color: var(--text);
+}
+.sk-sort-icon {
+  display: inline-block;
+  width: 14px;
+  text-align: center;
+  font-size: 10px;
+  opacity: 0.4;
+  margin-left: .2rem;
+  transition: opacity .15s;
+}
+.sk-sort-icon::after {
+  content: '▲▼';
+  font-size: 8px;
+  letter-spacing: -1px;
+}
+.sk-sortable.sk-sort-asc .sk-sort-icon,
+.sk-sortable.sk-sort-desc .sk-sort-icon {
+  opacity: 1;
+  color: var(--uno-blue);
+}
+.sk-sortable.sk-sort-asc .sk-sort-icon::after { content: '▲'; }
+.sk-sortable.sk-sort-desc .sk-sort-icon::after { content: '▼'; }
+
+/* ── Code block in example cards ── */
+.sk-code-details {
+  margin-top: .75rem;
+}
+.sk-code-details summary {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--uno-blue);
+  padding: .35rem 0;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.sk-code-details summary::before {
+  content: '▶';
+  font-size: 9px;
+  transition: transform .2s;
+}
+.sk-code-details[open] summary::before {
+  transform: rotate(90deg);
+}
+.sk-code-details summary::-webkit-details-marker { display: none; }
+.sk-code-block {
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  margin: .5rem 0 0;
+  overflow-x: auto;
+  font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  white-space: pre;
+  tab-size: 2;
+}
+.sk-code-block code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
 }
 
