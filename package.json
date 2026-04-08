@@ -1,5 +1,12 @@
 {
+  "name": "uno-studio-live-market-research",
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
   "devDependencies": {
     "archiver": "^7.0.1",
     "nodemon": "^3.1.11"
