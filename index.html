@@ -29,6 +29,7 @@
                 <a class="tab-btn" href="#tab/uno-vs-competitors" data-tab="uno-vs-competitors">Uno vs Competitors</a>
                 <a class="tab-btn" href="#tab/ai-value-outlook" data-tab="ai-value-outlook">Uno + AI</a>
                 <a class="tab-btn" href="#tab/documentation" data-tab="documentation">Documentation</a>
+                <a class="tab-btn" href="#tab/skills" data-tab="skills">Skills</a>
             </div>
             <div class="download-btn-group">
                 <button class="download-btn" onclick="toggleDownloadDropdown(event)" aria-label="Download screenshots as ZIP">
@@ -168,6 +169,125 @@
         <!-- Requirements Tab -->
         <section id="requirements" class="tab-content">
             <div id="requirements-content"><div class="req-loading"><div class="req-spinner"></div><p>Loading requirements…</p></div></div>
+        </section>
+
+        <!-- Skills Tab -->
+        <section id="skills" class="tab-content">
+            <div class="doc-page">
+                <div class="doc-hero">
+                    <h1 class="doc-hero-title">AI Skills</h1>
+                    <p class="doc-hero-subtitle">Modular, reusable AI capability bundles that agents load when needed.</p>
+                </div>
+
+                <div class="doc-section">
+                    <h2 class="doc-section-title">1. What AI Skills Are</h2>
+                    <p>Skills are modular, reusable AI capability bundles that can be invoked on demand by an agent.</p>
+                    <p>They typically include:</p>
+                    <ul>
+                        <li><strong>Instructions</strong> (what to do)</li>
+                        <li><strong>Context</strong> (domain knowledge)</li>
+                        <li><strong>Tools/scripts</strong> (optional)</li>
+                        <li><strong>Resources/files</strong> (optional)</li>
+                        <li><strong>Trigger metadata</strong> (when to use)</li>
+                    </ul>
+                    <p><strong>Prompts</strong> = always loaded</p>
+                    <p><strong>Skills</strong> = selectively loaded (on-demand)</p>
+                </div>
+
+                <div class="doc-section">
+                    <h2 class="doc-section-title">2. Conceptual Landscape</h2>
+                    <p>There are 4 layers of AI customization emerging:</p>
+                    <div class="doc-table-wrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Layer</th>
+                                    <th>Description</th>
+                                    <th>Examples</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Instructions</td>
+                                    <td>Always-on behavior</td>
+                                    <td>System prompt, rules</td>
+                                </tr>
+                                <tr>
+                                    <td>Knowledge</td>
+                                    <td>Passive context</td>
+                                    <td>Docs, embeddings</td>
+                                </tr>
+                                <tr>
+                                    <td>Tools / MCP</td>
+                                    <td>External capabilities</td>
+                                    <td>APIs, integrations</td>
+                                </tr>
+                                <tr>
+                                    <td>Skills</td>
+                                    <td>Packaged workflows (active)</td>
+                                    <td>Agent tasks, reusable flows</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><strong>👉 Skills = the first “productizable” layer</strong></p>
+                </div>
+
+                <div class="doc-section">
+                    <h2 class="doc-section-title">3. Competitive Landscape</h2>
+                    <p>See the attached competitive analysis as the core evidence for this topic.</p>
+                </div>
+
+                <div class="doc-section">
+                    <h2 class="doc-section-title">4. Trends</h2>
+                    <div class="doc-subsection">
+                        <h3>Trend 1 — From Prompts → Systems</h3>
+                        <p>Early AI = prompt engineering. Now = modular capability systems.</p>
+                        <p><strong>👉 Skills are the unit of that system</strong></p>
+                    </div>
+                    <div class="doc-subsection">
+                        <h3>Trend 2 — Progressive Loading (VERY important)</h3>
+                        <p>Skills are not always injected. Loaded only when needed.</p>
+                        <p><strong>Impact:</strong></p>
+                        <ul>
+                            <li>Lower token cost</li>
+                            <li>Higher accuracy</li>
+                            <li>Cleaner context</li>
+                        </ul>
+                    </div>
+                    <div class="doc-subsection">
+                        <h3>Trend 3 — Standardization Emerging</h3>
+                        <p>“Agent Skills” are becoming a cross-vendor pattern with folder-based structure converging.</p>
+                        <p><strong>👉 Early signs of:</strong> interoperability, ecosystem growth</p>
+                    </div>
+                    <div class="doc-subsection">
+                        <h3>Trend 4 — Distribution Layer Coming Next</h3>
+                        <p>VS Code → plugins; GitHub → org sharing; Replit → cloud agents.</p>
+                        <p><strong>👉 Next phase = skill marketplaces</strong></p>
+                    </div>
+                    <div class="doc-subsection">
+                        <h3>Trend 5 — Shift to “Expertise Packaging”</h3>
+                        <p>Companies are no longer shipping docs and SDKs. They are starting to ship “AI-native expertise bundles”.</p>
+                    </div>
+                </div>
+
+                <div class="doc-section">
+                    <h2 class="doc-section-title">5. Cost Model</h2>
+                    <p>Skills are not priced directly. The main cost drivers are:</p>
+                    <ul>
+                        <li>Token usage — only when a skill executes</li>
+                        <li>Agent requests — trigger-based</li>
+                        <li>Tool execution — if the skill uses tools</li>
+                        <li>Storage — negligible</li>
+                        <li>Skill itself — free / bundled</li>
+                    </ul>
+                </div>
+
+                <div class="doc-section">
+                    <h2 class="doc-section-title">6. Skill examples</h2>
+                    <p>Try to find a few relevant examples from vendors that already expose skills or skill-like workflows.</p>
+                </div>
+            </div>
         </section>
 
         <section id="documentation" class="tab-content">
