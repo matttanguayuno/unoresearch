@@ -6964,6 +6964,210 @@ mark.search-query-highlight {
   color: #bae6fd;
 }
 
+/* ── Section 2: Skill File Structure ── */
+.sk-structure-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin: 1.5rem 0 2rem;
+}
+.sk-structure-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+.sk-structure-card h4 {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 .75rem;
+}
+.sk-structure-wide {
+  grid-column: 1 / -1;
+}
+.sk-tree {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0 0 1rem;
+}
+.sk-tree code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: var(--text-muted);
+}
+.sk-structure-rules {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.sk-structure-rules p {
+  margin: 0 0 .35rem;
+  color: var(--text);
+}
+.sk-structure-rules ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+.sk-structure-rules li {
+  margin-bottom: .25rem;
+}
+.sk-structure-note {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0 0 .75rem;
+  line-height: 1.5;
+}
+.sk-fields-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: .5rem;
+}
+.sk-fields-table th {
+  text-align: left;
+  padding: .5rem .6rem;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.sk-fields-table td {
+  padding: .45rem .6rem;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-dim, rgba(255,255,255,.06));
+}
+.sk-fields-table code {
+  background: var(--bg-primary);
+  padding: .15rem .35rem;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #7dd3fc;
+}
+.sk-frontmatter-fields {
+  margin-top: .5rem;
+}
+
+/* Progressive disclosure tiers */
+.sk-disclosure-tiers {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.sk-tier {
+  display: flex;
+  gap: .75rem;
+  flex: 1;
+  min-width: 200px;
+}
+.sk-tier-num {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--uno-blue);
+  color: var(--surface);
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sk-tier strong {
+  color: var(--text);
+  font-size: 14px;
+}
+.sk-tier p {
+  margin: .25rem 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.sk-tier-tokens {
+  font-size: 12px;
+  color: var(--text-dim, var(--text-muted));
+  margin-left: .5rem;
+  opacity: .7;
+}
+
+/* ── Section 4: Skill Repositories ── */
+.sk-repos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin: 1.5rem 0 2rem;
+}
+.sk-repo-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+}
+.sk-repo-header {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: .75rem;
+}
+.sk-repo-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.sk-repo-header h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+.sk-repo-header h4 a {
+  color: #7dd3fc;
+  text-decoration: none;
+}
+.sk-repo-header h4 a:hover {
+  color: #bae6fd;
+  text-decoration: underline;
+}
+.sk-repo-stars {
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: .7;
+}
+.sk-repo-card > p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0 0 .75rem;
+}
+.sk-repo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+.sk-repo-tags span {
+  font-size: 11px;
+  padding: .2rem .55rem;
+  border-radius: 999px;
+  background: rgba(125, 211, 252, .1);
+  color: #7dd3fc;
+  border: 1px solid rgba(125, 211, 252, .15);
+}
+
+@media (max-width: 768px) {
+  .sk-structure-grid,
+  .sk-repos-grid {
+    grid-template-columns: 1fr;
+  }
+  .sk-disclosure-tiers {
+    flex-direction: column;
+  }
+}
+
 /* ── Section 1: Anatomy Cards ── */
 .sk-anatomy-grid {
   display: grid;

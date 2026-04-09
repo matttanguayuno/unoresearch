@@ -187,9 +187,100 @@
                     <p class="doc-body">Skills are modular, reusable AI capability bundles invoked on demand by an agent. Unlike prompts or instructions (always loaded), skills are <strong>selectively loaded</strong> &mdash; pulled in only when the agent encounters a matching task. This makes them the most structured layer of AI customization and the first that can be packaged, shared, and sold.</p>
                 </div>
 
-                <!-- 2. Skill Examples (moved from section 6) -->
+                <!-- 2. Skill File Structure -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">2. Skill Examples</h2>
+                    <h2 class="doc-section-title">2. Skill File Structure</h2>
+                    <p class="doc-body">Every skill follows the <a href="https://agentskills.io/specification" target="_blank" rel="noopener">Agent Skills specification</a> &mdash; a folder containing a <code>SKILL.md</code> file plus optional supporting directories.</p>
+
+                    <div class="sk-structure-grid">
+                        <!-- Directory tree -->
+                        <div class="sk-structure-card">
+                            <h4>Directory Layout</h4>
+                            <pre class="sk-tree"><code>your-skill-name/
+├── SKILL.md          # Required — main skill file
+├── scripts/          # Optional — executable code
+│   ├── process_data.py
+│   └── validate.sh
+├── references/       # Optional — documentation
+│   ├── api-guide.md
+│   └── examples/
+└── assets/           # Optional — templates, etc.
+    └── report-template.md</code></pre>
+                            <div class="sk-structure-rules">
+                                <p><strong>Naming rules</strong></p>
+                                <ul>
+                                    <li>File must be exactly <code>SKILL.md</code> (case-sensitive)</li>
+                                    <li>Folder name: kebab-case only (e.g. <code>notion-project-setup</code>)</li>
+                                    <li>No spaces, underscores, or capitals in folder name</li>
+                                    <li>Folder name must match the <code>name</code> field in frontmatter</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- YAML frontmatter -->
+                        <div class="sk-structure-card">
+                            <h4>YAML Frontmatter</h4>
+                            <p class="sk-structure-note">The frontmatter is how the agent decides whether to load your skill. Only <code>name</code> and <code>description</code> are required.</p>
+                            <pre class="sk-tree"><code>---
+name: pdf-processing
+description: Extract PDF text, fill forms,
+  merge files. Use when handling PDFs.
+license: Apache-2.0
+compatibility: Requires Python 3.14+ and uv
+metadata:
+  author: example-org
+  version: "1.0"
+allowed-tools: Bash(git:*) Read
+---</code></pre>
+                            <div class="sk-frontmatter-fields">
+                                <table class="sk-fields-table">
+                                    <thead><tr><th>Field</th><th>Required</th><th>Notes</th></tr></thead>
+                                    <tbody>
+                                        <tr><td><code>name</code></td><td>Yes</td><td>Kebab-case, max 64 chars, must match folder name</td></tr>
+                                        <tr><td><code>description</code></td><td>Yes</td><td>Max 1024 chars — what it does <em>and</em> when to use it</td></tr>
+                                        <tr><td><code>license</code></td><td>No</td><td>License name or reference to bundled file</td></tr>
+                                        <tr><td><code>compatibility</code></td><td>No</td><td>Environment requirements (product, packages, network)</td></tr>
+                                        <tr><td><code>metadata</code></td><td>No</td><td>Arbitrary key-value pairs (author, version, etc.)</td></tr>
+                                        <tr><td><code>allowed-tools</code></td><td>No</td><td>Pre-approved tools list (experimental)</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Progressive disclosure -->
+                        <div class="sk-structure-card sk-structure-wide">
+                            <h4>Progressive Disclosure</h4>
+                            <p class="sk-structure-note">Skills are loaded in three tiers to minimize context usage:</p>
+                            <div class="sk-disclosure-tiers">
+                                <div class="sk-tier">
+                                    <span class="sk-tier-num">1</span>
+                                    <div>
+                                        <strong>Metadata</strong> <span class="sk-tier-tokens">~100 tokens</span>
+                                        <p><code>name</code> + <code>description</code> loaded at startup for all skills</p>
+                                    </div>
+                                </div>
+                                <div class="sk-tier">
+                                    <span class="sk-tier-num">2</span>
+                                    <div>
+                                        <strong>Instructions</strong> <span class="sk-tier-tokens">&lt; 5 000 tokens</span>
+                                        <p>Full <code>SKILL.md</code> body loaded when the skill is activated</p>
+                                    </div>
+                                </div>
+                                <div class="sk-tier">
+                                    <span class="sk-tier-num">3</span>
+                                    <div>
+                                        <strong>Resources</strong> <span class="sk-tier-tokens">as needed</span>
+                                        <p>Files in <code>scripts/</code>, <code>references/</code>, <code>assets/</code> loaded only when required</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Skill Examples -->
+                <div class="doc-section">
+                    <h2 class="doc-section-title">3. Skill Examples</h2>
                     <p class="doc-body">Real skill files from open source repositories. All follow the <a href="https://agentskills.io/" target="_blank" rel="noopener">Agent Skills</a> open standard. Click any card to view the file content.</p>
 
                     <div class="sk-examples-grid">
@@ -262,9 +353,73 @@
                     </div>
                 </div>
 
-                <!-- 3. Competitive Landscape -->
+                <!-- 4. Skill Repositories -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">3. Competitive Landscape</h2>
+                    <h2 class="doc-section-title">4. Skill Repositories</h2>
+                    <p class="doc-body">Open-source collections where you can browse, install, and contribute skills.</p>
+
+                    <div class="sk-repos-grid">
+                        <div class="sk-repo-card">
+                            <div class="sk-repo-header">
+                                <span class="sk-repo-icon">&#128218;</span>
+                                <div>
+                                    <h4><a href="https://github.com/anthropics/skills" target="_blank" rel="noopener">anthropics/skills</a></h4>
+                                    <span class="sk-repo-stars">&#9733; 114k</span>
+                                </div>
+                            </div>
+                            <p>Anthropic&rsquo;s official skills for Claude &mdash; creative, technical, enterprise, and the production document skills (docx, pdf, pptx, xlsx) that power Claude&rsquo;s file capabilities. Install as a Claude Code plugin marketplace.</p>
+                            <div class="sk-repo-tags">
+                                <span>Claude Code</span><span>Claude.ai</span><span>Claude API</span><span>30+ skills</span>
+                            </div>
+                        </div>
+
+                        <div class="sk-repo-card">
+                            <div class="sk-repo-header">
+                                <span class="sk-repo-icon">&#129302;</span>
+                                <div>
+                                    <h4><a href="https://github.com/github/awesome-copilot" target="_blank" rel="noopener">github/awesome-copilot</a></h4>
+                                    <span class="sk-repo-stars">&#9733; 29.1k</span>
+                                </div>
+                            </div>
+                            <p>Community-created collection of agents, instructions, skills, hooks, workflows, and plugins for GitHub Copilot. 330+ contributors. Includes a plugin marketplace, Learning Hub, and full-text search website.</p>
+                            <div class="sk-repo-tags">
+                                <span>VS Code</span><span>Copilot CLI</span><span>200+ skills</span><span>Community</span>
+                            </div>
+                        </div>
+
+                        <div class="sk-repo-card">
+                            <div class="sk-repo-header">
+                                <span class="sk-repo-icon">&#128214;</span>
+                                <div>
+                                    <h4><a href="https://github.com/agentskills/agentskills" target="_blank" rel="noopener">agentskills/agentskills</a></h4>
+                                    <span class="sk-repo-stars">Spec</span>
+                                </div>
+                            </div>
+                            <p>The Agent Skills open standard itself &mdash; specification, reference library, and validation tooling. Originally developed by Anthropic then released as a cross-vendor standard adopted by 25+ tools.</p>
+                            <div class="sk-repo-tags">
+                                <span>Specification</span><span>Validation</span><span>Cross-vendor</span>
+                            </div>
+                        </div>
+
+                        <div class="sk-repo-card">
+                            <div class="sk-repo-header">
+                                <span class="sk-repo-icon">&#127760;</span>
+                                <div>
+                                    <h4><a href="https://agentskills.io/clients" target="_blank" rel="noopener">Client Showcase</a></h4>
+                                    <span class="sk-repo-stars">25+ clients</span>
+                                </div>
+                            </div>
+                            <p>Full list of agent products that support the Agent Skills format &mdash; including Claude Code, GitHub Copilot, Cursor, Codex, Kiro, Roo Code, Goose, Amp, and many more. Each with setup instructions.</p>
+                            <div class="sk-repo-tags">
+                                <span>Directory</span><span>Setup guides</span><span>All vendors</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Competitive Landscape -->
+                <div class="doc-section">
+                    <h2 class="doc-section-title">5. Competitive Landscape</h2>
                     <p class="doc-body">How each major AI coding tool approaches skills support today. Click any column header to sort.</p>
 
                     <div class="sk-table-wrapper">
@@ -391,7 +546,7 @@
 
                 <!-- 3b. Trends -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">4. Trends</h2>
+                    <h2 class="doc-section-title">6. Trends</h2>
 
                     <div class="sk-trends-grid">
                         <div class="sk-trend-card" data-accent="blue">
@@ -448,7 +603,7 @@
 
                 <!-- 5. Risks & Limitations -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">5. Risks &amp; Limitations</h2>
+                    <h2 class="doc-section-title">7. Risks &amp; Limitations</h2>
                     <p class="doc-body">Skills are still early. Key challenges to watch:</p>
 
                     <div class="sk-trends-grid">
@@ -496,7 +651,7 @@
 
                 <!-- 6. Cost Model -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">6. Cost Model</h2>
+                    <h2 class="doc-section-title">8. Cost Model</h2>
                     <div class="sk-cost-callout">
                         <h3>Key Finding: Skills are NOT priced directly</h3>
                     </div>
