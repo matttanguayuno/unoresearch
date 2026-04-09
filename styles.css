@@ -7113,6 +7113,12 @@ mark.search-query-highlight {
 .sk-pkg-wide {
   grid-column: 1 / -1;
 }
+.sk-pkg-sub-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 2rem 0 .5rem;
+}
 .sk-pkg-header {
   display: flex;
   align-items: center;

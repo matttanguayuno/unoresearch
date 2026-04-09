@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI App Builders Research — Uno Studio Live</title>
+    <title>AI App Builders Research - Uno Studio Live</title>
     <link rel="stylesheet" href="styles.css?v=639059355558641080">
 </head>
 <body>
@@ -178,33 +178,33 @@
                 <!-- Hero -->
                 <div class="doc-hero">
                     <h1 class="doc-hero-title">AI Skills</h1>
-                    <p class="doc-hero-subtitle">Modular, reusable AI capability bundles that agents invoke on demand &mdash; the first <strong>&ldquo;productizable&rdquo;</strong> layer of AI customization.</p>
+                    <p class="doc-hero-subtitle">Modular, reusable AI capability bundles that agents invoke on demand - the first <strong>&ldquo;productizable&rdquo;</strong> layer of AI customization.</p>
                 </div>
 
                 <!-- 1. What AI Skills Are -->
                 <div class="doc-section">
                     <h2 class="doc-section-title">1. What AI Skills Are</h2>
-                    <p class="doc-body">Skills are modular, reusable AI capability bundles invoked on demand by an agent. Unlike prompts or instructions (always loaded), skills are <strong>selectively loaded</strong> &mdash; pulled in only when the agent encounters a matching task. This makes them the most structured layer of AI customization and the first that can be packaged, shared, and sold.</p>
+                    <p class="doc-body">Skills are modular, reusable AI capability bundles invoked on demand by an agent. Unlike prompts or instructions (always loaded), skills are <strong>selectively loaded</strong> - pulled in only when the agent encounters a matching task. This makes them the most structured layer of AI customization and the first that can be packaged, shared, and sold.</p>
                 </div>
 
                 <!-- 2. Skill File Structure -->
                 <div class="doc-section">
                     <h2 class="doc-section-title">2. Skill File Structure</h2>
-                    <p class="doc-body">Every skill follows the <a href="https://agentskills.io/specification" target="_blank" rel="noopener">Agent Skills specification</a> &mdash; a folder containing a <code>SKILL.md</code> file plus optional supporting directories.</p>
+                    <p class="doc-body">Every skill follows the <a href="https://agentskills.io/specification" target="_blank" rel="noopener">Agent Skills specification</a> - a folder containing a <code>SKILL.md</code> file plus optional supporting directories.</p>
 
                     <div class="sk-structure-grid">
                         <!-- Directory tree -->
                         <div class="sk-structure-card">
                             <h4>Directory Layout</h4>
                             <pre class="sk-tree"><code>your-skill-name/
-├── SKILL.md          # Required — main skill file
-├── scripts/          # Optional — executable code
+├── SKILL.md          # Required - main skill file
+├── scripts/          # Optional - executable code
 │   ├── process_data.py
 │   └── validate.sh
-├── references/       # Optional — documentation
+├── references/       # Optional - documentation
 │   ├── api-guide.md
 │   └── examples/
-└── assets/           # Optional — templates, etc.
+└── assets/           # Optional - templates, etc.
     └── report-template.md</code></pre>
                             <div class="sk-structure-rules">
                                 <p><strong>Naming rules</strong></p>
@@ -237,7 +237,7 @@ allowed-tools: Bash(git:*) Read
                                     <thead><tr><th>Field</th><th>Required</th><th>Notes</th></tr></thead>
                                     <tbody>
                                         <tr><td><code>name</code></td><td>Yes</td><td>Kebab-case, max 64 chars, must match folder name</td></tr>
-                                        <tr><td><code>description</code></td><td>Yes</td><td>Max 1024 chars — what it does <em>and</em> when to use it</td></tr>
+                                        <tr><td><code>description</code></td><td>Yes</td><td>Max 1024 chars - what it does <em>and</em> when to use it</td></tr>
                                         <tr><td><code>license</code></td><td>No</td><td>License name or reference to bundled file</td></tr>
                                         <tr><td><code>compatibility</code></td><td>No</td><td>Environment requirements (product, packages, network)</td></tr>
                                         <tr><td><code>metadata</code></td><td>No</td><td>Arbitrary key-value pairs (author, version, etc.)</td></tr>
@@ -290,7 +290,7 @@ allowed-tools: Bash(git:*) Read
                                 <h4>webapp-testing</h4>
                                 <span class="sk-example-badge sk-maturity-strong">Strong</span>
                             </div>
-                            <p>Playwright-based web app testing skill. Available in both the <a href="https://github.com/github/awesome-copilot/tree/main/skills/webapp-testing" target="_blank" rel="noopener">awesome-copilot</a> and <a href="https://github.com/anthropics/skills/tree/main/skills/webapp-testing" target="_blank" rel="noopener">anthropics/skills</a> repos &mdash; same format, cross-vendor.</p>
+                            <p>Playwright-based web app testing skill. Available in both the <a href="https://github.com/github/awesome-copilot/tree/main/skills/webapp-testing" target="_blank" rel="noopener">awesome-copilot</a> and <a href="https://github.com/anthropics/skills/tree/main/skills/webapp-testing" target="_blank" rel="noopener">anthropics/skills</a> repos - same format, cross-vendor.</p>
                             <button class="sk-view-btn" data-skill="webapp-testing">View SKILL.md</button>
                             <div class="sk-example-details">
                                 <span>Source: github/awesome-copilot + anthropics/skills</span>
@@ -316,7 +316,7 @@ allowed-tools: Bash(git:*) Read
                                 <h4>csharp-xunit</h4>
                                 <span class="sk-example-badge sk-maturity-strong">Strong</span>
                             </div>
-                            <p>XUnit testing best practices &mdash; project setup, AAA pattern, data-driven tests, mocking. From <a href="https://github.com/github/awesome-copilot/tree/main/skills/csharp-xunit" target="_blank" rel="noopener">awesome-copilot</a>.</p>
+                            <p>XUnit testing best practices - project setup, AAA pattern, data-driven tests, mocking. From <a href="https://github.com/github/awesome-copilot/tree/main/skills/csharp-xunit" target="_blank" rel="noopener">awesome-copilot</a>.</p>
                             <button class="sk-view-btn" data-skill="csharp-xunit">View SKILL.md</button>
                             <div class="sk-example-details">
                                 <span>Source: github/awesome-copilot</span>
@@ -353,9 +353,65 @@ allowed-tools: Bash(git:*) Read
                     </div>
                 </div>
 
-                <!-- 4. Skill Repositories -->
+                <!-- 4. Packaging, Marketing & Repositories -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">4. Skill Repositories</h2>
+                    <h2 class="doc-section-title">4. Packaging, Marketing &amp; Repositories</h2>
+                    <p class="doc-body">Skills are being positioned as the first <strong>productizable</strong> layer of AI - portable expertise modules that give general-purpose agents specialized, professional-grade workflows. The shift is from disposable prompts to reusable, versioned assets.</p>
+
+                    <div class="sk-pkg-grid">
+
+                        <!-- Packaging -->
+                        <div class="sk-pkg-card">
+                            <div class="sk-pkg-header">
+                                <span class="sk-pkg-icon">&#128230;</span>
+                                <h4>Packaging: &ldquo;Everything is a Folder&rdquo;</h4>
+                            </div>
+                            <ul class="sk-pkg-list">
+                                <li><strong>Core file</strong> - A <code>SKILL.md</code> with structured instructions, constraints, and examples. Metadata (name + description) lets agents decide relevance before loading the full body.</li>
+                                <li><strong>Bundled assets</strong> - Optional subdirectories for helper scripts (Python, Bash), reference docs, templates, and data files needed to complete tasks.</li>
+                                <li><strong>Distribution formats</strong> - Plain directories on GitHub, zipped packages, CLI plugin installs (<code>copilot plugin install</code>, <code>/plugin install</code>), or dedicated registries.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Marketing -->
+                        <div class="sk-pkg-card">
+                            <div class="sk-pkg-header">
+                                <span class="sk-pkg-icon">&#128233;</span>
+                                <h4>Marketing as &ldquo;Packaged Expertise&rdquo;</h4>
+                            </div>
+                            <ul class="sk-pkg-list">
+                                <li><strong>Methodology over instruction</strong> - Creators market skills as codified personal or institutional methodology, not just prompts. E.g. &ldquo;50+ skills that chain a full marketing campaign.&rdquo;</li>
+                                <li><strong>Specialized packs</strong> - Bundled into functional roles: Product Marketing Manager Skills Pack (battlecard generators, launch playbooks), Security Audit Pack, etc.</li>
+                                <li><strong>B2B / enterprise integration</strong> - Partners like Atlassian, Stripe, and Notion ship official &ldquo;agent-first&rdquo; documentation as skills, grounding agent behavior in authoritative product data and reducing hallucinations.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Distribution -->
+                        <div class="sk-pkg-card sk-pkg-wide">
+                            <div class="sk-pkg-header">
+                                <span class="sk-pkg-icon">&#128640;</span>
+                                <h4>Distribution &amp; Marketplaces</h4>
+                            </div>
+                            <div class="sk-pkg-channels">
+                                <div class="sk-pkg-channel">
+                                    <strong>AI-first IDEs</strong>
+                                    <p>Claude Code and VS Code allow CLI-based plugin installs from registered marketplaces. Cursor loads skills automatically via <code>.cursor/rules/</code>.</p>
+                                </div>
+                                <div class="sk-pkg-channel">
+                                    <strong>Platform plugins</strong>
+                                    <p>Anthropic provides a plugin directory within Claude.ai where users browse, install, and iterate on skills. GitHub Copilot has extensions marketplace support.</p>
+                                </div>
+                                <div class="sk-pkg-channel">
+                                    <strong>Community registries</strong>
+                                    <p>Open-source communities use <a href="https://agentskills.io/" target="_blank" rel="noopener">AgentSkills.io</a> to share standardized definitions across 25+ agent platforms.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Skill Repositories -->
+                    <h3 class="sk-pkg-sub-title">Skill Repositories</h3>
                     <p class="doc-body">Open-source collections where you can browse, install, and contribute skills.</p>
 
                     <div class="sk-repos-grid">
@@ -367,7 +423,7 @@ allowed-tools: Bash(git:*) Read
                                     <span class="sk-repo-stars">&#9733; 114k</span>
                                 </div>
                             </div>
-                            <p>Anthropic&rsquo;s official skills for Claude &mdash; creative, technical, enterprise, and the production document skills (docx, pdf, pptx, xlsx) that power Claude&rsquo;s file capabilities. Install as a Claude Code plugin marketplace.</p>
+                            <p>Anthropic&rsquo;s official skills for Claude - creative, technical, enterprise, and the production document skills (docx, pdf, pptx, xlsx) that power Claude&rsquo;s file capabilities. Install as a Claude Code plugin marketplace.</p>
                             <div class="sk-repo-tags">
                                 <span>Claude Code</span><span>Claude.ai</span><span>Claude API</span><span>30+ skills</span>
                             </div>
@@ -395,7 +451,7 @@ allowed-tools: Bash(git:*) Read
                                     <span class="sk-repo-stars">Spec</span>
                                 </div>
                             </div>
-                            <p>The Agent Skills open standard itself &mdash; specification, reference library, and validation tooling. Originally developed by Anthropic then released as a cross-vendor standard adopted by 25+ tools.</p>
+                            <p>The Agent Skills open standard itself - specification, reference library, and validation tooling. Originally developed by Anthropic then released as a cross-vendor standard adopted by 25+ tools.</p>
                             <div class="sk-repo-tags">
                                 <span>Specification</span><span>Validation</span><span>Cross-vendor</span>
                             </div>
@@ -409,7 +465,7 @@ allowed-tools: Bash(git:*) Read
                                     <span class="sk-repo-stars">25+ clients</span>
                                 </div>
                             </div>
-                            <p>Full list of agent products that support the Agent Skills format &mdash; including Claude Code, GitHub Copilot, Cursor, Codex, Kiro, Roo Code, Goose, Amp, and many more. Each with setup instructions.</p>
+                            <p>Full list of agent products that support the Agent Skills format - including Claude Code, GitHub Copilot, Cursor, Codex, Kiro, Roo Code, Goose, Amp, and many more. Each with setup instructions.</p>
                             <div class="sk-repo-tags">
                                 <span>Directory</span><span>Setup guides</span><span>All vendors</span>
                             </div>
@@ -417,67 +473,9 @@ allowed-tools: Bash(git:*) Read
                     </div>
                 </div>
 
-                <!-- 5. Packaging & Marketing -->
+                <!-- 5. Competitive Landscape -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">5. Packaging &amp; Marketing</h2>
-                    <p class="doc-body">Skills are being positioned as the first <strong>productizable</strong> layer of AI &mdash; portable expertise modules that give general-purpose agents specialized, professional-grade workflows. The shift is from disposable prompts to reusable, versioned assets.</p>
-
-                    <div class="sk-pkg-grid">
-
-                        <!-- Packaging -->
-                        <div class="sk-pkg-card">
-                            <div class="sk-pkg-header">
-                                <span class="sk-pkg-icon">&#128230;</span>
-                                <h4>Packaging: &ldquo;Everything is a Folder&rdquo;</h4>
-                            </div>
-                            <ul class="sk-pkg-list">
-                                <li><strong>Core file</strong> &mdash; A <code>SKILL.md</code> with structured instructions, constraints, and examples. Metadata (name + description) lets agents decide relevance before loading the full body.</li>
-                                <li><strong>Bundled assets</strong> &mdash; Optional subdirectories for helper scripts (Python, Bash), reference docs, templates, and data files needed to complete tasks.</li>
-                                <li><strong>Distribution formats</strong> &mdash; Plain directories on GitHub, zipped packages, CLI plugin installs (<code>copilot plugin install</code>, <code>/plugin install</code>), or dedicated registries like the <a href="https://jfrog.com/blog/jfrog-agent-skills-registry/" target="_blank" rel="noopener">JFrog Agent Skills Registry</a>.</li>
-                            </ul>
-                        </div>
-
-                        <!-- Marketing -->
-                        <div class="sk-pkg-card">
-                            <div class="sk-pkg-header">
-                                <span class="sk-pkg-icon">&#128233;</span>
-                                <h4>Marketing as &ldquo;Packaged Expertise&rdquo;</h4>
-                            </div>
-                            <ul class="sk-pkg-list">
-                                <li><strong>Methodology over instruction</strong> &mdash; Creators market skills as codified personal or institutional methodology, not just prompts. E.g. &ldquo;69+ skills that chain a full marketing campaign.&rdquo;</li>
-                                <li><strong>Specialized packs</strong> &mdash; Bundled into functional roles: Product Marketing Manager Skills Pack (battlecard generators, launch playbooks), Security Audit Pack, etc.</li>
-                                <li><strong>B2B / enterprise integration</strong> &mdash; Partners like Atlassian, Stripe, and Notion ship official &ldquo;agent-first&rdquo; documentation as skills, grounding agent behavior in authoritative product data and reducing hallucinations.</li>
-                            </ul>
-                        </div>
-
-                        <!-- Distribution -->
-                        <div class="sk-pkg-card sk-pkg-wide">
-                            <div class="sk-pkg-header">
-                                <span class="sk-pkg-icon">&#128640;</span>
-                                <h4>Distribution &amp; Marketplaces</h4>
-                            </div>
-                            <div class="sk-pkg-channels">
-                                <div class="sk-pkg-channel">
-                                    <strong>AI-first IDEs</strong>
-                                    <p>Claude Code and VS Code allow CLI-based plugin installs from registered marketplaces. Cursor loads skills automatically via <code>.cursor/rules/</code>.</p>
-                                </div>
-                                <div class="sk-pkg-channel">
-                                    <strong>Platform plugins</strong>
-                                    <p>Anthropic provides a plugin directory within Claude.ai where users browse, install, and iterate on skills. GitHub Copilot has extensions marketplace support.</p>
-                                </div>
-                                <div class="sk-pkg-channel">
-                                    <strong>Community registries</strong>
-                                    <p>Open-source communities use <a href="https://agentskills.io/" target="_blank" rel="noopener">AgentSkills.io</a> to share standardized definitions across 25+ agent platforms. JFrog offers enterprise-grade registry hosting.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- 6. Competitive Landscape -->
-                <div class="doc-section">
-                    <h2 class="doc-section-title">6. Competitive Landscape</h2>
+                    <h2 class="doc-section-title">5. Competitive Landscape</h2>
                     <p class="doc-body">How each major AI coding tool approaches skills support today. Click any column header to sort.</p>
 
                     <div class="sk-table-wrapper">
@@ -495,7 +493,7 @@ allowed-tools: Bash(git:*) Read
                             <tbody>
                                 <tr>
                                     <td class="sk-tool-name"><a href="https://code.visualstudio.com/docs/copilot/customization/agent-skills" target="_blank" rel="noopener">VS Code / GitHub Copilot</a></td>
-                                    <td>Yes &mdash; SKILL.md</td>
+                                    <td>Yes - SKILL.md</td>
                                     <td>Skill folders + YAML frontmatter</td>
                                     <td>Auto via <code>applyTo</code> glob</td>
                                     <td>Org-level + extensions marketplace</td>
@@ -503,7 +501,7 @@ allowed-tools: Bash(git:*) Read
                                 </tr>
                                 <tr>
                                     <td class="sk-tool-name"><a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">Claude Code (Anthropic)</a></td>
-                                    <td>Yes &mdash; SKILL.md</td>
+                                    <td>Yes - SKILL.md</td>
                                     <td>Agent Skills open standard</td>
                                     <td>Auto + explicit invoke</td>
                                     <td>Local + org + plugin marketplace</td>
@@ -599,7 +597,7 @@ allowed-tools: Bash(git:*) Read
                                 </tr>
                                 <tr>
                                     <td class="sk-tool-name"><a href="https://github.com/dotnet/maui/tree/main/.github/skills" target="_blank" rel="noopener">.NET MAUI</a></td>
-                                    <td>Yes &mdash; SKILL.md + agents</td>
+                                    <td>Yes - SKILL.md + agents</td>
                                     <td>Skill folders + copilot instructions + eval</td>
                                     <td>Auto via agents &amp; workflows</td>
                                     <td>Repo-level + arcade-skills plugin</td>
@@ -620,7 +618,7 @@ allowed-tools: Bash(git:*) Read
 
                 <!-- 3b. Trends -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">7. Trends</h2>
+                    <h2 class="doc-section-title">6. Trends</h2>
 
                     <div class="sk-trends-grid">
                         <div class="sk-trend-card" data-accent="blue">
@@ -638,7 +636,7 @@ allowed-tools: Bash(git:*) Read
                                 <h3>Progressive Loading</h3>
                                 <span class="sk-trend-tag">Key insight</span>
                             </div>
-                            <p>Skills are <strong>not</strong> always injected &mdash; loaded only when needed.</p>
+                            <p>Skills are <strong>not</strong> always injected - loaded only when needed.</p>
                             <div class="sk-trend-impacts">
                                 <span class="sk-impact"><span class="sk-impact-icon">&#x1F4B0;</span> Lower token cost</span>
                                 <span class="sk-impact"><span class="sk-impact-icon">&#x1F3AF;</span> Higher accuracy</span>
@@ -677,7 +675,7 @@ allowed-tools: Bash(git:*) Read
 
                 <!-- 5. Risks & Limitations -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">8. Risks &amp; Limitations</h2>
+                    <h2 class="doc-section-title">7. Risks &amp; Limitations</h2>
                     <p class="doc-body">Skills are still early. Key challenges to watch:</p>
 
                     <div class="sk-trends-grid">
@@ -725,7 +723,7 @@ allowed-tools: Bash(git:*) Read
 
                 <!-- 6. Cost Model -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">9. Cost Model</h2>
+                    <h2 class="doc-section-title">8. Cost Model</h2>
                     <div class="sk-cost-callout">
                         <h3>Key Finding: Skills are NOT priced directly</h3>
                     </div>
@@ -743,7 +741,7 @@ allowed-tools: Bash(git:*) Read
                                 <tr>
                                     <td>Token usage</td>
                                     <td><span class="sk-cost-yes">&#x2705;</span></td>
-                                    <td>Only when skill executes &mdash; the key economic advantage over always-on prompts</td>
+                                    <td>Only when skill executes - the key economic advantage over always-on prompts</td>
                                 </tr>
                                 <tr>
                                     <td>Context window consumption</td>
@@ -768,12 +766,12 @@ allowed-tools: Bash(git:*) Read
                                 <tr>
                                     <td>Storage</td>
                                     <td><span class="sk-cost-no">&#x2717;</span></td>
-                                    <td>Negligible &mdash; plain text files</td>
+                                    <td>Negligible - plain text files</td>
                                 </tr>
                                 <tr>
                                     <td>Skill file itself</td>
                                     <td><span class="sk-cost-no">&#x2717;</span></td>
-                                    <td>Free / bundled today &mdash; marketplace pricing may emerge</td>
+                                    <td>Free / bundled today - marketplace pricing may emerge</td>
                                 </tr>
                             </tbody>
                         </table>
