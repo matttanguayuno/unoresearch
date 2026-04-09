@@ -6956,6 +6956,13 @@ mark.search-query-highlight {
   font-size: 15px;
   line-height: 1.7;
 }
+.skills-page a {
+  color: #7dd3fc;
+  transition: color .15s;
+}
+.skills-page a:hover {
+  color: #bae6fd;
+}
 
 /* ── Section 1: Anatomy Cards ── */
 .sk-anatomy-grid {
@@ -7149,12 +7156,12 @@ mark.search-query-highlight {
   white-space: nowrap;
 }
 .sk-tool-name a {
-  color: var(--uno-blue);
+  color: #7dd3fc;
   text-decoration: none;
   transition: color .15s;
 }
 .sk-tool-name a:hover {
-  color: var(--text);
+  color: #bae6fd;
   text-decoration: underline;
 }
 
