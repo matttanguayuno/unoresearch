@@ -184,13 +184,13 @@
                 <!-- 1. What AI Skills Are -->
                 <div class="doc-section">
                     <h2 class="doc-section-title">1. What AI Skills Are</h2>
-                    <p class="doc-body">Skills are modular, reusable AI capability bundles invoked on demand by an agent. Unlike prompts (always loaded), skills are <strong>selectively loaded</strong> &mdash; pulled in only when the agent encounters a matching task. Four layers of AI customization are emerging &mdash; skills sit at the top as the most structured and first layer that can be packaged, shared, and sold.</p>
+                    <p class="doc-body">Skills are modular, reusable AI capability bundles invoked on demand by an agent. Unlike prompts or instructions (always loaded), skills are <strong>selectively loaded</strong> &mdash; pulled in only when the agent encounters a matching task. This makes them the most structured layer of AI customization and the first that can be packaged, shared, and sold.</p>
                 </div>
 
                 <!-- 2. Skill Examples (moved from section 6) -->
                 <div class="doc-section">
                     <h2 class="doc-section-title">2. Skill Examples</h2>
-                    <p class="doc-body">Real skill files from major vendors. Click any card to see the actual file content.</p>
+                    <p class="doc-body">Illustrative skill files showing the emerging patterns across major vendors. Click any card to view the full file content.</p>
 
                     <div class="sk-examples-grid">
 
@@ -210,7 +210,7 @@
                         <div class="sk-example-card" data-accent="violet">
                             <div class="sk-example-header">
                                 <h4>Claude Code (Anthropic)</h4>
-                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
+                                <span class="sk-example-badge sk-maturity-medium">Medium</span>
                             </div>
                             <p>Markdown files in <code>.claude/skills/</code>. Claude auto-detects or explicitly invokes them. Supports sub-agent chaining.</p>
                             <button class="sk-view-btn" data-skill="claude">View example skill file</button>
@@ -223,7 +223,7 @@
                         <div class="sk-example-card" data-accent="green">
                             <div class="sk-example-header">
                                 <h4>Replit Agent</h4>
-                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
+                                <span class="sk-example-badge sk-maturity-medium">Medium</span>
                             </div>
                             <p>Skills at <code>/.agents/skills/</code>. Markdown files loaded on demand by the cloud agent for specific task types.</p>
                             <button class="sk-view-btn" data-skill="replit">View example skill file</button>
@@ -236,7 +236,7 @@
                         <div class="sk-example-card" data-accent="rose">
                             <div class="sk-example-header">
                                 <h4>OpenAI Codex</h4>
-                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
+                                <span class="sk-example-badge sk-maturity-medium">Medium</span>
                             </div>
                             <p>Folder-based SKILL.md bundles with metadata for auto-selection. Designed for local + org distribution.</p>
                             <button class="sk-view-btn" data-skill="codex">View example SKILL.md</button>
@@ -249,7 +249,7 @@
                         <div class="sk-example-card" data-accent="cyan">
                             <div class="sk-example-header">
                                 <h4>Cursor</h4>
-                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
+                                <span class="sk-example-badge sk-maturity-medium">Medium</span>
                             </div>
                             <p>Agent Skills compatible format. Loads skill files from <code>.cursor/skills/</code> matching the current task context.</p>
                             <button class="sk-view-btn" data-skill="cursor">View example skill file</button>
@@ -281,52 +281,76 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="sk-tool-name">OpenAI Codex</td>
-                                    <td>Yes (Agent Skills)</td>
-                                    <td>Folder-based (open standard)</td>
-                                    <td>Auto-select via metadata</td>
-                                    <td>Local + org</td>
+                                    <td class="sk-tool-name">VS Code / GitHub Copilot</td>
+                                    <td>Yes &mdash; SKILL.md</td>
+                                    <td>Skill folders + YAML frontmatter</td>
+                                    <td>Auto via <code>applyTo</code> glob</td>
+                                    <td>Org-level + extensions marketplace</td>
                                     <td><span class="sk-maturity sk-maturity-strong">Strong</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Claude (Anthropic)</td>
-                                    <td>Yes (Agent Skills)</td>
-                                    <td>Filesystem-based</td>
+                                    <td class="sk-tool-name">Claude Code (Anthropic)</td>
+                                    <td>Emerging</td>
+                                    <td>Markdown files in project</td>
                                     <td>Auto + explicit invoke</td>
                                     <td>Local + org</td>
-                                    <td><span class="sk-maturity sk-maturity-strong">Strong</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="sk-tool-name">GitHub Copilot</td>
-                                    <td>Yes (Agent Skills)</td>
-                                    <td>Integrated (less exposed)</td>
-                                    <td>Auto in agent mode</td>
-                                    <td>Org-level</td>
-                                    <td><span class="sk-maturity sk-maturity-strong">Strong</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="sk-tool-name">VS Code (Agent Mode)</td>
-                                    <td>Yes</td>
-                                    <td>Skill folders + plugins</td>
-                                    <td>Auto</td>
-                                    <td>Extensions marketplace emerging</td>
-                                    <td><span class="sk-maturity sk-maturity-strong">Strong</span></td>
+                                    <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
                                 </tr>
                                 <tr>
                                     <td class="sk-tool-name">Cursor</td>
-                                    <td>Yes</td>
-                                    <td>Agent Skills compatible</td>
-                                    <td>Auto</td>
+                                    <td>Emerging</td>
+                                    <td>Rules files + agent skills</td>
+                                    <td>Auto via globs</td>
                                     <td>Local</td>
-                                    <td><span class="sk-maturity sk-maturity-strong">Strong</span></td>
+                                    <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Replit</td>
-                                    <td>Yes (open standard)</td>
-                                    <td>Agent Skills standard</td>
-                                    <td>Auto</td>
-                                    <td>Cloud agent</td>
-                                    <td><span class="sk-maturity sk-maturity-strong">Strong</span></td>
+                                    <td class="sk-tool-name">OpenAI Codex</td>
+                                    <td>Emerging</td>
+                                    <td>AGENTS.md + folder-based</td>
+                                    <td>Auto-select via metadata</td>
+                                    <td>Local + org</td>
+                                    <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="sk-tool-name">Replit Agent</td>
+                                    <td>Partial</td>
+                                    <td>Agent config files</td>
+                                    <td>Auto (cloud agent)</td>
+                                    <td>Cloud workspace</td>
+                                    <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="sk-tool-name">Windsurf (Codeium)</td>
+                                    <td>Partial</td>
+                                    <td>Rules + workflows</td>
+                                    <td>Auto + manual</td>
+                                    <td>Local</td>
+                                    <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="sk-tool-name">Amazon Q Developer</td>
+                                    <td>Partial</td>
+                                    <td>Transformation + customization</td>
+                                    <td>Explicit invoke</td>
+                                    <td>AWS org</td>
+                                    <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="sk-tool-name">JetBrains AI</td>
+                                    <td>Partial</td>
+                                    <td>Prompt library + context</td>
+                                    <td>Manual / implicit</td>
+                                    <td>IDE plugins</td>
+                                    <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="sk-tool-name">Google Gemini Code Assist</td>
+                                    <td>Minimal</td>
+                                    <td>Customization config</td>
+                                    <td>Always-on</td>
+                                    <td>GCP org</td>
+                                    <td><span class="sk-maturity sk-maturity-weak">Weak</span></td>
                                 </tr>
                                 <tr>
                                     <td class="sk-tool-name">Builder.io</td>
@@ -338,11 +362,11 @@
                                 </tr>
                                 <tr>
                                     <td class="sk-tool-name">Lovable</td>
-                                    <td>No (explicit)</td>
+                                    <td>No</td>
                                     <td>Knowledge + prompts</td>
                                     <td>Always-on</td>
                                     <td>Workspace</td>
-                                    <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
+                                    <td><span class="sk-maturity sk-maturity-weak">Weak</span></td>
                                 </tr>
                                 <tr>
                                     <td class="sk-tool-name">Vercel v0</td>
@@ -361,11 +385,11 @@
                                     <td><span class="sk-maturity sk-maturity-weak">Weak</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Tempo Labs</td>
-                                    <td>No clear skills</td>
-                                    <td>Design system reuse</td>
-                                    <td>Implicit</td>
-                                    <td>Workspace</td>
+                                    <td class="sk-tool-name">Aider</td>
+                                    <td>No</td>
+                                    <td>Conventions files</td>
+                                    <td>Always-on</td>
+                                    <td>Local (open source)</td>
                                     <td><span class="sk-maturity sk-maturity-weak">Weak</span></td>
                                 </tr>
                             </tbody>
@@ -430,9 +454,57 @@
                     </div>
                 </div>
 
-                <!-- 5. Cost Model -->
+                <!-- 5. Risks & Limitations -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">5. Cost Model</h2>
+                    <h2 class="doc-section-title">5. Risks &amp; Limitations</h2>
+                    <p class="doc-body">Skills are still early. Key challenges to watch:</p>
+
+                    <div class="sk-trends-grid">
+                        <div class="sk-trend-card" data-accent="rose">
+                            <div class="sk-trend-header">
+                                <span class="sk-trend-num">!</span>
+                                <h3>Security Surface</h3>
+                            </div>
+                            <p>Skills instruct agents to create files, run commands, and call APIs. A poorly-written or malicious skill is a real attack vector. No vendor has a review/signing model yet.</p>
+                        </div>
+
+                        <div class="sk-trend-card" data-accent="violet">
+                            <div class="sk-trend-header">
+                                <span class="sk-trend-num">!</span>
+                                <h3>Skill Conflicts</h3>
+                            </div>
+                            <p>When multiple skills match the same context, behavior is unpredictable. Priority, ordering, and override rules are not standardized across any tool.</p>
+                        </div>
+
+                        <div class="sk-trend-card" data-accent="blue">
+                            <div class="sk-trend-header">
+                                <span class="sk-trend-num">!</span>
+                                <h3>Versioning &amp; Maintenance</h3>
+                            </div>
+                            <p>Skills drift as codebases evolve. No tool tracks whether a skill is stale or contradicts current project conventions. Maintenance burden is invisible.</p>
+                        </div>
+
+                        <div class="sk-trend-card" data-accent="green">
+                            <div class="sk-trend-header">
+                                <span class="sk-trend-num">!</span>
+                                <h3>Debugging &amp; Observability</h3>
+                            </div>
+                            <p>When a skill misfires, it is hard to tell <em>which</em> skill was loaded, <em>why</em> it triggered, or <em>what</em> it injected. Tracing and logging are minimal across all vendors.</p>
+                        </div>
+
+                        <div class="sk-trend-card" data-accent="cyan">
+                            <div class="sk-trend-header">
+                                <span class="sk-trend-num">!</span>
+                                <h3>Governance</h3>
+                            </div>
+                            <p>Enterprise teams need to control which skills agents can use, who can publish them, and audit what they do. Only GitHub Copilot has early org-level controls.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Cost Model -->
+                <div class="doc-section">
+                    <h2 class="doc-section-title">6. Cost Model</h2>
                     <div class="sk-cost-callout">
                         <h3>Key Finding: Skills are NOT priced directly</h3>
                     </div>
@@ -450,7 +522,12 @@
                                 <tr>
                                     <td>Token usage</td>
                                     <td><span class="sk-cost-yes">&#x2705;</span></td>
-                                    <td>Only when skill executes</td>
+                                    <td>Only when skill executes &mdash; the key economic advantage over always-on prompts</td>
+                                </tr>
+                                <tr>
+                                    <td>Context window consumption</td>
+                                    <td><span class="sk-cost-yes">&#x2705;</span></td>
+                                    <td>A loaded skill uses context tokens, competing with code and conversation</td>
                                 </tr>
                                 <tr>
                                     <td>Agent requests</td>
@@ -460,17 +537,22 @@
                                 <tr>
                                     <td>Tool execution</td>
                                     <td><span class="sk-cost-yes">&#x2705;</span></td>
-                                    <td>If skill uses tools</td>
+                                    <td>If skill invokes tools or APIs</td>
+                                </tr>
+                                <tr>
+                                    <td>Authoring &amp; maintenance</td>
+                                    <td><span class="sk-cost-yes">&#x2705;</span></td>
+                                    <td>Human time to write, test, and keep skills current</td>
                                 </tr>
                                 <tr>
                                     <td>Storage</td>
                                     <td><span class="sk-cost-no">&#x2717;</span></td>
-                                    <td>Negligible</td>
+                                    <td>Negligible &mdash; plain text files</td>
                                 </tr>
                                 <tr>
-                                    <td>Skill itself</td>
+                                    <td>Skill file itself</td>
                                     <td><span class="sk-cost-no">&#x2717;</span></td>
-                                    <td>Free / bundled</td>
+                                    <td>Free / bundled today &mdash; marketplace pricing may emerge</td>
                                 </tr>
                             </tbody>
                         </table>
