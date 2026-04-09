@@ -7629,7 +7629,7 @@ mark.search-query-highlight {
 .sk-sortable.sk-sort-asc .sk-sort-icon,
 .sk-sortable.sk-sort-desc .sk-sort-icon {
   opacity: 1;
-  color: var(--uno-blue);
+  color: #7dd3fc;
 }
 .sk-sortable.sk-sort-asc .sk-sort-icon::after { content: '▲'; }
 .sk-sortable.sk-sort-desc .sk-sort-icon::after { content: '▼'; }

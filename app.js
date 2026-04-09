@@ -2236,6 +2236,10 @@ function initSkillsTableSort() {
       rows.forEach(r => tbody.appendChild(r));
     });
   });
+
+  // Default sort: maturity descending
+  const maturityTh = Array.from(headers).find(h => h.dataset.sortKey === 'maturity');
+  if (maturityTh) maturityTh.click();
 }
 
 // ── Skills page: full-screen code modal ──
