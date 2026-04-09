@@ -2240,135 +2240,261 @@ function initSkillsTableSort() {
 
 // ── Skills page: full-screen code modal ──
 const SK_EXAMPLES = {
-  vscode: {
-    title: 'VS Code / GitHub Copilot — SKILL.md',
+  'webapp-testing': {
+    title: 'webapp-testing — SKILL.md (from anthropics/skills + awesome-copilot)',
     code: `---
-description: "Uno Platform XAML component generation"
-applyTo: "**/*.xaml"
+name: webapp-testing
+description: Toolkit for interacting with and testing
+  local web applications using Playwright. Supports verifying
+  frontend functionality, debugging UI behavior, capturing
+  browser screenshots, and viewing browser logs.
+license: Complete terms in LICENSE.txt
 ---
 
-# Uno XAML Component Skill
+# Web Application Testing
 
-## Context
-You are working in an Uno Platform project that targets
-iOS, Android, Web (WASM), macOS, and Windows from a
-single C# / XAML codebase.
+To test local web applications, write native Python Playwright scripts.
 
-## Instructions
-- Use \`xmlns:utu="using:Uno.Toolkit.UI"\` for Toolkit controls
-- Always set \`AutomationProperties.Name\` for accessibility
-- Prefer \`x:Uid\` with \`.resw\` resource files for localization
-- Use \`muxc:NavigationView\` for shell navigation patterns
-- Apply theme resources from \`Generic.xaml\`, never hardcode colors
+**Helper Scripts Available**:
+- \`scripts/with_server.py\` - Manages server lifecycle (supports multiple servers)
 
-## Quality Checks
-1. Builds on all 5 target heads
-2. Passes accessibility automation peer checks
-3. Uses Uno.Extensions for MVUX data binding`
+**Always run scripts with \`--help\` first** to see usage.
+
+## Decision Tree: Choosing Your Approach
+
+\`\`\`
+User task → Is it static HTML?
+    ├─ Yes → Read HTML file directly to identify selectors
+    │         ├─ Success → Write Playwright script using selectors
+    │         └─ Fails/Incomplete → Treat as dynamic (below)
+    │
+    └─ No (dynamic webapp) → Is the server already running?
+        ├─ No → Run: python scripts/with_server.py --help
+        └─ Yes → Reconnaissance-then-action:
+            1. Navigate and wait for networkidle
+            2. Take screenshot or inspect DOM
+            3. Identify selectors from rendered state
+            4. Execute actions with discovered selectors
+\`\`\`
+
+## Reconnaissance-Then-Action Pattern
+
+1. **Inspect rendered DOM**:
+   \`\`\`python
+   page.screenshot(path='/tmp/inspect.png', full_page=True)
+   content = page.content()
+   page.locator('button').all()
+   \`\`\`
+2. **Identify selectors** from inspection results
+3. **Execute actions** using discovered selectors
+
+## Best Practices
+
+- Use \`sync_playwright()\` for synchronous scripts
+- Always close the browser when done
+- Use descriptive selectors: \`text=\`, \`role=\`, CSS selectors, or IDs
+- Add appropriate waits: \`page.wait_for_selector()\`
+
+## Reference Files
+
+- **examples/** - Examples showing common patterns:
+  - \`element_discovery.py\`
+  - \`static_html_automation.py\`
+  - \`console_logging.py\``
   },
-  claude: {
-    title: 'Claude Code — testing.md',
-    code: `# Testing Skill
+  'mcp-builder': {
+    title: 'mcp-builder — SKILL.md (from anthropics/skills)',
+    code: `---
+name: mcp-builder
+description: Guide for creating high-quality MCP (Model Context
+  Protocol) servers that enable LLMs to interact with external
+  services through well-designed tools. Use when building MCP
+  servers to integrate external APIs or services, whether in
+  Python (FastMCP) or Node/TypeScript (MCP SDK).
+license: Complete terms in LICENSE.txt
+---
 
-## Description
-Run and fix failing tests for this project.
+# MCP Server Development Guide
+
+## Overview
+
+Create MCP servers that enable LLMs to interact with external
+services through well-designed tools. The quality of an MCP
+server is measured by how well it enables LLMs to accomplish
+real-world tasks.
+
+## High-Level Workflow
+
+### Phase 1: Deep Research and Planning
+1.1 Understand Modern MCP Design
+1.2 Study MCP Protocol Documentation
+1.3 Study Framework Documentation
+1.4 Plan Your Implementation
+
+### Phase 2: Implementation
+2.1 Set Up Project Structure
+2.2 Implement Core Infrastructure
+2.3 Implement Tools
+
+### Phase 3: Review and Test
+3.1 Code Quality
+3.2 Build and Test
+
+### Phase 4: Create Evaluations
+4.1 Understand Evaluation Purpose
+4.2 Create 10 Evaluation Questions
+4.3 Evaluation Requirements
+4.4 Output Format
+
+## Recommended Stack
+
+- **Language**: TypeScript (high-quality SDK support)
+- **Transport**: Streamable HTTP for remote, stdio for local
+
+## Reference Files
+
+- [MCP Best Practices](./reference/mcp_best_practices.md)
+- [TypeScript Guide](./reference/node_mcp_server.md)
+- [Python Guide](./reference/python_mcp_server.md)
+- [Evaluation Guide](./reference/evaluation.md)`
+  },
+  'csharp-xunit': {
+    title: 'csharp-xunit — SKILL.md (from awesome-copilot)',
+    code: `---
+name: csharp-xunit
+description: 'Get best practices for XUnit unit testing,
+  including data-driven tests'
+---
+
+# XUnit Best Practices
+
+Your goal is to help me write effective unit tests with XUnit,
+covering both standard and data-driven testing approaches.
+
+## Project Setup
+
+- Use a separate test project with naming convention
+  \`[ProjectName].Tests\`
+- Reference Microsoft.NET.Test.Sdk, xunit, and
+  xunit.runner.visualstudio packages
+- Create test classes that match the classes being tested
+  (e.g., \`CalculatorTests\` for \`Calculator\`)
+- Use .NET SDK test commands: \`dotnet test\`
+
+## Test Structure
+
+- No test class attributes required (unlike MSTest/NUnit)
+- Use fact-based tests with \`[Fact]\` attribute for simple tests
+- Follow the Arrange-Act-Assert (AAA) pattern
+- Name tests: \`MethodName_Scenario_ExpectedBehavior\`
+- Use constructor for setup and \`IDisposable.Dispose()\`
+- Use \`IClassFixture<T>\` for shared context
+
+## Data-Driven Tests
+
+- Use \`[Theory]\` combined with data source attributes
+- Use \`[InlineData]\` for inline test data
+- Use \`[MemberData]\` for method-based test data
+- Use \`[ClassData]\` for class-based test data
+
+## Assertions
+
+- Use \`Assert.Equal\` for value equality
+- Use \`Assert.Same\` for reference equality
+- Use \`Assert.Throws<T>\` to test exceptions
+- Use fluent assertions library for more readable assertions
+
+## Mocking and Isolation
+
+- Consider using Moq or NSubstitute alongside XUnit
+- Mock dependencies to isolate units under test
+- Use interfaces to facilitate mocking`
+  },
+  'spring-boot-testing': {
+    title: 'spring-boot-testing — SKILL.md (from awesome-copilot)',
+    code: `---
+name: spring-boot-testing
+description: 'Spring Boot 4.0 testing best practices including
+  unit tests, integration tests, and test slices'
+---
+
+# Spring Boot Testing
+
+Best practices for testing Spring Boot 4.0 applications.
+
+## Test Types
+
+### Unit Tests
+- Use JUnit 5 with \`@ExtendWith(MockitoExtension.class)\`
+- Mock dependencies with \`@Mock\` and inject with \`@InjectMocks\`
+- Follow Arrange-Act-Assert pattern
+- Name tests: \`should_ExpectedBehavior_When_Condition\`
+
+### Integration Tests
+- Use \`@SpringBootTest\` for full context loading
+- Use \`@AutoConfigureMockMvc\` for web layer testing
+- Use \`@Testcontainers\` for database integration tests
+- Configure test profiles with \`@ActiveProfiles("test")\`
+
+### Test Slices
+- \`@WebMvcTest\` for controller layer only
+- \`@DataJpaTest\` for repository layer only
+- \`@JsonTest\` for JSON serialization
+
+## Conventions
+- Test files in \`src/test/java\` mirroring main structure
+- Use \`@DisplayName\` for readable test names
+- Group related tests with \`@Nested\` classes
+- Use \`AssertJ\` fluent assertions over JUnit assertions`
+  },
+  'security-review': {
+    title: 'security-review — SKILL.md (from awesome-copilot)',
+    code: `---
+name: security-review
+description: 'AI-powered codebase vulnerability scanning and
+  security audit. Use when reviewing code for security issues,
+  performing pre-deployment security checks, or auditing
+  dependencies for known vulnerabilities.'
+---
+
+# Security Review
+
+Perform comprehensive security reviews of codebases.
 
 ## When to Use
-- User asks to "fix tests" or "run tests"
-- After any refactor that touches public APIs
+- Before deploying to production
+- After adding new dependencies
+- When handling authentication/authorization changes
+- During code review of security-sensitive areas
 
-## Steps
-1. Run \`npm test\` and capture output
-2. Parse failures — group by file
-3. For each failing test:
-   a. Read the test file and the source file it tests
-   b. Determine if the test or the source is wrong
-   c. Fix the correct file
-4. Re-run \`npm test\` to confirm green
-5. If still failing, repeat from step 3 (max 3 retries)
+## Review Checklist
 
-## Constraints
-- Never delete a test to make it pass
-- Never modify test assertions without explaining why
-- Preserve existing test descriptions`
-  },
-  replit: {
-    title: 'Replit Agent — db-migration.md',
-    code: `# Database Migration Skill
+### Authentication & Authorization
+- Verify all endpoints require appropriate auth
+- Check for hardcoded credentials or API keys
+- Validate JWT token handling and expiration
+- Review role-based access control (RBAC)
 
-## Trigger
-User asks to add/change database tables or columns.
+### Input Validation
+- Check for SQL injection vulnerabilities
+- Validate against XSS attack vectors
+- Verify file upload restrictions
+- Check for path traversal vulnerabilities
 
-## Context
-- Project uses PostgreSQL with Drizzle ORM
-- Migrations live in \`drizzle/migrations/\`
-- Schema defined in \`src/db/schema.ts\`
+### Data Protection
+- Verify sensitive data is encrypted at rest
+- Check TLS/SSL configuration
+- Review logging for PII exposure
+- Validate CORS configuration
 
-## Procedure
-1. Edit \`src/db/schema.ts\` with the new table/column
-2. Run \`npx drizzle-kit generate\` to create migration
-3. Run \`npx drizzle-kit push\` to apply to dev database
-4. Update any affected queries in \`src/db/queries/\`
-5. Verify with \`npm run typecheck\`
+### Dependencies
+- Scan for known CVEs in dependencies
+- Check for outdated packages with security fixes
+- Review license compliance
 
-## Rules
-- Never drop columns without explicit user confirmation
-- Always add \`NOT NULL\` with a default value
-- Add an index for any foreign key column`
-  },
-  codex: {
-    title: 'OpenAI Codex — SKILL.md',
-    code: `---
-name: "API Endpoint Generator"
-description: "Scaffolds REST API endpoints following project conventions"
-triggers:
-  - "create endpoint"
-  - "add API route"
-  - "new REST resource"
----
-
-# API Endpoint Generator
-
-Generate a new REST endpoint following these conventions:
-
-## File Structure
-- Route: \`src/routes/{resource}.ts\`
-- Controller: \`src/controllers/{resource}Controller.ts\`
-- Validation: \`src/validators/{resource}Schema.ts\`
-- Test: \`src/__tests__/{resource}.test.ts\`
-
-## Standards
-- Use Zod for request/response validation
-- Return RFC 7807 problem details for errors
-- Add OpenAPI JSDoc annotations on every handler
-- Include rate limiting middleware for public endpoints
-- Log structured JSON via the project logger`
-  },
-  cursor: {
-    title: 'Cursor — react-components.md',
-    code: `---
-description: "React component creation following project design system"
-globs: ["src/components/**/*.tsx"]
----
-
-# React Component Skill
-
-## Design System Rules
-- Import tokens from \`@/styles/tokens\`
-- Use \`styled-components\` with theme provider
-- Every component must export a Storybook story
-- Props interface must extend \`HTMLAttributes\`
-
-## Component Template
-1. Create component file at \`src/components/{Name}/{Name}.tsx\`
-2. Create story at \`src/components/{Name}/{Name}.stories.tsx\`
-3. Create test at \`src/components/{Name}/{Name}.test.tsx\`
-4. Export from \`src/components/index.ts\` barrel
-
-## Accessibility
-- Add \`role\` attribute where semantic HTML is insufficient
-- Support \`aria-label\` prop passthrough
-- Test with keyboard navigation`
+## Output Format
+Produce a structured report with severity levels:
+- CRITICAL / HIGH / MEDIUM / LOW / INFO`
   }
 };
 

@@ -190,72 +190,72 @@
                 <!-- 2. Skill Examples (moved from section 6) -->
                 <div class="doc-section">
                     <h2 class="doc-section-title">2. Skill Examples</h2>
-                    <p class="doc-body">Illustrative skill files showing the emerging patterns across major vendors. Click any card to view the full file content.</p>
+                    <p class="doc-body">Real skill files from open source repositories. All follow the <a href="https://agentskills.io/" target="_blank" rel="noopener">Agent Skills</a> open standard. Click any card to view the file content.</p>
 
                     <div class="sk-examples-grid">
 
                         <div class="sk-example-card" data-accent="blue">
                             <div class="sk-example-header">
-                                <h4>VS Code / GitHub Copilot</h4>
+                                <h4>webapp-testing</h4>
                                 <span class="sk-example-badge sk-maturity-strong">Strong</span>
                             </div>
-                            <p><code>SKILL.md</code> in <code>.github/skills/</code>. YAML frontmatter declares when the skill applies. Agent auto-loads it based on file context.</p>
-                            <button class="sk-view-btn" data-skill="vscode">View example SKILL.md</button>
+                            <p>Playwright-based web app testing skill. Available in both the <a href="https://github.com/github/awesome-copilot/tree/main/skills/webapp-testing" target="_blank" rel="noopener">awesome-copilot</a> and <a href="https://github.com/anthropics/skills/tree/main/skills/webapp-testing" target="_blank" rel="noopener">anthropics/skills</a> repos &mdash; same format, cross-vendor.</p>
+                            <button class="sk-view-btn" data-skill="webapp-testing">View SKILL.md</button>
                             <div class="sk-example-details">
-                                <span>Path: .github/skills/uno-xaml/SKILL.md</span>
-                                <span>Trigger: Auto via <code>applyTo</code> glob</span>
+                                <span>Source: github/awesome-copilot + anthropics/skills</span>
+                                <span>Works in: VS Code, Claude Code</span>
                             </div>
                         </div>
 
                         <div class="sk-example-card" data-accent="violet">
                             <div class="sk-example-header">
-                                <h4>Claude Code (Anthropic)</h4>
-                                <span class="sk-example-badge sk-maturity-medium">Medium</span>
+                                <h4>mcp-builder</h4>
+                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
                             </div>
-                            <p>Markdown files in <code>.claude/skills/</code>. Claude auto-detects or explicitly invokes them. Supports sub-agent chaining.</p>
-                            <button class="sk-view-btn" data-skill="claude">View example skill file</button>
+                            <p>Comprehensive guide for building MCP servers. Includes multi-phase workflow, reference files, and evaluation templates. From <a href="https://github.com/anthropics/skills/tree/main/skills/mcp-builder" target="_blank" rel="noopener">anthropics/skills</a>.</p>
+                            <button class="sk-view-btn" data-skill="mcp-builder">View SKILL.md</button>
                             <div class="sk-example-details">
-                                <span>Path: .claude/skills/testing.md</span>
-                                <span>Trigger: Auto + explicit invoke</span>
+                                <span>Source: anthropics/skills</span>
+                                <span>References: scripts/, reference/ dirs</span>
                             </div>
                         </div>
 
                         <div class="sk-example-card" data-accent="green">
                             <div class="sk-example-header">
-                                <h4>Replit Agent</h4>
-                                <span class="sk-example-badge sk-maturity-medium">Medium</span>
+                                <h4>csharp-xunit</h4>
+                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
                             </div>
-                            <p>Skills at <code>/.agents/skills/</code>. Markdown files loaded on demand by the cloud agent for specific task types.</p>
-                            <button class="sk-view-btn" data-skill="replit">View example skill file</button>
+                            <p>XUnit testing best practices &mdash; project setup, AAA pattern, data-driven tests, mocking. From <a href="https://github.com/github/awesome-copilot/tree/main/skills/csharp-xunit" target="_blank" rel="noopener">awesome-copilot</a>.</p>
+                            <button class="sk-view-btn" data-skill="csharp-xunit">View SKILL.md</button>
                             <div class="sk-example-details">
-                                <span>Path: .agents/skills/db-migration.md</span>
-                                <span>Trigger: Auto cloud agent</span>
+                                <span>Source: github/awesome-copilot</span>
+                                <span>Works in: VS Code, Copilot CLI</span>
                             </div>
                         </div>
 
                         <div class="sk-example-card" data-accent="rose">
                             <div class="sk-example-header">
-                                <h4>OpenAI Codex</h4>
-                                <span class="sk-example-badge sk-maturity-medium">Medium</span>
+                                <h4>spring-boot-testing</h4>
+                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
                             </div>
-                            <p>Folder-based SKILL.md bundles with metadata for auto-selection. Designed for local + org distribution.</p>
-                            <button class="sk-view-btn" data-skill="codex">View example SKILL.md</button>
+                            <p>Spring Boot 4.0 testing conventions and patterns. From <a href="https://github.com/github/awesome-copilot/tree/main/skills/spring-boot-testing" target="_blank" rel="noopener">awesome-copilot</a>.</p>
+                            <button class="sk-view-btn" data-skill="spring-boot-testing">View SKILL.md</button>
                             <div class="sk-example-details">
-                                <span>Path: .codex/skills/api-endpoint/SKILL.md</span>
-                                <span>Trigger: Auto-select via metadata</span>
+                                <span>Source: github/awesome-copilot</span>
+                                <span>Works in: VS Code, Copilot CLI</span>
                             </div>
                         </div>
 
                         <div class="sk-example-card" data-accent="cyan">
                             <div class="sk-example-header">
-                                <h4>Cursor</h4>
-                                <span class="sk-example-badge sk-maturity-medium">Medium</span>
+                                <h4>security-review</h4>
+                                <span class="sk-example-badge sk-maturity-strong">Strong</span>
                             </div>
-                            <p>Agent Skills compatible format. Loads skill files from <code>.cursor/skills/</code> matching the current task context.</p>
-                            <button class="sk-view-btn" data-skill="cursor">View example skill file</button>
+                            <p>AI-powered codebase vulnerability scanning and security audit skill. From <a href="https://github.com/github/awesome-copilot/tree/main/skills/security-review" target="_blank" rel="noopener">awesome-copilot</a>.</p>
+                            <button class="sk-view-btn" data-skill="security-review">View SKILL.md</button>
                             <div class="sk-example-details">
-                                <span>Path: .cursor/skills/react-components.md</span>
-                                <span>Trigger: Auto via globs</span>
+                                <span>Source: github/awesome-copilot</span>
+                                <span>Works in: VS Code, Copilot CLI</span>
                             </div>
                         </div>
 
@@ -281,7 +281,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="sk-tool-name">VS Code / GitHub Copilot</td>
+                                    <td class="sk-tool-name"><a href="https://code.visualstudio.com/docs/copilot/customization/agent-skills" target="_blank" rel="noopener">VS Code / GitHub Copilot</a></td>
                                     <td>Yes &mdash; SKILL.md</td>
                                     <td>Skill folders + YAML frontmatter</td>
                                     <td>Auto via <code>applyTo</code> glob</td>
@@ -289,15 +289,15 @@
                                     <td><span class="sk-maturity sk-maturity-strong">Strong</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Claude Code (Anthropic)</td>
-                                    <td>Emerging</td>
-                                    <td>Markdown files in project</td>
+                                    <td class="sk-tool-name"><a href="https://claude.ai/" target="_blank" rel="noopener">Claude Code (Anthropic)</a></td>
+                                    <td>Yes &mdash; SKILL.md</td>
+                                    <td>Agent Skills open standard</td>
                                     <td>Auto + explicit invoke</td>
-                                    <td>Local + org</td>
-                                    <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
+                                    <td>Local + org + plugin marketplace</td>
+                                    <td><span class="sk-maturity sk-maturity-strong">Strong</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Cursor</td>
+                                    <td class="sk-tool-name"><a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a></td>
                                     <td>Emerging</td>
                                     <td>Rules files + agent skills</td>
                                     <td>Auto via globs</td>
@@ -305,7 +305,7 @@
                                     <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">OpenAI Codex</td>
+                                    <td class="sk-tool-name"><a href="https://openai.com/index/introducing-codex/" target="_blank" rel="noopener">OpenAI Codex</a></td>
                                     <td>Emerging</td>
                                     <td>AGENTS.md + folder-based</td>
                                     <td>Auto-select via metadata</td>
@@ -313,7 +313,7 @@
                                     <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Replit Agent</td>
+                                    <td class="sk-tool-name"><a href="https://replit.com/" target="_blank" rel="noopener">Replit Agent</a></td>
                                     <td>Partial</td>
                                     <td>Agent config files</td>
                                     <td>Auto (cloud agent)</td>
@@ -321,7 +321,7 @@
                                     <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Windsurf (Codeium)</td>
+                                    <td class="sk-tool-name"><a href="https://windsurf.com/" target="_blank" rel="noopener">Windsurf (Codeium)</a></td>
                                     <td>Partial</td>
                                     <td>Rules + workflows</td>
                                     <td>Auto + manual</td>
@@ -329,7 +329,7 @@
                                     <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Amazon Q Developer</td>
+                                    <td class="sk-tool-name"><a href="https://aws.amazon.com/q/developer/" target="_blank" rel="noopener">Amazon Q Developer</a></td>
                                     <td>Partial</td>
                                     <td>Transformation + customization</td>
                                     <td>Explicit invoke</td>
@@ -337,7 +337,7 @@
                                     <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">JetBrains AI</td>
+                                    <td class="sk-tool-name"><a href="https://www.jetbrains.com/ai/" target="_blank" rel="noopener">JetBrains AI</a></td>
                                     <td>Partial</td>
                                     <td>Prompt library + context</td>
                                     <td>Manual / implicit</td>
@@ -345,7 +345,7 @@
                                     <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Google Gemini Code Assist</td>
+                                    <td class="sk-tool-name"><a href="https://cloud.google.com/products/gemini/code-assist" target="_blank" rel="noopener">Google Gemini Code Assist</a></td>
                                     <td>Minimal</td>
                                     <td>Customization config</td>
                                     <td>Always-on</td>
@@ -353,7 +353,7 @@
                                     <td><span class="sk-maturity sk-maturity-weak">Weak</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Builder.io</td>
+                                    <td class="sk-tool-name"><a href="https://www.builder.io/" target="_blank" rel="noopener">Builder.io</a></td>
                                     <td>Partial</td>
                                     <td>Docs + structured workflows</td>
                                     <td>Manual / implicit</td>
@@ -361,7 +361,7 @@
                                     <td><span class="sk-maturity sk-maturity-medium">Medium</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Lovable</td>
+                                    <td class="sk-tool-name"><a href="https://lovable.dev/" target="_blank" rel="noopener">Lovable</a></td>
                                     <td>No</td>
                                     <td>Knowledge + prompts</td>
                                     <td>Always-on</td>
@@ -369,7 +369,7 @@
                                     <td><span class="sk-maturity sk-maturity-weak">Weak</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Vercel v0</td>
+                                    <td class="sk-tool-name"><a href="https://v0.dev/" target="_blank" rel="noopener">Vercel v0</a></td>
                                     <td>No</td>
                                     <td>Instructions only</td>
                                     <td>Always-on</td>
@@ -377,19 +377,11 @@
                                     <td><span class="sk-maturity sk-maturity-weak">Weak</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="sk-tool-name">Bolt.new</td>
+                                    <td class="sk-tool-name"><a href="https://bolt.new/" target="_blank" rel="noopener">Bolt.new</a></td>
                                     <td>No</td>
                                     <td>Prompt-based</td>
                                     <td>Always-on</td>
                                     <td>None</td>
-                                    <td><span class="sk-maturity sk-maturity-weak">Weak</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="sk-tool-name">Aider</td>
-                                    <td>No</td>
-                                    <td>Conventions files</td>
-                                    <td>Always-on</td>
-                                    <td>Local (open source)</td>
                                     <td><span class="sk-maturity sk-maturity-weak">Weak</span></td>
                                 </tr>
                             </tbody>

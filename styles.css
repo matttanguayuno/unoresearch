@@ -7148,6 +7148,15 @@ mark.search-query-highlight {
   font-weight: 600;
   white-space: nowrap;
 }
+.sk-tool-name a {
+  color: var(--uno-blue);
+  text-decoration: none;
+  transition: color .15s;
+}
+.sk-tool-name a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
 
 /* Maturity badges */
 .sk-maturity {
