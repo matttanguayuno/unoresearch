@@ -7097,6 +7097,84 @@ mark.search-query-highlight {
   opacity: .7;
 }
 
+/* ── Section 5: Packaging & Marketing ── */
+.sk-pkg-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin: 1.5rem 0 2rem;
+}
+.sk-pkg-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+.sk-pkg-wide {
+  grid-column: 1 / -1;
+}
+.sk-pkg-header {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-bottom: .75rem;
+}
+.sk-pkg-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.sk-pkg-header h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+.sk-pkg-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.sk-pkg-list li {
+  margin-bottom: .5rem;
+}
+.sk-pkg-list li:last-child {
+  margin-bottom: 0;
+}
+.sk-pkg-list code {
+  background: var(--bg-primary);
+  padding: .15rem .35rem;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #7dd3fc;
+}
+.sk-pkg-channels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+.sk-pkg-channel strong {
+  display: block;
+  color: var(--text);
+  font-size: 14px;
+  margin-bottom: .35rem;
+}
+.sk-pkg-channel p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+@media (max-width: 768px) {
+  .sk-pkg-grid {
+    grid-template-columns: 1fr;
+  }
+  .sk-pkg-channels {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── Section 4: Skill Repositories ── */
 .sk-repos-grid {
   display: grid;

@@ -417,9 +417,67 @@ allowed-tools: Bash(git:*) Read
                     </div>
                 </div>
 
-                <!-- 5. Competitive Landscape -->
+                <!-- 5. Packaging & Marketing -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">5. Competitive Landscape</h2>
+                    <h2 class="doc-section-title">5. Packaging &amp; Marketing</h2>
+                    <p class="doc-body">Skills are being positioned as the first <strong>productizable</strong> layer of AI &mdash; portable expertise modules that give general-purpose agents specialized, professional-grade workflows. The shift is from disposable prompts to reusable, versioned assets.</p>
+
+                    <div class="sk-pkg-grid">
+
+                        <!-- Packaging -->
+                        <div class="sk-pkg-card">
+                            <div class="sk-pkg-header">
+                                <span class="sk-pkg-icon">&#128230;</span>
+                                <h4>Packaging: &ldquo;Everything is a Folder&rdquo;</h4>
+                            </div>
+                            <ul class="sk-pkg-list">
+                                <li><strong>Core file</strong> &mdash; A <code>SKILL.md</code> with structured instructions, constraints, and examples. Metadata (name + description) lets agents decide relevance before loading the full body.</li>
+                                <li><strong>Bundled assets</strong> &mdash; Optional subdirectories for helper scripts (Python, Bash), reference docs, templates, and data files needed to complete tasks.</li>
+                                <li><strong>Distribution formats</strong> &mdash; Plain directories on GitHub, zipped packages, CLI plugin installs (<code>copilot plugin install</code>, <code>/plugin install</code>), or dedicated registries like the <a href="https://jfrog.com/blog/jfrog-agent-skills-registry/" target="_blank" rel="noopener">JFrog Agent Skills Registry</a>.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Marketing -->
+                        <div class="sk-pkg-card">
+                            <div class="sk-pkg-header">
+                                <span class="sk-pkg-icon">&#128233;</span>
+                                <h4>Marketing as &ldquo;Packaged Expertise&rdquo;</h4>
+                            </div>
+                            <ul class="sk-pkg-list">
+                                <li><strong>Methodology over instruction</strong> &mdash; Creators market skills as codified personal or institutional methodology, not just prompts. E.g. &ldquo;69+ skills that chain a full marketing campaign.&rdquo;</li>
+                                <li><strong>Specialized packs</strong> &mdash; Bundled into functional roles: Product Marketing Manager Skills Pack (battlecard generators, launch playbooks), Security Audit Pack, etc.</li>
+                                <li><strong>B2B / enterprise integration</strong> &mdash; Partners like Atlassian, Stripe, and Notion ship official &ldquo;agent-first&rdquo; documentation as skills, grounding agent behavior in authoritative product data and reducing hallucinations.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Distribution -->
+                        <div class="sk-pkg-card sk-pkg-wide">
+                            <div class="sk-pkg-header">
+                                <span class="sk-pkg-icon">&#128640;</span>
+                                <h4>Distribution &amp; Marketplaces</h4>
+                            </div>
+                            <div class="sk-pkg-channels">
+                                <div class="sk-pkg-channel">
+                                    <strong>AI-first IDEs</strong>
+                                    <p>Claude Code and VS Code allow CLI-based plugin installs from registered marketplaces. Cursor loads skills automatically via <code>.cursor/rules/</code>.</p>
+                                </div>
+                                <div class="sk-pkg-channel">
+                                    <strong>Platform plugins</strong>
+                                    <p>Anthropic provides a plugin directory within Claude.ai where users browse, install, and iterate on skills. GitHub Copilot has extensions marketplace support.</p>
+                                </div>
+                                <div class="sk-pkg-channel">
+                                    <strong>Community registries</strong>
+                                    <p>Open-source communities use <a href="https://agentskills.io/" target="_blank" rel="noopener">AgentSkills.io</a> to share standardized definitions across 25+ agent platforms. JFrog offers enterprise-grade registry hosting.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 6. Competitive Landscape -->
+                <div class="doc-section">
+                    <h2 class="doc-section-title">6. Competitive Landscape</h2>
                     <p class="doc-body">How each major AI coding tool approaches skills support today. Click any column header to sort.</p>
 
                     <div class="sk-table-wrapper">
@@ -546,7 +604,7 @@ allowed-tools: Bash(git:*) Read
 
                 <!-- 3b. Trends -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">6. Trends</h2>
+                    <h2 class="doc-section-title">7. Trends</h2>
 
                     <div class="sk-trends-grid">
                         <div class="sk-trend-card" data-accent="blue">
@@ -603,7 +661,7 @@ allowed-tools: Bash(git:*) Read
 
                 <!-- 5. Risks & Limitations -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">7. Risks &amp; Limitations</h2>
+                    <h2 class="doc-section-title">8. Risks &amp; Limitations</h2>
                     <p class="doc-body">Skills are still early. Key challenges to watch:</p>
 
                     <div class="sk-trends-grid">
@@ -651,7 +709,7 @@ allowed-tools: Bash(git:*) Read
 
                 <!-- 6. Cost Model -->
                 <div class="doc-section">
-                    <h2 class="doc-section-title">8. Cost Model</h2>
+                    <h2 class="doc-section-title">9. Cost Model</h2>
                     <div class="sk-cost-callout">
                         <h3>Key Finding: Skills are NOT priced directly</h3>
                     </div>
