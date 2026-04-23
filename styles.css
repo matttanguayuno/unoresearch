@@ -7879,8 +7879,20 @@ mark.search-query-highlight {
   margin: 0;
 }
 
+.toc-page .feature-grid-table th {
+  text-align: left;
+}
+
 .toc-page .feature-grid-table th:first-child {
-  width: 14%;
+  width: 10%;
+}
+
+.toc-page .feature-grid-table th:nth-child(2) {
+  width: 18%;
+}
+
+.toc-page .feature-grid-table th:nth-child(3) {
+  width: 12%;
 }
 
 .toc-page .feature-grid-table td a {
