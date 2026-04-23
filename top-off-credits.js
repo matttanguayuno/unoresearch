@@ -160,11 +160,11 @@ function initTopOffCredits() {
               <td class="feature-cell">
                 ${t.source ? `<a href="${t.source}" target="_blank" rel="noopener noreferrer">${t.name}</a>` : t.name}
               </td>
-              <td class="status-cell">
+              <td>
                 ${topOffIcon(t.topOff)}
-                <span class="toc-topoff-label">${t.topOffLabel}</span>
+                ${t.topOffLabel}
               </td>
-              <td class="status-cell">
+              <td>
                 ${t.expiry}
               </td>
               <td>${t.notes}</td>

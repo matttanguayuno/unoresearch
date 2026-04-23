@@ -7891,13 +7891,6 @@ mark.search-query-highlight {
   text-decoration: underline;
 }
 
-.toc-icon {
-  margin-right: .35rem;
-}
-.toc-topoff-label {
-  font-size: .85rem;
-}
-
 /* Mobile */
 @media (max-width: 768px) {
   .toc-hero-title { font-size: 1.5rem; }
