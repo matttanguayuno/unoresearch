@@ -763,7 +763,7 @@ function closeFeaturesDropdown() {
 
 // Switch tab
 function switchTab(tabId, fromHash) {
-  const FEATURES_TABS = ['feature-map', 'tool-comparison', 'agent-ux', 'requirements'];
+  const FEATURES_TABS = ['feature-map', 'tool-comparison', 'agent-ux', 'requirements', 'top-off-credits'];
   state.activeTab = tabId;
 
   // Update URL hash (skip if already triggered by hashchange to avoid loops)
@@ -812,6 +812,11 @@ function switchTab(tabId, fromHash) {
   // Initialise Requirements on first activation
   if (tabId === 'requirements' && typeof initRequirements === 'function') {
     initRequirements();
+  }
+
+  // Initialise Top-Off Credits on first activation
+  if (tabId === 'top-off-credits' && typeof initTopOffCredits === 'function') {
+    initTopOffCredits();
   }
 
   // Draw mapping connectors when Documentation tab is shown
