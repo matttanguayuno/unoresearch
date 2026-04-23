@@ -69,11 +69,11 @@ const topOffCreditsData = {
     },
     {
       name: "Cursor",
-      topOff: false,
-      topOffLabel: "No",
-      expiry: "N/A",
-      expiryIcon: "na",
-      notes: "Usage is tied to plan limits (Pro, Pro+, Ultra tiers at $20/$60/$200/mo). No separate credit purchase mechanism.",
+      topOff: true,
+      topOffLabel: "Yes",
+      expiry: "Monthly reset",
+      expiryIcon: "short",
+      notes: "On-demand usage available by enabling a spend limit in settings - billed at cost based on actual usage. Pro+ and Ultra plans offer higher credit allowances. BYOK option lets you use your own OpenAI/Anthropic API keys. Included plan credits do not roll over.",
       source: "https://www.cursor.com/pricing"
     },
     {
