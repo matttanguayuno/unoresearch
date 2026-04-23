@@ -87,11 +87,11 @@ const topOffCreditsData = {
     },
     {
       name: "Dreamflow",
-      topOff: null,
-      topOffLabel: "Unclear",
-      expiry: "Unknown",
-      expiryIcon: "unknown",
-      notes: "No clear public pricing docs on top-ups; likely usage bundled in plans or custom pricing.",
+      topOff: false,
+      topOffLabel: "No",
+      expiry: "No rollover",
+      expiryIcon: "na",
+      notes: "No standalone top-up credit packs. Users increase credits by upgrading to a higher-tier subscription plan. Unused credits do not roll over and reset each billing cycle.",
       source: null
     }
   ],
