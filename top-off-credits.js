@@ -8,9 +8,9 @@ const topOffCreditsData = {
       name: "Bolt.new",
       topOff: true,
       topOffLabel: "Yes (reload tokens)",
-      expiry: "No expiry",
+      expiry: "No expiry (purchased)",
       expiryIcon: "no-expiry",
-      notes: "Unused tokens roll over to next month on Pro plans. Bolt uses a token-based system rather than dollar credits.",
+      notes: "Purchased reloads ($20/10M tokens) never expire. Monthly subscription tokens roll over for one extra month (two-month validity). Token-based system rather than dollar credits.",
       source: "https://bolt.new/pricing"
     },
     {
@@ -26,9 +26,9 @@ const topOffCreditsData = {
       name: "Lovable",
       topOff: true,
       topOffLabel: "Yes (on-demand top-ups on Pro+)",
-      expiry: "End of billing cycle",
-      expiryIcon: "short",
-      notes: "Pro and above plans include on-demand credit top-ups. Monthly credits reset each billing cycle; credit rollovers available on Pro+.",
+      expiry: "12 months (top-ups)",
+      expiryIcon: "long",
+      notes: "One-time top-up credits are valid for 12 months from purchase. Standard monthly credits roll over for one additional month only.",
       source: "https://lovable.dev/pricing"
     },
     {
@@ -44,9 +44,9 @@ const topOffCreditsData = {
       name: "Vercel v0",
       topOff: true,
       topOffLabel: "Yes (purchase additional credits)",
-      expiry: "Unknown (see FAQ)",
-      expiryIcon: "unknown",
-      notes: "Team and Business plans allow purchasing additional credits shared across the team. Monthly included credits reset each cycle. Expiry details in their FAQ.",
+      expiry: "1 year (purchased)",
+      expiryIcon: "long",
+      notes: "Purchased additional credits expire 1 year from purchase and go into a shared credit pool on Team/Business plans. Monthly subscription credits ($20–$30) now roll over for 65 days. Monthly credits are consumed first before drawing from purchased top-offs.",
       source: "https://v0.app/pricing"
     },
     {
@@ -62,9 +62,9 @@ const topOffCreditsData = {
       name: "Builder.io",
       topOff: true,
       topOffLabel: "Yes (Agent credits, $25/500)",
-      expiry: "Monthly reset",
-      expiryIcon: "short",
-      notes: "Uses an Agent credit system. Pro and Team plans include 500 credits/user/month; additional 500-credit packs available for $25/mo. Credits reset monthly.",
+      expiry: "Rollover cap (2x monthly)",
+      expiryIcon: "medium",
+      notes: "Agent credit system — 500 credits/user/month on Pro and Team plans, additional packs at $25/500. Credits do not expire outright but have a rollover cap of up to 2x your monthly allotment.",
       source: "https://www.builder.io/pricing"
     },
     {
