@@ -20,7 +20,7 @@ const topOffCreditsData = {
       expiry: "No expiry",
       expiryIcon: "no-expiry",
       notes: "Bonus credits purchased for paid plans explicitly do not expire - a strong differentiator.",
-      source: "https://www.tempo.new"
+      source: "https://www.tempo.new/#pricing"
     },
     {
       name: "Lovable",
