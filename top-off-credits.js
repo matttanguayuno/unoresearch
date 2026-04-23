@@ -19,7 +19,7 @@ const topOffCreditsData = {
       topOffLabel: "Yes ($50 for 250 credits)",
       expiry: "No expiry",
       expiryIcon: "no-expiry",
-      notes: "Bonus credits purchased for paid plans explicitly do not expire - a strong differentiator.",
+      notes: "Bonus credits purchased for paid plans explicitly do not expire.",
       source: "https://www.tempo.new/#pricing"
     },
     {
