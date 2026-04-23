@@ -131,17 +131,6 @@ function initTopOffCredits() {
     return '<span class="toc-icon toc-unknown" title="Unclear">❓</span>';
   }
 
-  function expiryIcon(type) {
-    switch (type) {
-      case 'no-expiry': return '<span class="toc-expiry-badge toc-expiry-none">No expiry</span>';
-      case 'short': return '<span class="toc-expiry-badge toc-expiry-short">⏳</span>';
-      case 'medium': return '<span class="toc-expiry-badge toc-expiry-medium">⏳</span>';
-      case 'long': return '<span class="toc-expiry-badge toc-expiry-long">⏳</span>';
-      case 'na': return '<span class="toc-expiry-badge toc-expiry-na">N/A</span>';
-      default: return '<span class="toc-expiry-badge toc-expiry-unknown">Unknown</span>';
-    }
-  }
-
   // Sort: tools with top-off first, then alphabetical
   const sorted = [...d.tools].sort((a, b) => {
     const av = a.topOff === true ? 0 : a.topOff === false ? 2 : 1;
@@ -154,85 +143,35 @@ function initTopOffCredits() {
     <div class="toc-page">
       <div class="toc-hero">
         <h1 class="toc-hero-title">${d.title}</h1>
-        <p class="toc-hero-subtitle">${d.subtitle}</p>
-        <span class="toc-updated">Last verified: ${d.lastUpdated}</span>
       </div>
 
-      <div class="toc-table-wrapper">
-        <table class="toc-table">
-          <thead>
+      <table class="feature-grid-table">
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Top-Off Credits?</th>
+            <th>Expiry</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${sorted.map(t => `
             <tr>
-              <th>Tool</th>
-              <th>Top-Off Credits?</th>
-              <th>Expiry</th>
-              <th>Notes</th>
+              <td class="feature-cell">
+                ${t.source ? `<a href="${t.source}" target="_blank" rel="noopener noreferrer">${t.name}</a>` : t.name}
+              </td>
+              <td class="status-cell">
+                ${topOffIcon(t.topOff)}
+                <span class="toc-topoff-label">${t.topOffLabel}</span>
+              </td>
+              <td class="status-cell">
+                ${t.expiry}
+              </td>
+              <td>${t.notes}</td>
             </tr>
-          </thead>
-          <tbody>
-            ${sorted.map(t => `
-              <tr class="toc-row ${t.topOff === true ? 'toc-row--yes' : t.topOff === false ? 'toc-row--no' : 'toc-row--unclear'}">
-                <td class="toc-tool-name">
-                  ${t.source ? `<a href="${t.source}" target="_blank" rel="noopener noreferrer">${t.name}</a>` : t.name}
-                </td>
-                <td class="toc-topoff-cell">
-                  ${topOffIcon(t.topOff)}
-                  <span class="toc-topoff-label">${t.topOffLabel}</span>
-                </td>
-                <td class="toc-expiry-cell">
-                  ${expiryIcon(t.expiryIcon)}
-                  <span class="toc-expiry-text">${t.expiry}</span>
-                </td>
-                <td class="toc-notes">${t.notes}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-
-      ${d.corrections.length ? `
-      <div class="toc-corrections">
-        <h3>Corrections from Draft</h3>
-        <p class="toc-corrections-intro">The following items were updated after verifying against each tool's current public pricing documentation:</p>
-        <div class="toc-corrections-list">
-          ${d.corrections.map(c => `
-            <div class="toc-correction-item">
-              <strong>${c.tool}</strong>
-              <div class="toc-correction-diff">
-                <span class="toc-diff-old">Draft: ${c.original}</span>
-                <span class="toc-diff-new">Verified: ${c.corrected}</span>
-              </div>
-            </div>
           `).join('')}
-        </div>
-      </div>
-      ` : ''}
-
-      <div class="toc-key-takeaways">
-        <h3>Key Takeaways</h3>
-        <div class="toc-takeaway-grid">
-          <div class="toc-takeaway" data-color="green">
-            <span class="toc-takeaway-icon">💰</span>
-            <div>
-              <strong>Best for budget flexibility</strong>
-              <p>Tempo Labs and Bolt.new offer non-expiring purchased credits/tokens — ideal for sporadic or project-based usage.</p>
-            </div>
-          </div>
-          <div class="toc-takeaway" data-color="blue">
-            <span class="toc-takeaway-icon">🔄</span>
-            <div>
-              <strong>Subscription-first models</strong>
-              <p>Cursor and Builder.io tie usage to plan tiers with monthly resets. Good for predictable, steady usage.</p>
-            </div>
-          </div>
-          <div class="toc-takeaway" data-color="violet">
-            <span class="toc-takeaway-icon">⏳</span>
-            <div>
-              <strong>Watch the expiry</strong>
-              <p>Replit packs expire in 6 months; OpenAI API credits in 1 year. Budget accordingly for larger purchases.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+        </tbody>
+      </table>
     </div>
   `;
 }
