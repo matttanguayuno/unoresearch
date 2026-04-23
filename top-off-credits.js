@@ -50,7 +50,7 @@ const topOffCreditsData = {
       source: "https://v0.app/pricing"
     },
     {
-      name: "Codex (OpenAI API)",
+      name: "Codex",
       topOff: true,
       topOffLabel: "Yes (prepaid API credits)",
       expiry: "1 year",
