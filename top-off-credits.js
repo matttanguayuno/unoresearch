@@ -78,11 +78,11 @@ const topOffCreditsData = {
     },
     {
       name: "Vibecode.app",
-      topOff: null,
-      topOffLabel: "Unclear",
-      expiry: "Unknown",
-      expiryIcon: "unknown",
-      notes: "Very limited public pricing info; likely subscription-based usage.",
+      topOff: false,
+      topOffLabel: "No",
+      expiry: "No expiry",
+      expiryIcon: "no-expiry",
+      notes: "Subscription-based usage. Credits roll over each billing cycle and never expire.",
       source: null
     },
     {
