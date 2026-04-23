@@ -7,34 +7,34 @@ const topOffCreditsData = {
     {
       name: "Bolt.new",
       topOff: true,
-      topOffLabel: "Yes (reload tokens)",
+      topOffLabel: "Yes",
       expiry: "No expiry (purchased)",
       expiryIcon: "no-expiry",
-      notes: "Purchased reloads ($20/10M tokens) never expire. Monthly subscription tokens roll over for one extra month (two-month validity). Token-based system rather than dollar credits.",
+      notes: "Reload tokens ($20/10M) never expire. Monthly subscription tokens roll over for one extra month (two-month validity). Token-based system rather than dollar credits.",
       source: "https://bolt.new/pricing"
     },
     {
       name: "Tempo Labs",
       topOff: true,
-      topOffLabel: "Yes ($50 for 250 credits)",
+      topOffLabel: "Yes",
       expiry: "No expiry",
       expiryIcon: "no-expiry",
-      notes: "Bonus credits purchased for paid plans explicitly do not expire.",
+      notes: "$50 for 250 bonus credits on paid plans. Purchased credits explicitly do not expire.",
       source: "https://www.tempo.new/#pricing"
     },
     {
       name: "Lovable",
       topOff: true,
-      topOffLabel: "Yes (on-demand top-ups on Pro+)",
+      topOffLabel: "Yes",
       expiry: "12 months (top-ups)",
       expiryIcon: "long",
-      notes: "One-time top-up credits are valid for 12 months from purchase. Standard monthly credits roll over for one additional month only.",
+      notes: "On-demand top-ups available on Pro+. One-time top-up credits are valid for 12 months from purchase. Standard monthly credits roll over for one additional month only.",
       source: "https://lovable.dev/pricing"
     },
     {
       name: "Replit",
       topOff: true,
-      topOffLabel: "Yes (credit packs)",
+      topOffLabel: "Yes",
       expiry: "6 months",
       expiryIcon: "medium",
       notes: "Credit packs available in $100-$1,000 tiers with volume discounts. Packs expire 6 months after purchase, do not renew or roll over.",
@@ -43,7 +43,7 @@ const topOffCreditsData = {
     {
       name: "Vercel v0",
       topOff: true,
-      topOffLabel: "Yes (purchase additional credits)",
+      topOffLabel: "Yes",
       expiry: "1 year (purchased)",
       expiryIcon: "long",
       notes: "Purchased additional credits expire 1 year from purchase. Premium and Team users can buy credits at any time in project settings. Monthly subscription credits ($20-$30) now roll over for 65 days. Monthly credits are consumed first before drawing from purchased top-offs.",
@@ -52,7 +52,7 @@ const topOffCreditsData = {
     {
       name: "Codex",
       topOff: true,
-      topOffLabel: "Yes (prepaid API credits)",
+      topOffLabel: "Yes",
       expiry: "1 year",
       expiryIcon: "long",
       notes: "Standard OpenAI prepaid billing - purchased credits expire after 1 year, are non-refundable. Auto-recharge available.",
@@ -61,7 +61,7 @@ const topOffCreditsData = {
     {
       name: "Builder.io",
       topOff: true,
-      topOffLabel: "Yes (Agent credits, $25/500)",
+      topOffLabel: "Yes",
       expiry: "Rollover cap (2x monthly)",
       expiryIcon: "medium",
       notes: "Agent credit system - 500 credits/user/month on Pro and Team plans, additional packs at $25/500. Credits do not expire outright but have a rollover cap of up to 2x your monthly allotment.",
@@ -70,7 +70,7 @@ const topOffCreditsData = {
     {
       name: "Cursor",
       topOff: false,
-      topOffLabel: "No (subscription tiers only)",
+      topOffLabel: "No",
       expiry: "N/A",
       expiryIcon: "na",
       notes: "Usage is tied to plan limits (Pro, Pro+, Ultra tiers at $20/$60/$200/mo). No separate credit purchase mechanism.",
@@ -88,7 +88,7 @@ const topOffCreditsData = {
     {
       name: "Dreamflow",
       topOff: null,
-      topOffLabel: "Unclear / not publicly documented",
+      topOffLabel: "Unclear",
       expiry: "Unknown",
       expiryIcon: "unknown",
       notes: "No clear public pricing docs on top-ups; likely usage bundled in plans or custom pricing.",
