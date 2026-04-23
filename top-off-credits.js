@@ -19,7 +19,7 @@ const topOffCreditsData = {
       topOffLabel: "Yes ($50 for 250 credits)",
       expiry: "No expiry",
       expiryIcon: "no-expiry",
-      notes: "Bonus credits purchased for paid plans explicitly do not expire — a strong differentiator.",
+      notes: "Bonus credits purchased for paid plans explicitly do not expire - a strong differentiator.",
       source: "https://www.tempo.new"
     },
     {
@@ -37,7 +37,7 @@ const topOffCreditsData = {
       topOffLabel: "Yes (credit packs)",
       expiry: "6 months",
       expiryIcon: "medium",
-      notes: "Credit packs available in $100–$1,000 tiers with volume discounts. Packs expire 6 months after purchase, do not renew or roll over.",
+      notes: "Credit packs available in $100-$1,000 tiers with volume discounts. Packs expire 6 months after purchase, do not renew or roll over.",
       source: "https://docs.replit.com/billing/managing-spend"
     },
     {
@@ -46,7 +46,7 @@ const topOffCreditsData = {
       topOffLabel: "Yes (purchase additional credits)",
       expiry: "1 year (purchased)",
       expiryIcon: "long",
-      notes: "Purchased additional credits expire 1 year from purchase and go into a shared credit pool on Team/Business plans. Monthly subscription credits ($20–$30) now roll over for 65 days. Monthly credits are consumed first before drawing from purchased top-offs.",
+      notes: "Purchased additional credits expire 1 year from purchase and go into a shared credit pool on Team/Business plans. Monthly subscription credits ($20-$30) now roll over for 65 days. Monthly credits are consumed first before drawing from purchased top-offs.",
       source: "https://v0.app/pricing"
     },
     {
@@ -55,7 +55,7 @@ const topOffCreditsData = {
       topOffLabel: "Yes (prepaid API credits)",
       expiry: "1 year",
       expiryIcon: "long",
-      notes: "Standard OpenAI prepaid billing — purchased credits expire after 1 year, are non-refundable. Auto-recharge available.",
+      notes: "Standard OpenAI prepaid billing - purchased credits expire after 1 year, are non-refundable. Auto-recharge available.",
       source: "https://help.openai.com/en/articles/8264644-what-is-prepaid-billing"
     },
     {
@@ -64,7 +64,7 @@ const topOffCreditsData = {
       topOffLabel: "Yes (Agent credits, $25/500)",
       expiry: "Rollover cap (2x monthly)",
       expiryIcon: "medium",
-      notes: "Agent credit system — 500 credits/user/month on Pro and Team plans, additional packs at $25/500. Credits do not expire outright but have a rollover cap of up to 2x your monthly allotment.",
+      notes: "Agent credit system - 500 credits/user/month on Pro and Team plans, additional packs at $25/500. Credits do not expire outright but have a rollover cap of up to 2x your monthly allotment.",
       source: "https://www.builder.io/pricing"
     },
     {
