@@ -46,7 +46,7 @@ const topOffCreditsData = {
       topOffLabel: "Yes (purchase additional credits)",
       expiry: "1 year (purchased)",
       expiryIcon: "long",
-      notes: "Purchased additional credits expire 1 year from purchase and go into a shared credit pool on Team/Business plans. Monthly subscription credits ($20-$30) now roll over for 65 days. Monthly credits are consumed first before drawing from purchased top-offs.",
+      notes: "Purchased additional credits expire 1 year from purchase. Premium and Team users can buy credits at any time in project settings. Monthly subscription credits ($20-$30) now roll over for 65 days. Monthly credits are consumed first before drawing from purchased top-offs.",
       source: "https://v0.app/pricing"
     },
     {
