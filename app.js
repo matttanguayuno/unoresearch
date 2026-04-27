@@ -76,7 +76,13 @@ function renderUnoVsCompetitors() {
     `).join('');
 
     subnav.querySelectorAll('.uvc-subnav-btn').forEach(btn => {
-      btn.addEventListener('click', () => switchUvcSection(btn.dataset.section));
+      btn.addEventListener('click', () => {
+        if (btn.dataset.section === 'benchmarks') {
+          window.open('https://matttanguayuno.github.io/promptcomparison/', '_blank', 'noopener,noreferrer');
+          return;
+        }
+        switchUvcSection(btn.dataset.section);
+      });
     });
   }
 
